@@ -17,6 +17,8 @@ final class CatalogViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        tableView.register(CatalogTableViewCell.self, forCellReuseIdentifier: CatalogTableViewCell.catalogTableViewCellIdentifier)
+        
         return tableView
     }()
     
@@ -90,7 +92,7 @@ private extension CatalogViewController {
     func bind() {
         viewModel.$collections.bind {[weak self] collections in
             self?.tableView.reloadData()
-            self?.noItemsLabel.isHidden = collections.isEmpty
+            self?.noItemsLabel.isHidden = !collections.isEmpty
         }
     }
 }
@@ -101,10 +103,18 @@ extension CatalogViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogTableViewCell.catalogTableViewCellIdentifier, for: indexPath) as? CatalogTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let collection = viewModel.collections[indexPath.row]
+        cell.setupCell(for: collection, completion: {})
+        return cell
     }
 }
 // MARK: UITableViewDelegate
 extension CatalogViewController: UITableViewDelegate {
-    // TODO: Implement delegate methods when needed
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        179
+    }
 }
