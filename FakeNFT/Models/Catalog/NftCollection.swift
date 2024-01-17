@@ -8,7 +8,7 @@
 import Foundation
 
 struct NftCollection: Codable {
-    let createdAt: Date
+    let createdAt: String
     let name: String
     let cover: String
     let nfts: [String]
