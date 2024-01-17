@@ -11,13 +11,24 @@ final class CatalogViewModel {
     
     let serviceAssembly: ServicesAssembly
     
-    var numberOfRows: Int {
-        collections.count
-    }
-    
-    private(set) var collections: [NftCollection] = []
+    @Observable
+    private(set) var collections: [CatalogCell] = []
     
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
+        loadCollections()
+    }
+    
+    func loadCollections() {
+        UIBlockingProgressHUD.show()
+        serviceAssembly.catalogService.getCollections { [weak self] result in
+            switch result {
+            case .success(let items):
+                self?.collections = items
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
     }
 }
