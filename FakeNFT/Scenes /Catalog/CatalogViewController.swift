@@ -20,6 +20,17 @@ final class CatalogViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var noItemsLabel: UILabel = {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = NSLocalizedString("Catalog.empty", comment: "The message to show if catalogs list is empty")
+        
+        label.isHidden = true
+        
+        return label
+    }()
+    
     init(viewModel: CatalogViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -38,6 +49,8 @@ final class CatalogViewController: UIViewController {
         configureNavBar()
         setupSubviews()
         setupLayout()
+        
+        bind()
     }
 }
 // MARK: - Private routines
@@ -65,16 +78,26 @@ private extension CatalogViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        tableView.backgroundView = noItemsLabel
+        noItemsLabel.constraintCenters(to: view)
     }
     
     @objc func sortItems() {
         // TODO: Implement sorting
     }
+    
+    func bind() {
+        viewModel.$collections.bind {[weak self] collections in
+            self?.tableView.reloadData()
+            self?.noItemsLabel.isHidden = collections.isEmpty
+        }
+    }
 }
 // MARK: UITableViewDataSource
 extension CatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        viewModel.collections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
