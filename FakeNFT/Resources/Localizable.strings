@@ -4,3 +4,7 @@
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
+"Tab.profile" = "Профиль";
+"Profile.myNTF" = "Мои NTF";
+"Profile.favoritesNTF" = "Избранные NTF";
+"Profile.aboutDeveloper" = "О разработчике";
