@@ -5,3 +5,7 @@
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
 "Catalog.empty" = "Нет данных для отображения";
+"Sort.title" = "Сортировка";
+"Sort.byName" = "По названиию";
+"Sort.byCount" = "По количеству NFT";
+"Sort.close" = "Закрыть";
