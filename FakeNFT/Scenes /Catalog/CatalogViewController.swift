@@ -86,7 +86,26 @@ private extension CatalogViewController {
     }
     
     @objc func sortItems() {
-        // TODO: Implement sorting
+        let alertController = UIAlertController(
+            title: nil,
+            message: NSLocalizedString("Sort.title", comment: "Title for the sort controller on catalog page"),
+            preferredStyle: .actionSheet
+        )
+        
+        let sortByNameAction = UIAlertAction(title: NSLocalizedString("Sort.byName", comment: "Title for sort by name action"), style: .default) { [weak self] _ in
+            self?.viewModel.sortCollectionsByName()
+        }
+        let sortByCountAction = UIAlertAction(title: NSLocalizedString("Sort.byCount", comment: "Title for sort by count action"), style: .default) { [weak self] _ in
+            self?.viewModel.sortCollectionsByCount()
+        }
+        
+        let closeAction = UIAlertAction(title: NSLocalizedString("Sort.close", comment: "Title for close button in sort controller"), style: .cancel)
+        
+        alertController.addAction(sortByNameAction)
+        alertController.addAction(sortByCountAction)
+        alertController.addAction(closeAction)
+        
+        present(alertController, animated: true)
     }
     
     func bind() {

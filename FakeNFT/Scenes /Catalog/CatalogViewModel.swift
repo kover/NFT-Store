@@ -31,4 +31,12 @@ final class CatalogViewModel {
             UIBlockingProgressHUD.dismiss()
         }
     }
+    
+    func sortCollectionsByName() {
+        collections = collections.sorted(by: { $0.name < $1.name })
+    }
+    
+    func sortCollectionsByCount() {
+        collections = collections.sorted(by: { $0.nftsCount < $1.nftsCount })
+    }
 }
