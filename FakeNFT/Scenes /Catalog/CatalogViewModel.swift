@@ -19,7 +19,7 @@ final class CatalogViewModel {
         loadCollections()
     }
     
-    func loadCollections() {
+    func loadCollections(completion: (() -> Void)? = nil) {
         UIBlockingProgressHUD.show()
         serviceAssembly.catalogService.getCollections { [weak self] result in
             switch result {
@@ -29,6 +29,7 @@ final class CatalogViewModel {
                 print(error.localizedDescription)
             }
             UIBlockingProgressHUD.dismiss()
+            completion?()
         }
     }
     
