@@ -10,9 +10,18 @@ import UIKit
 final class CatalogViewController: UIViewController {
     let viewModel: CatalogViewModel
     
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        
+        return refreshControl
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.refreshControl = refreshControl
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -106,6 +115,12 @@ private extension CatalogViewController {
         alertController.addAction(closeAction)
         
         present(alertController, animated: true)
+    }
+    
+    @objc func refreshData(_ sender: Any) {
+        viewModel.loadCollections() { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
     }
     
     func bind() {
