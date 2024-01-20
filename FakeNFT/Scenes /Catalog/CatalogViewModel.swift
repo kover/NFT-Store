@@ -8,17 +8,17 @@
 import Foundation
 
 final class CatalogViewModel {
-    
+
     let serviceAssembly: ServicesAssembly
-    
+
     @Observable
     private(set) var collections: [CatalogCell] = []
-    
+
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
         loadCollections()
     }
-    
+
     func loadCollections(completion: (() -> Void)? = nil) {
         UIBlockingProgressHUD.show()
         serviceAssembly.catalogService.getCollections { [weak self] result in
@@ -32,11 +32,11 @@ final class CatalogViewModel {
             completion?()
         }
     }
-    
+
     func sortCollectionsByName() {
         collections = collections.sorted(by: { $0.name < $1.name })
     }
-    
+
     func sortCollectionsByCount() {
         collections = collections.sorted(by: { $0.nftsCount < $1.nftsCount })
     }

@@ -2,10 +2,10 @@ import UIKit
 
 enum RequestConstants {
     static let baseURL = "https://d5dn3j2ouj72b0ejucbl.apigw.yandexcloud.net"
-    
+
     case collections
     case nftById(id: String)
-    
+
     var path: String {
         switch self {
         case .collections:
@@ -14,7 +14,7 @@ enum RequestConstants {
             return "api/v1/nft/\(id)"
         }
     }
-    
+
     var url: URL? {
         switch self {
         case .collections:
