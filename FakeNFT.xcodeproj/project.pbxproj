@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03C2C82A2B5DC7B10053F08E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8292B5DC7B10053F08E /* RatingView.swift */; };
 		03D8655D2B54616000796EE6 /* CartDecomposition.md in Resources */ = {isa = PBXBuildFile; fileRef = 03D8655C2B54616000796EE6 /* CartDecomposition.md */; };
 		03EC0D9E2B57F3A6004DD31E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EC0D9D2B57F3A6004DD31E /* UIBlockingProgressHUD.swift */; };
 		03EC0DA02B57F3C4004DD31E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EC0D9F2B57F3C4004DD31E /* Observable.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03C2C8292B5DC7B10053F08E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		03D8655C2B54616000796EE6 /* CartDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CartDecomposition.md; sourceTree = "<group>"; };
 		03EC0D8A2B57A887004DD31E /* CatalogDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CatalogDecomposition.md; sourceTree = "<group>"; };
 		03EC0D9D2B57F3A6004DD31E /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */,
 				03EC0D9D2B57F3A6004DD31E /* UIBlockingProgressHUD.swift */,
 				03EC0D9F2B57F3C4004DD31E /* Observable.swift */,
+				03C2C8292B5DC7B10053F08E /* RatingView.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C2C82A2B5DC7B10053F08E /* RatingView.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
