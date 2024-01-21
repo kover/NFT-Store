@@ -12,7 +12,7 @@ final class CatalogViewModel {
     let serviceAssembly: ServicesAssembly
 
     @Observable
-    private(set) var collections: [CatalogCell] = []
+    private(set) var collections: [NftCollection] = []
 
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
@@ -26,6 +26,7 @@ final class CatalogViewModel {
             case .success(let items):
                 self?.collections = items
             case .failure(let error):
+                // TODO: - Show alert with error details
                 print(error.localizedDescription)
             }
             UIBlockingProgressHUD.dismiss()
@@ -38,6 +39,6 @@ final class CatalogViewModel {
     }
 
     func sortCollectionsByCount() {
-        collections = collections.sorted(by: { $0.nftsCount < $1.nftsCount })
+        collections = collections.sorted(by: { $0.nfts.count < $1.nfts.count })
     }
 }

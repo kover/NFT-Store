@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CatalogServiceProtocol {
-    func getCollections(completion: @escaping (Result<[CatalogCell], Error>) -> Void)
+    func getCollections(completion: @escaping (Result<[NftCollection], Error>) -> Void)
 }
 
 struct CatalogService: CatalogServiceProtocol {
@@ -21,22 +21,11 @@ struct CatalogService: CatalogServiceProtocol {
         self.networkClient = networkClient
     }
 
-    func getCollections(completion: @escaping (Result<[CatalogCell], Error>) -> Void) {
+    func getCollections(completion: @escaping (Result<[NftCollection], Error>) -> Void) {
         let request = CollectionsRequest()
         networkClient.send(request: request, type: [NftCollection].self) { result in
             switch result {
             case .success(let model):
-                let model = model.map { collection in
-                    CatalogCell(
-                        author: collection.author,
-                        cover: collection.cover,
-                        description: collection.description,
-                        id: collection.id,
-                        name: collection.name,
-                        nfts: collection.nfts,
-                        nftsCount: collection.nfts.count
-                    )
-                }
                 completion(.success(model))
             case .failure(let error):
                 completion(.failure(error))

@@ -12,9 +12,7 @@ final class CatalogViewController: UIViewController {
 
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
-
         return refreshControl
     }()
 
@@ -22,26 +20,20 @@ final class CatalogViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.refreshControl = refreshControl
-
         tableView.dataSource = self
         tableView.delegate = self
-
         tableView.register(
             CatalogTableViewCell.self,
             forCellReuseIdentifier: CatalogTableViewCell.catalogTableViewCellIdentifier
         )
-
         return tableView
     }()
 
     private lazy var noItemsLabel: UILabel = {
         let label = UILabel()
-
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("Catalog.empty", comment: "The message to show if catalogs list is empty")
-
         label.isHidden = true
-
         return label
     }()
 
@@ -156,7 +148,7 @@ extension CatalogViewController: UITableViewDataSource {
         }
 
         let collection = viewModel.collections[indexPath.row]
-        cell.setupCell(for: collection, completion: {})
+        cell.setupCell(for: collection)
         return cell
     }
 }
