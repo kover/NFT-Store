@@ -10,8 +10,10 @@
 		03C2C81D2B5982D00053F08E /* NftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C81A2B5982D00053F08E /* NftModel.swift */; };
 		03C2C81E2B5982D00053F08E /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C81B2B5982D00053F08E /* OrderModel.swift */; };
 		03C2C81F2B5982D00053F08E /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C81C2B5982D00053F08E /* CurrencyModel.swift */; };
-		03C2C8232B5983060053F08E /* cartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8212B5983060053F08E /* cartViewController.swift */; };
-		03C2C8242B5983060053F08E /* cartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8222B5983060053F08E /* cartViewModel.swift */; };
+		03C2C8232B5983060053F08E /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8212B5983060053F08E /* CartViewController.swift */; };
+		03C2C8242B5983060053F08E /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8222B5983060053F08E /* CartViewModel.swift */; };
+		03C2C8262B5D2BFC0053F08E /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8252B5D2BFC0053F08E /* CartTableViewCell.swift */; };
+		03C2C8282B5DAED00053F08E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8272B5DAED00053F08E /* RatingView.swift */; };
 		03D8655D2B54616000796EE6 /* CartDecomposition.md in Resources */ = {isa = PBXBuildFile; fileRef = 03D8655C2B54616000796EE6 /* CartDecomposition.md */; };
 		03EC0D9E2B57F3A6004DD31E /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EC0D9D2B57F3A6004DD31E /* UIBlockingProgressHUD.swift */; };
 		03EC0DA02B57F3C4004DD31E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EC0D9F2B57F3C4004DD31E /* Observable.swift */; };
@@ -76,8 +78,10 @@
 		03C2C81A2B5982D00053F08E /* NftModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NftModel.swift; sourceTree = "<group>"; };
 		03C2C81B2B5982D00053F08E /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		03C2C81C2B5982D00053F08E /* CurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
-		03C2C8212B5983060053F08E /* cartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cartViewController.swift; sourceTree = "<group>"; };
-		03C2C8222B5983060053F08E /* cartViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cartViewModel.swift; sourceTree = "<group>"; };
+		03C2C8212B5983060053F08E /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		03C2C8222B5983060053F08E /* CartViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		03C2C8252B5D2BFC0053F08E /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
+		03C2C8272B5DAED00053F08E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		03D8655C2B54616000796EE6 /* CartDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CartDecomposition.md; sourceTree = "<group>"; };
 		03EC0D8A2B57A887004DD31E /* CatalogDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CatalogDecomposition.md; sourceTree = "<group>"; };
 		03EC0D9D2B57F3A6004DD31E /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
@@ -166,8 +170,9 @@
 		03C2C8202B5983060053F08E /* Cart */ = {
 			isa = PBXGroup;
 			children = (
-				03C2C8212B5983060053F08E /* cartViewController.swift */,
-				03C2C8222B5983060053F08E /* cartViewModel.swift */,
+				03C2C8222B5983060053F08E /* CartViewModel.swift */,
+				03C2C8212B5983060053F08E /* CartViewController.swift */,
+				03C2C8252B5D2BFC0053F08E /* CartTableViewCell.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */,
 				03EC0D9D2B57F3A6004DD31E /* UIBlockingProgressHUD.swift */,
 				03EC0D9F2B57F3C4004DD31E /* Observable.swift */,
+				03C2C8272B5DAED00053F08E /* RatingView.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -590,13 +596,14 @@
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				0CF2C2DB2A783C1B00FDC837 /* LoadingView.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
-				03C2C8242B5983060053F08E /* cartViewModel.swift in Sources */,
+				03C2C8242B5983060053F08E /* CartViewModel.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				03EC0DA02B57F3C4004DD31E /* Observable.swift in Sources */,
 				0C79EE6C2A76DE2E00EE90EA /* ServicesAssemly.swift in Sources */,
 				0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
+				03C2C8262B5D2BFC0053F08E /* CartTableViewCell.swift in Sources */,
 				0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
@@ -604,8 +611,9 @@
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				0CFCB7492A7808900009A829 /* TestCatalogController.swift in Sources */,
+				03C2C8282B5DAED00053F08E /* RatingView.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
-				03C2C8232B5983060053F08E /* cartViewController.swift in Sources */,
+				03C2C8232B5983060053F08E /* CartViewController.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,
 				0C79EE632A76DD1900EE90EA /* RequestConstants.swift in Sources */,
 				03EC0D9E2B57F3A6004DD31E /* UIBlockingProgressHUD.swift in Sources */,
