@@ -8,3 +8,14 @@
 "Profile.myNTF" = "Мои NTF";
 "Profile.favoritesNTF" = "Избранные NTF";
 "Profile.aboutDeveloper" = "О разработчике";
+"Profile.Name" = "Имя";
+"Profile.Description" = "Описание";
+"Profile.Link" = "Сайт";
+"Profile.ChangePhoto" = "Сменить\nфото";
+"Profile.Edit.UserName.Placeholder" = "Введите имя";
+"Profile.Edit.UserDescription.Placeholder" = "Введите описание";
+"Profile.Edit.UserLink.Placeholder" = "Введите сайт";
+"Camera" = "Камера";
+"Photo Library" = "Библиотека";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
