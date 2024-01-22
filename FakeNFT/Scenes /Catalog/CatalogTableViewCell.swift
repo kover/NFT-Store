@@ -40,6 +40,8 @@ final class CatalogTableViewCell: UITableViewCell {
 
     // MARK: - Cell configuration
     func setupCell(for collection: NftCollection) {
+        selectionStyle = .none
+
         coverImageView.kf.indicatorType = .activity
         coverImageView.kf.setImage(
             with: URL(string: collection.cover),

@@ -157,4 +157,12 @@ extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         179
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let collection = viewModel.collections[indexPath.row]
+        let collectionViewModel = CollectionViewModel()
+        let collectionViewController = CollectionViewController(viewModel: collectionViewModel)
+
+        navigationController?.pushViewController(collectionViewController, animated: true)
+    }
 }
