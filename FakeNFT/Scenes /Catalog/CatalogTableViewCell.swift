@@ -26,6 +26,7 @@ final class CatalogTableViewCell: UITableViewCell {
         let nameLabel = UILabel()
 
         nameLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        nameLabel.textColor = .ypBlack
 
         return nameLabel
     }()
@@ -34,6 +35,7 @@ final class CatalogTableViewCell: UITableViewCell {
         let countLabel = UILabel()
 
         countLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        countLabel.textColor = .ypBlack
 
         return countLabel
     }()
@@ -41,6 +43,7 @@ final class CatalogTableViewCell: UITableViewCell {
     // MARK: - Cell configuration
     func setupCell(for collection: NftCollection) {
         selectionStyle = .none
+        contentView.backgroundColor = .ypWhite
 
         coverImageView.kf.indicatorType = .activity
         coverImageView.kf.setImage(

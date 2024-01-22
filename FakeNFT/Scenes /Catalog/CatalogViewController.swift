@@ -19,6 +19,7 @@ final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .ypWhite
         tableView.refreshControl = refreshControl
         tableView.dataSource = self
         tableView.delegate = self
@@ -49,7 +50,8 @@ final class CatalogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .ypWhite
+        navigationItem.backButtonTitle = ""
 
         configureNavBar()
         setupSubviews()
@@ -160,7 +162,7 @@ extension CatalogViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let collection = viewModel.collections[indexPath.row]
-        let collectionViewModel = CollectionViewModel()
+        let collectionViewModel = CollectionViewModel(collection: collection)
         let collectionViewController = CollectionViewController(viewModel: collectionViewModel)
 
         navigationController?.pushViewController(collectionViewController, animated: true)

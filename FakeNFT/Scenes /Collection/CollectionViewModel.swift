@@ -7,4 +7,12 @@
 
 import Foundation
 
-final class CollectionViewModel {}
+final class CollectionViewModel {
+
+    @Observable
+    private(set) var collection: NftCollection
+
+    init(collection: NftCollection) {
+        self.collection = collection
+    }
+}
