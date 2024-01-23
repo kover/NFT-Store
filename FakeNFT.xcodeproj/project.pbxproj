@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		037E8E022B604C01004933AB /* CartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037E8E012B604C01004933AB /* CartService.swift */; };
 		03C2C81D2B5982D00053F08E /* NftModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C81A2B5982D00053F08E /* NftModel.swift */; };
 		03C2C81E2B5982D00053F08E /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C81B2B5982D00053F08E /* OrderModel.swift */; };
 		03C2C81F2B5982D00053F08E /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C81C2B5982D00053F08E /* CurrencyModel.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		037E8E012B604C01004933AB /* CartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartService.swift; sourceTree = "<group>"; };
 		03C2C81A2B5982D00053F08E /* NftModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NftModel.swift; sourceTree = "<group>"; };
 		03C2C81B2B5982D00053F08E /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		03C2C81C2B5982D00053F08E /* CurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				3FC8C38F29D245250081F015 /* Requests */,
 				0C79EE6B2A76DE2E00EE90EA /* ServicesAssemly.swift */,
 				0CFCB73F2A78002A0009A829 /* NftService.swift */,
+				037E8E012B604C01004933AB /* CartService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				03EC0DA02B57F3C4004DD31E /* Observable.swift in Sources */,
 				0C79EE6C2A76DE2E00EE90EA /* ServicesAssemly.swift in Sources */,
 				0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */,
+				037E8E022B604C01004933AB /* CartService.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
 				03C2C8262B5D2BFC0053F08E /* CartTableViewCell.swift in Sources */,

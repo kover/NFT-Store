@@ -9,7 +9,7 @@ import UIKit
 
 final class CartViewController: UIViewController {
     
-    let viewModel: cartViewModel
+    let viewModel: CartViewModel
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -58,7 +58,7 @@ final class CartViewController: UIViewController {
         return button
     }()
     
-    init(viewModel: cartViewModel) {
+    init(viewModel: CartViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -130,7 +130,7 @@ final class CartViewController: UIViewController {
 
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.numberOfNFTs()
+        viewModel.nftModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +138,7 @@ extension CartViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let nftModel = viewModel.mockNFTs[indexPath.row]
+        let nftModel = viewModel.nftModels[indexPath.row]
         cell.configure(with: nftModel)
         return cell
     }

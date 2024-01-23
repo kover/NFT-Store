@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RatingView: UIStackView {
+final class RatingView: UIStackView {
     var rating: Int = 0 {
         didSet {
             updateRating()

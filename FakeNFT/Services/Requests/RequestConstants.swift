@@ -1,4 +1,34 @@
+import UIKit
+
 enum RequestConstants {
-    #warning("insert your baseUrl <id>.mockapi.io")
-    static let baseURL = "https://d5dn3j2ouj72b0ejucbl.apigw.yandexcloud.net"
+    static let baseURL = "https://64858e8ba795d24810b71189.mockapi.io"
+
+    case collections
+    case nftById(id: String)
+    case userById(id: String)
+
+    var path: String {
+        switch self {
+        case .collections:
+            return "api/v1/collections"
+        case .nftById(let id):
+            return "api/v1/nft/\(id)"
+        case .userById(let id):
+            return "api/v1/users/\(id)"
+        }
+    }
+
+    var url: URL? {
+        switch self {
+        case .collections:
+            return URL(string: RequestConstants.collections.path, relativeTo: URL(string: RequestConstants.baseURL))
+        case .nftById(let id):
+            return URL(string: RequestConstants.nftById(id: id).path, relativeTo: URL(string: RequestConstants.baseURL))
+        case .userById(let id):
+            return URL(
+                string: RequestConstants.userById(id: id).path,
+                relativeTo: URL(string: RequestConstants.baseURL)
+            )
+        }
+    }
 }

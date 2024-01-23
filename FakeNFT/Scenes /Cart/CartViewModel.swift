@@ -7,26 +7,45 @@
 
 import Foundation
 
-final class cartViewModel {
-    let serviceAssembly: ServicesAssembly
-    
-    let mockNFTs = [
-        NftModel(id: "1", name: "April", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png"], price: 1.78, rating: 1),
-        NftModel(id: "2", name: "Greena", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png"], price: 1.78, rating: 3),
-        NftModel(id: "3", name: "Spring", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png"], price: 1.78, rating: 5),
-    ]
+final class CartViewModel {
+    private let serviceAssembly: ServicesAssembly
+    var nftModels: [NftModel] = []
+    private var isLoading = false
 
-//    let Order = OrderModel(nfts: ["1", "2"], id: "order1")
-    
+    var onNFTsLoaded: (() -> Void)?
+    var onError: ((Error) -> Void)?
+
+    let order = OrderModel(nfts: ["1", "2", "3"], id: "order1")
+
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
+        loadNFTs()
     }
-    
-    func totalAmount() -> Double {
-        return mockNFTs.reduce(0) {$0 + $1.price}
+
+    private func loadNFTs() {
+        print("Начинаем загрузку NFT...")
+        isLoading = true
+
+        serviceAssembly.cartService.getNftItems(ids: order.nfts) { [weak self] result in
+            defer {
+                self?.isLoading = false
+                print("Загрузка NFT завершена.")
+            }
+
+            switch result {
+            case .success(let nfts):
+                print("Успешно загружено NFT: \(nfts)")
+                self?.nftModels = nfts
+                self?.onNFTsLoaded?()
+            case .failure(let error):
+                print("Ошибка при загрузке NFT: \(error)")
+                self?.onError?(error)
+            }
+        }
     }
-    
-    func numberOfNFTs() -> Int {
-        return mockNFTs.count
+
+    func totalAmount() -> Float {
+        return nftModels.reduce(0) { $0 + $1.price }
     }
 }
+
