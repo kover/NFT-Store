@@ -48,7 +48,9 @@ final class ProfileViewController: UIViewController {
     }
     
     private func myNTFSectionClick() {
-        
+        let controller = MyNTFViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     private func favoritesNTFSectionClick() {

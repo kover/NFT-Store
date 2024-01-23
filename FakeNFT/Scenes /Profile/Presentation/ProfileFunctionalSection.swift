@@ -53,8 +53,9 @@ class ProfileFunctionalSection {
         contentTitleLabel.backgroundColor = .clear
         chevron.backgroundColor = .clear
         
+        view.isUserInteractionEnabled = true
         view.addGestureRecognizer(
-            UITapGestureRecognizer(target: nil, action: #selector(onViewClick))
+            UITapGestureRecognizer(target: self, action: #selector(onViewClick))
         )
     }
     
