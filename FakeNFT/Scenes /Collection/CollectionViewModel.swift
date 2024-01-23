@@ -8,12 +8,12 @@
 import Foundation
 
 final class CollectionViewModel {
-    
+
     private let serviceAssembly: ServicesAssembly
 
     @Observable
     private(set) var collection: NftCollection
-    
+
     @Observable
     private(set) var nfts: [NftItem] = []
 
@@ -22,7 +22,7 @@ final class CollectionViewModel {
         self.serviceAssembly = serviceAssembly
         loadNfts(by: collection.nfts)
     }
-    
+
     private func loadNft(by id: String) {
         serviceAssembly.collectionService.getNft(by: id) { [weak self] result in
             switch result {
@@ -34,7 +34,7 @@ final class CollectionViewModel {
             }
         }
     }
-    
+
     func loadNfts(by ids: [String]) {
         var index: UInt32 = 0
         ids.forEach { id in

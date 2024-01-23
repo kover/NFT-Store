@@ -13,11 +13,11 @@ protocol CollectionServiceProtocol {
 
 struct CollectionService: CollectionServiceProtocol {
     private let networkClient: NetworkClient
-    
+
     init(networkClient: NetworkClient) {
         self.networkClient = networkClient
     }
-    
+
     func getNft(by id: String, completion: @escaping (Result<NftItem, Error>) -> Void) {
         let request = NftByIdRequest(id: id)
         networkClient.send(request: request, type: NftItem.self) { result in

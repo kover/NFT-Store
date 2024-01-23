@@ -36,12 +36,13 @@ final class CollectionViewController: UIViewController {
         return label
     }()
 
-    private lazy var authorNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .ypBlueUniversal
-        label.text = self.viewModel.collection.author
-        return label
+    private lazy var authorNameLabel: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .regular)
+        button.tintColor = .ypBlueUniversal
+        button.setTitle(self.viewModel.collection.author, for: .normal)
+        button.addTarget(self, action: #selector(showAuthorPage), for: .touchUpInside)
+        return button
     }()
 
     private lazy var collectionDescriptionTextView: UITextView = {
@@ -58,7 +59,10 @@ final class CollectionViewController: UIViewController {
 
     private lazy var collectionNfts: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.register(NftCollectionViewCell.self, forCellWithReuseIdentifier: NftCollectionViewCell.nftCollectionViewCellIdentifier)
+        collectionView.register(
+            NftCollectionViewCell.self,
+            forCellWithReuseIdentifier: NftCollectionViewCell.nftCollectionViewCellIdentifier
+        )
         collectionView.backgroundColor = .ypWhite
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -77,6 +81,7 @@ final class CollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.backButtonTitle = ""
         view.backgroundColor = .ypWhite
         navigationController?.navigationBar.tintColor = .black
 
@@ -147,11 +152,18 @@ extension CollectionViewController {
         maskLayer.path = maskPath.cgPath
         collectionCoverImageView.layer.mask = maskLayer
     }
-    
+
     func bind() {
         viewModel.$nfts.bind { [weak self] _ in
             self?.collectionNfts.reloadData()
         }
+    }
+
+    @objc func showAuthorPage() {
+        let authorPageViewController = AuthorPageViewController()
+        let url = "https://practicum.yandex.ru/"
+        authorPageViewController.url = url
+        navigationController?.pushViewController(authorPageViewController, animated: true)
     }
 }
 // MARK: - UICollectionViewDataSource
@@ -159,18 +171,21 @@ extension CollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.nfts.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         guard let nftCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: NftCollectionViewCell.nftCollectionViewCellIdentifier,
             for: indexPath
         ) as? NftCollectionViewCell else {
             return NftCollectionViewCell()
         }
-        
+
         let item = viewModel.nfts[indexPath.row]
         nftCell.setupCell(with: item)
-        
+
         return nftCell
     }
 }
@@ -183,12 +198,20 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     ) -> UIEdgeInsets {
         UIEdgeInsets(top: 24, left: 16, bottom: 16, right: 16)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         9
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         CGSize(width: (collectionView.bounds.width - 9 * 2 - 32) / 3, height: 192)
     }
 }

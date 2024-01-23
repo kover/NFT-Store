@@ -25,7 +25,10 @@ enum RequestConstants {
         case .nftById(let id):
             return URL(string: RequestConstants.nftById(id: id).path, relativeTo: URL(string: RequestConstants.baseURL))
         case .userById(let id):
-            return URL(string: RequestConstants.userById(id: id).path, relativeTo: URL(string: RequestConstants.baseURL))
+            return URL(
+                string: RequestConstants.userById(id: id).path,
+                relativeTo: URL(string: RequestConstants.baseURL)
+            )
         }
     }
 }

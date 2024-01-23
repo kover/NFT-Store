@@ -7,7 +7,7 @@ struct NftByIdRequest: NetworkRequest {
     var endpoint: URL? {
         RequestConstants.nftById(id: self.id).url
     }
-    
+
     var httpMethod: HttpMethod {
         .get
     }
