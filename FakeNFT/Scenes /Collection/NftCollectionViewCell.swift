@@ -8,9 +8,18 @@
 import UIKit
 import Kingfisher
 
+protocol NftCollectionViewCellDelegate: AnyObject {
+    func didTapCart(_ item: NftItem)
+    func didTapLike(_ item: NftItem)
+}
+
 class NftCollectionViewCell: UICollectionViewCell {
     
     static let nftCollectionViewCellIdentifier = "nftCollectionViewCell"
+    
+    weak var delegate: NftCollectionViewCellDelegate?
+    
+    private var item: NftItem?
     
     private lazy var coverImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
@@ -48,11 +57,28 @@ class NftCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.addTarget(self, action: #selector(didTapCartButton), for: .touchUpInside)
         button.setImage(UIImage(named: "CartEmpty"), for: .normal)
-        button.tintColor = .ypBlack
         return button
     }()
     
+    private lazy var favouriteButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(didTapFavouriteButton), for: .touchUpInside)
+        button.setImage(UIImage(named: "Disliked"), for: .normal)
+        button.tintColor = .ypRedUniversal
+        return button
+    }()
+    
+    private var isFavorite: Bool = false {
+        didSet {
+            guard let image = isFavorite ? UIImage(named: "Liked") : UIImage(named: "Disliked") else {
+                return
+            }
+            favouriteButton.setImage(image, for: .normal)
+        }
+    }
+    
     func setupCell(with item: NftItem) {
+        self.item = item
         if let imageUrl = item.images.first {
             coverImage.kf.indicatorType = .activity
             coverImage.kf.setImage(with: URL(string: imageUrl))
@@ -68,7 +94,7 @@ class NftCollectionViewCell: UICollectionViewCell {
 // MARK: - Private routines
 private extension NftCollectionViewCell {
     func setupSubviews() {
-        [coverImage, ratingView, verticalStackView, cartButton].forEach {
+        [coverImage, ratingView, verticalStackView, cartButton, favouriteButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
         }
@@ -91,11 +117,26 @@ private extension NftCollectionViewCell {
             cartButton.widthAnchor.constraint(equalToConstant: 40),
             cartButton.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 4),
             cartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cartButton.leadingAnchor.constraint(equalTo: verticalStackView.trailingAnchor)
+            cartButton.leadingAnchor.constraint(equalTo: verticalStackView.trailingAnchor),
+            
+            favouriteButton.widthAnchor.constraint(equalToConstant: 40),
+            favouriteButton.heightAnchor.constraint(equalToConstant: 40),
+            favouriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            favouriteButton.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
     }
     
-    @objc func didTapCartButton() {}
+    @objc func didTapCartButton() {
+        guard let item = item else {
+            return
+        }
+        delegate?.didTapCart(item)
+    }
     
-    @objc func didTapFavouriteButton() {}
+    @objc func didTapFavouriteButton() {
+        guard let item = item else {
+            return
+        }
+        delegate?.didTapLike(item)
+    }
 }
