@@ -48,6 +48,7 @@ final class CollectionViewController: UIViewController {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 13, weight: .regular)
         textView.textColor = .ypBlack
+        textView.backgroundColor = .ypWhite
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.textContainer.lineFragmentPadding = 0
@@ -57,6 +58,10 @@ final class CollectionViewController: UIViewController {
 
     private lazy var collectionNfts: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.register(NftCollectionViewCell.self, forCellWithReuseIdentifier: NftCollectionViewCell.nftCollectionViewCellIdentifier)
+        collectionView.backgroundColor = .ypWhite
+        collectionView.dataSource = self
+        collectionView.delegate = self
         return collectionView
     }()
 
@@ -77,6 +82,7 @@ final class CollectionViewController: UIViewController {
 
         setupSubviews()
         setupLayout()
+        bind()
     }
 
     override func viewDidLayoutSubviews() {
@@ -123,9 +129,9 @@ extension CollectionViewController {
             collectionDescriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionDescriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            collectionNfts.topAnchor.constraint(equalTo: collectionDescriptionTextView.bottomAnchor, constant: 24),
-            collectionNfts.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionNfts.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            collectionNfts.topAnchor.constraint(equalTo: collectionDescriptionTextView.bottomAnchor),
+            collectionNfts.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionNfts.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionNfts.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -140,5 +146,49 @@ extension CollectionViewController {
         maskLayer.frame = collectionCoverImageView.bounds
         maskLayer.path = maskPath.cgPath
         collectionCoverImageView.layer.mask = maskLayer
+    }
+    
+    func bind() {
+        viewModel.$nfts.bind { [weak self] _ in
+            self?.collectionNfts.reloadData()
+        }
+    }
+}
+// MARK: - UICollectionViewDataSource
+extension CollectionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.nfts.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let nftCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: NftCollectionViewCell.nftCollectionViewCellIdentifier,
+            for: indexPath
+        ) as? NftCollectionViewCell else {
+            return NftCollectionViewCell()
+        }
+        
+        let item = viewModel.nfts[indexPath.row]
+        nftCell.setupCell(with: item)
+        
+        return nftCell
+    }
+}
+// MARK: - UICollectionViewDelegateFlowLayout
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 24, left: 16, bottom: 16, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        9
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: (collectionView.bounds.width - 9 * 2 - 32) / 3, height: 192)
     }
 }
