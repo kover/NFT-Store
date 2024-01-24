@@ -33,7 +33,7 @@ final class CartViewController: UIViewController {
     
     private lazy var quantityLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(viewModel.numberOfNFTs()) NFT"
+        label.text = "\(viewModel.nftModels.count) NFT"
         label.font = .systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,7 +41,7 @@ final class CartViewController: UIViewController {
     
     private lazy var totalAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(viewModel.totalAmount()) ETH" 
+        label.text = "\(viewModel.totalAmount()) ETH"
         label.textColor = UIColor(hexString: "1C9F00")
         label.font = .boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +58,16 @@ final class CartViewController: UIViewController {
         return button
     }()
     
+    private lazy var emptyCartLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Корзина пуста"
+        label.font = .boldSystemFont(ofSize: 17)
+        label.textAlignment = .center
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     init(viewModel: CartViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -69,31 +79,78 @@ final class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .systemBackground
-        setupNavigationBar()
         addSubViews()
         setupConstraints()
+        
+        viewModel.onNFTsLoaded = { [weak self] in
+            self?.updateUI()
+            self?.tableView.reloadData()
+        }
+        
+        updateUI()
     }
     
-    private func setupNavigationBar() {
+    private func createSortButton() -> UIBarButtonItem {
         let sortButton = UIBarButtonItem(image: UIImage(named: "Sort"),
                                          style: .plain,
                                          target: self,
                                          action: #selector(sortButtonTapped))
         sortButton.tintColor = UIColor.segmentActive
-        navigationItem.rightBarButtonItem = sortButton
+        return sortButton
     }
     
     @objc func sortButtonTapped() {
-        //todo: настроить сортировку
+        let alertController = UIAlertController(title: nil, message: "Сортировка", preferredStyle: .actionSheet)
+        
+        let sortByName = UIAlertAction(title: "Название", style: .default) { [weak self] _ in
+            self?.viewModel.sortNFTs(by: .name)
+            self?.tableView.reloadData()
+        }
+        
+        let sortByPrice = UIAlertAction(title: "Цена", style: .default) { [weak self] _ in
+            self?.viewModel.sortNFTs(by: .price)
+            self?.tableView.reloadData()
+        }
+        
+        let sortByRating = UIAlertAction(title: "Рейтинг", style: .default) { [weak self] _ in
+            self?.viewModel.sortNFTs(by: .rating)
+            self?.tableView.reloadData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel)
+        
+        alertController.addAction(sortByName)
+        alertController.addAction(sortByPrice)
+        alertController.addAction(sortByRating)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
     }
     
     @objc func checkoutButtonTapped() {
         //todo: реализовать переход к экрану выбора валюты
     }
     
+    private func updateUI() {
+        let isCartEmpty = viewModel.nftModels.isEmpty
+        tableView.isHidden = isCartEmpty
+        bottomPanel.isHidden = isCartEmpty
+        totalAmountLabel.isHidden = isCartEmpty
+        quantityLabel.isHidden = isCartEmpty
+        chekoutButton.isHidden = isCartEmpty
+        emptyCartLabel.isHidden = !isCartEmpty
+        
+        navigationItem.rightBarButtonItem = isCartEmpty ? nil : createSortButton()
+        
+        if !isCartEmpty {
+            tableView.reloadData()
+        }
+    }
+    
     private func addSubViews() {
         view.addSubview(tableView)
         view.addSubview(bottomPanel)
+        view.addSubview(emptyCartLabel)
         bottomPanel.addSubview(quantityLabel)
         bottomPanel.addSubview(totalAmountLabel)
         bottomPanel.addSubview(chekoutButton)
@@ -105,6 +162,9 @@ final class CartViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: bottomPanel.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            emptyCartLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyCartLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             bottomPanel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             bottomPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -126,7 +186,7 @@ final class CartViewController: UIViewController {
     }
 }
 
-//MARK: UITableViewDataSource
+//MARK: - UITableViewDataSource
 
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,6 +203,8 @@ extension CartViewController: UITableViewDataSource {
         return cell
     }
 }
+
+//MARK: - UITableViewDelegate
 
 extension CartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
