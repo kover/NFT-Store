@@ -160,9 +160,7 @@ extension CollectionViewController {
     }
 
     @objc func showAuthorPage() {
-        let authorPageViewController = AuthorPageViewController()
-        let url = "https://practicum.yandex.ru/"
-        authorPageViewController.url = url
+        let authorPageViewController = AuthorPageViewController(url: ApiConstants.authorUrl.rawValue)
         navigationController?.pushViewController(authorPageViewController, animated: true)
     }
 }

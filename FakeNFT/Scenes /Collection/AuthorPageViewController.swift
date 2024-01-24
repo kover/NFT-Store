@@ -8,9 +8,18 @@
 import UIKit
 import WebKit
 
-class AuthorPageViewController: UIViewController, WKNavigationDelegate {
+final class AuthorPageViewController: UIViewController, WKNavigationDelegate {
 
-    var url: String?
+    private let url: String
+
+    init(url: String) {
+        self.url = url
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     private lazy var webView: WKWebView = {
         let wkWebView = WKWebView()
@@ -29,7 +38,7 @@ class AuthorPageViewController: UIViewController, WKNavigationDelegate {
         setupSubviews()
         setupLayout()
 
-        guard let urlString = url, let url = URL(string: urlString) else {
+        guard let url = URL(string: url) else {
             return
         }
 
