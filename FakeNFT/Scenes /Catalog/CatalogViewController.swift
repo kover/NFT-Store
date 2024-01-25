@@ -9,6 +9,7 @@ import UIKit
 
 final class CatalogViewController: UIViewController {
     let viewModel: CatalogViewModel
+    private let serviceAssembly: ServicesAssembly
 
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -19,6 +20,7 @@ final class CatalogViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .ypWhite
         tableView.refreshControl = refreshControl
         tableView.dataSource = self
         tableView.delegate = self
@@ -37,8 +39,9 @@ final class CatalogViewController: UIViewController {
         return label
     }()
 
-    init(viewModel: CatalogViewModel) {
+    init(viewModel: CatalogViewModel, serviceAssembly: ServicesAssembly) {
         self.viewModel = viewModel
+        self.serviceAssembly = serviceAssembly
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,7 +52,8 @@ final class CatalogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .ypWhite
+        navigationItem.backButtonTitle = ""
 
         configureNavBar()
         setupSubviews()
@@ -156,5 +160,13 @@ extension CatalogViewController: UITableViewDataSource {
 extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         179
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let collection = viewModel.collections[indexPath.row]
+        let collectionViewModel = CollectionViewModel(collection: collection, serviceAssembly: serviceAssembly)
+        let collectionViewController = CollectionViewController(viewModel: collectionViewModel)
+
+        navigationController?.pushViewController(collectionViewController, animated: true)
     }
 }

@@ -13,19 +13,20 @@ final class CatalogTableViewCell: UITableViewCell {
     static let catalogTableViewCellIdentifier = "catalogTableViewCell"
 
     private lazy var coverImageView: UIImageView = {
-        let imageview = UIImageView(frame: .zero)
+        let imageView = UIImageView(frame: .zero)
 
-        imageview.layer.masksToBounds = true
-        imageview.layer.cornerRadius = 12
-        imageview.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 12
+        imageView.contentMode = .scaleAspectFill
 
-        return imageview
+        return imageView
     }()
 
     private lazy var collectionNameLabel: UILabel = {
         let nameLabel = UILabel()
 
         nameLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        nameLabel.textColor = .ypBlack
 
         return nameLabel
     }()
@@ -34,12 +35,16 @@ final class CatalogTableViewCell: UITableViewCell {
         let countLabel = UILabel()
 
         countLabel.font = .systemFont(ofSize: 17, weight: .bold)
+        countLabel.textColor = .ypBlack
 
         return countLabel
     }()
 
     // MARK: - Cell configuration
     func setupCell(for collection: NftCollection) {
+        selectionStyle = .none
+        contentView.backgroundColor = .ypWhite
+
         coverImageView.kf.indicatorType = .activity
         coverImageView.kf.setImage(
             with: URL(string: collection.cover),
