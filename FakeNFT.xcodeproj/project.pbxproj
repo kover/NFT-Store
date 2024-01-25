@@ -56,6 +56,8 @@
 		AB4B34FB2B5D999A003F8764 /* StarRatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FA2B5D999A003F8764 /* StarRatingPanel.swift */; };
 		AB4B34FE2B5EF217003F8764 /* MyNTFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FD2B5EF217003F8764 /* MyNTFModel.swift */; };
 		AB4B35012B5EF24C003F8764 /* MyNTFScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */; };
+		AB4B35082B62787C003F8764 /* FavoritesNTFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35072B62787C003F8764 /* FavoritesNTFViewController.swift */; };
+		AB4B350A2B627C72003F8764 /* FavoritesNTFCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35092B627C72003F8764 /* FavoritesNTFCell.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
@@ -132,6 +134,8 @@
 		AB4B34FD2B5EF217003F8764 /* MyNTFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFModel.swift; sourceTree = "<group>"; };
 		AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFScreenModel.swift; sourceTree = "<group>"; };
 		AB4B35042B626D01003F8764 /* ProfileDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ProfileDecomposition.md; sourceTree = "<group>"; };
+		AB4B35072B62787C003F8764 /* FavoritesNTFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFViewController.swift; sourceTree = "<group>"; };
+		AB4B35092B627C72003F8764 /* FavoritesNTFCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFCell.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -308,6 +312,7 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
+				AB4B35052B627803003F8764 /* FavoritesNTF */,
 				AB4B34F32B5D83D6003F8764 /* MyNTF */,
 				AB4B34EA2B5A872A003F8764 /* ProfileEdit */,
 				AB4B34DC2B57DC24003F8764 /* Profile */,
@@ -478,6 +483,23 @@
 				AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */,
 			);
 			path = ScreenModels;
+			sourceTree = "<group>";
+		};
+		AB4B35052B627803003F8764 /* FavoritesNTF */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35062B627844003F8764 /* Presentation */,
+			);
+			path = FavoritesNTF;
+			sourceTree = "<group>";
+		};
+		AB4B35062B627844003F8764 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35072B62787C003F8764 /* FavoritesNTFViewController.swift */,
+				AB4B35092B627C72003F8764 /* FavoritesNTFCell.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
@@ -674,6 +696,7 @@
 			files = (
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
+				AB4B35082B62787C003F8764 /* FavoritesNTFViewController.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
@@ -702,6 +725,7 @@
 				0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */,
 				AB4B34FE2B5EF217003F8764 /* MyNTFModel.swift in Sources */,
 				AB4B34F02B5B1835003F8764 /* ProfileModel.swift in Sources */,
+				AB4B350A2B627C72003F8764 /* FavoritesNTFCell.swift in Sources */,
 				AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */,
 				AB4B34F62B5D840A003F8764 /* MyNTFViewController.swift in Sources */,
 				AB4B34F22B5D5EA9003F8764 /* AlertController.swift in Sources */,

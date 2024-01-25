@@ -54,7 +54,9 @@ final class ProfileViewController: UIViewController {
     }
     
     private func favoritesNTFSectionClick() {
-        
+        let controller = FavoritesNTFViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     private func developerDescriptionClick() {
