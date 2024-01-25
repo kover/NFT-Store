@@ -9,19 +9,68 @@ import UIKit
 
 final class EditProfileViewController: UIViewController {
     
-    private let userAvatar = UIImageView()
+    private let closeButton: UIButton = {
+        let buttonImage = UIImage(
+            systemName: "xmark",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
+        )
+        let button = UIButton.systemButton(
+            with: buttonImage ?? UIImage(),
+            target: nil,
+            action: #selector(closeButtonClick)
+        )
+        button.tintColor = .ypBlack
+        button.backgroundColor = .clear
+        return button
+    }()
     
-    private let userNameField = UITextField()
+    private let userAvatar: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = Property.avatarDiameter/2
+        imageView.clipsToBounds = true
+        return imageView
+    }()
     
-    private let userDescriptionField = UITextView()
+    private let userNameField: UITextField = {
+        let textField = UITextField()
+        textField.layer.cornerRadius = 16
+        textField.backgroundColor = .clear
+        textField.textColor = .ypBlack
+        textField.font = UIFont.systemFont(ofSize: 17)
+        textField.placeholder = localized("Profile.Edit.UserName.Placeholder")
+        return textField
+    }()
     
-    private let userLinkField = UITextField()
+    private let userDescriptionField: UITextView = {
+        let textView = UITextView()
+        textView.layer.cornerRadius = 16
+        textView.backgroundColor = .clear
+        textView.textColor = .ypBlack
+        textView.font = UIFont.systemFont(ofSize: 17)
+        textView.textContainer.lineBreakMode = .byWordWrapping
+        return textView
+    }()
+    
+    private let userLinkField: UITextField = {
+        let textField = UITextField()
+        textField.layer.cornerRadius = 16
+        textField.backgroundColor = .clear
+        textField.textColor = .ypBlack
+        textField.font = UIFont.systemFont(ofSize: 17)
+        textField.placeholder = localized("Profile.Edit.UserLink.Placeholder")
+        return textField
+    }()
     
     private var onProfileInfoChanged: ( (ProfileModel) -> Void )?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        userAvatar.isUserInteractionEnabled = true
+        userAvatar.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(changeUserAvatar))
+        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -114,37 +163,17 @@ extension EditProfileViewController {
     
     private func configureLayout() {
         view.backgroundColor = .ypWhite
-        
-        let closeButtonImage = UIImage(
-            systemName: "xmark",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
-        )
-        let closeButton = UIButton.systemButton(
-            with: closeButtonImage ?? UIImage(),
-            target: nil,
-            action: #selector(closeButtonClick)
-        )
-        closeButton.tintColor = .ypBlack
-        closeButton.backgroundColor = .clear
-        
+                
         view.addSubView(
             closeButton, width: Property.closeButtonWidth, heigth: Property.closeButtonWidth,
             top: AnchorOf(view.topAnchor, 28),
             trailing: AnchorOf(view.trailingAnchor, -Property.commonMargin)
         )
         
-        userAvatar.contentMode = .scaleAspectFill
-        userAvatar.layer.cornerRadius = Property.avatarDiameter/2
-        userAvatar.clipsToBounds = true
-        
         view.addSubView(
             userAvatar, width: Property.avatarDiameter, heigth: Property.avatarDiameter,
             top: AnchorOf(closeButton.bottomAnchor, 22),
             centerX: AnchorOf(view.centerXAnchor)
-        )
-        userAvatar.isUserInteractionEnabled = true
-        userAvatar.addGestureRecognizer(
-            UITapGestureRecognizer(target: self, action: #selector(changeUserAvatar))
         )
         
         let userAvatarCover = UIImageView()
@@ -176,13 +205,7 @@ extension EditProfileViewController {
             top: AnchorOf(userAvatar.bottomAnchor, 24),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin)
         )
-        
-        userNameField.layer.cornerRadius = 16
-        userNameField.backgroundColor = .clear
-        userNameField.textColor = .ypBlack
-        userNameField.font = UIFont.systemFont(ofSize: 17)
-        userNameField.placeholder = localized("Profile.Edit.UserName.Placeholder")
-        
+                
         let userNameFieldBackground = UIView()
         userNameFieldBackground.layer.cornerRadius = Property.textFileldCornerRadius
         userNameFieldBackground.backgroundColor = .ypLigthGrey
@@ -208,13 +231,7 @@ extension EditProfileViewController {
             top: AnchorOf(userNameFieldBackground.bottomAnchor, 24),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin)
         )
-        
-        userDescriptionField.layer.cornerRadius = 16
-        userDescriptionField.backgroundColor = .clear
-        userDescriptionField.textColor = .ypBlack
-        userDescriptionField.font = UIFont.systemFont(ofSize: 17)
-        userDescriptionField.textContainer.lineBreakMode = .byWordWrapping
-        
+                
         let userDescriptionFieldBackground = UIView()
         userDescriptionFieldBackground.layer.cornerRadius = Property.textFileldCornerRadius
         userDescriptionFieldBackground.backgroundColor = .ypLigthGrey
@@ -240,13 +257,7 @@ extension EditProfileViewController {
             top: AnchorOf(userDescriptionFieldBackground.bottomAnchor, 24),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin)
         )
-        
-        userLinkField.layer.cornerRadius = 16
-        userLinkField.backgroundColor = .clear
-        userLinkField.textColor = .ypBlack
-        userLinkField.font = UIFont.systemFont(ofSize: 17)
-        userLinkField.placeholder = localized("Profile.Edit.UserLink.Placeholder")
-        
+                
         let userLinkFieldBackground = UIView()
         userLinkFieldBackground.layer.cornerRadius = Property.textFileldCornerRadius
         userLinkFieldBackground.backgroundColor = .ypLigthGrey

@@ -47,7 +47,7 @@
 		AB4B34E12B57DD3D003F8764 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */; };
 		AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E32B57DE5A003F8764 /* localized.swift */; };
 		AB4B34E72B57E305003F8764 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E62B57E305003F8764 /* UIColor+Extensions.swift */; };
-		AB4B34E92B58750D003F8764 /* ProfileFunctionalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E82B58750D003F8764 /* ProfileFunctionalSection.swift */; };
+		AB4B34E92B58750D003F8764 /* UIProfileFunctionalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E82B58750D003F8764 /* UIProfileFunctionalSection.swift */; };
 		AB4B34ED2B5A8778003F8764 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34EC2B5A8778003F8764 /* EditProfileViewController.swift */; };
 		AB4B34F02B5B1835003F8764 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34EF2B5B1835003F8764 /* ProfileModel.swift */; };
 		AB4B34F22B5D5EA9003F8764 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F12B5D5EA9003F8764 /* AlertController.swift */; };
@@ -122,7 +122,7 @@
 		AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		AB4B34E32B57DE5A003F8764 /* localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localized.swift; sourceTree = "<group>"; };
 		AB4B34E62B57E305003F8764 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		AB4B34E82B58750D003F8764 /* ProfileFunctionalSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFunctionalSection.swift; sourceTree = "<group>"; };
+		AB4B34E82B58750D003F8764 /* UIProfileFunctionalSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProfileFunctionalSection.swift; sourceTree = "<group>"; };
 		AB4B34EC2B5A8778003F8764 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		AB4B34EF2B5B1835003F8764 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		AB4B34F12B5D5EA9003F8764 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
@@ -407,7 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				AB4B34DD2B57DC6A003F8764 /* ProfileViewController.swift */,
-				AB4B34E82B58750D003F8764 /* ProfileFunctionalSection.swift */,
+				AB4B34E82B58750D003F8764 /* UIProfileFunctionalSection.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -683,7 +683,7 @@
 				AB4B34ED2B5A8778003F8764 /* EditProfileViewController.swift in Sources */,
 				0CFCB7422A78013E0009A829 /* Nft.swift in Sources */,
 				0CF2C2DD2A783CE600FDC837 /* ErrorView.swift in Sources */,
-				AB4B34E92B58750D003F8764 /* ProfileFunctionalSection.swift in Sources */,
+				AB4B34E92B58750D003F8764 /* UIProfileFunctionalSection.swift in Sources */,
 				0C79EE682A76DE0900EE90EA /* NftDetailPresenter.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* NftService.swift in Sources */,

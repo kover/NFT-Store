@@ -17,21 +17,76 @@ final class ProfileViewController: UIViewController {
         link: "Joaquin Phoenix.com"
     )
     
-    private let userAvatar = UIImageView()
+    private let editProfileButton: UIButton = {
+        let button = UIButton.systemButton(
+            with: UIImage(systemName: "square.and.pencil") ?? UIImage(),
+            target: nil,
+            action: #selector(editProfileButtonClick)
+        )
+        button.tintColor = .ypBlack
+        button.backgroundColor = .clear
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return button
+    }()
     
-    private let userName = UILabel()
+    private let userAvatar: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .ypBlack
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = Dimension.avatarDiameter/2
+        return imageView
+    }()
     
-    private let userDescription = UILabel()
+    private let userName: UILabel = {
+        let label = UILabel()
+        label.textColor = .ypBlack
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
     
-    private let userLink = UILabel()
+    private let userDescription: UILabel = {
+        let label = UILabel()
+        label.textColor = .ypBlack
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .left
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        return label
+    }()
     
-    private let ownNFTSection = ProfileFunctionalSection()
+    private let userLink: UILabel = {
+        let label = UILabel()
+        label.textColor = .ypBlue
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
     
-    private let favoriteNTFSection = ProfileFunctionalSection()
+    private let myNFTSection =
+        UIProfileFunctionalSection(title: localized("Profile.myNTF"))
+ 
+    private let favoriteNTFSection =
+        UIProfileFunctionalSection(title: localized("Profile.favoritesNTF"))
+    
+    private let developerSection =
+        UIProfileFunctionalSection(title: localized("Profile.aboutDeveloper"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        
+        myNFTSection.setAction { self.myNTFSectionClick() }
+        favoriteNTFSection.setAction { self.favoritesNTFSectionClick() }
+        developerSection.setAction { self.developerSectionClick() }
+        
         updateProfileInformation(from: profileModel)
     }
 
@@ -57,7 +112,7 @@ final class ProfileViewController: UIViewController {
         
     }
     
-    private func developerDescriptionClick() {
+    private func developerSectionClick() {
         
     }
     
@@ -87,17 +142,6 @@ extension ProfileViewController {
     }
     
     private func configureLayout() {
-        let editProfileButton = UIButton.systemButton(
-            with: UIImage(systemName: "square.and.pencil") ?? UIImage(),
-            target: nil,
-            action: #selector(editProfileButtonClick)
-        )
-        editProfileButton.tintColor = .ypBlack
-        editProfileButton.backgroundColor = .clear
-        
-        editProfileButton.contentVerticalAlignment = .fill
-        editProfileButton.contentHorizontalAlignment = .fill
-        editProfileButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         view.addSubView(
             editProfileButton, width: 42, heigth: 42,
@@ -105,22 +149,11 @@ extension ProfileViewController {
             trailing: AnchorOf(view.trailingAnchor, -16)
         )
         
-        userAvatar.tintColor = .ypBlack
-        userAvatar.contentMode = .scaleAspectFill
-        userAvatar.clipsToBounds = true
-        userAvatar.layer.cornerRadius = Dimension.avatarDiameter/2
-        
         view.addSubView(
             userAvatar, width: Dimension.avatarDiameter, heigth: Dimension.avatarDiameter,
             top: AnchorOf(editProfileButton.bottomAnchor, 20),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin)
         )
-        
-        userName.textColor = .ypBlack
-        userName.font = UIFont.boldSystemFont(ofSize: 22)
-        userName.textAlignment = .left
-        userName.numberOfLines = 1
-        userName.lineBreakMode = .byTruncatingTail
         
         view.addSubView(
             userName,
@@ -128,62 +161,40 @@ extension ProfileViewController {
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin),
             centerY: AnchorOf(userAvatar.centerYAnchor)
         )
-        
-        userDescription.textColor = .ypBlack
-        userDescription.font = UIFont.systemFont(ofSize: 13)
-        userDescription.textAlignment = .left
-        userDescription.lineBreakMode = .byWordWrapping
-        userDescription.numberOfLines = 0
-       
+               
         view.addSubView(
             userDescription,
             top: AnchorOf(userAvatar.bottomAnchor, 20),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-        
-        userLink.textColor = .ypBlue
-        userLink.font = UIFont.systemFont(ofSize: 15)
-        userLink.textAlignment = .left
-        userLink.numberOfLines = 1
-        userLink.lineBreakMode = .byTruncatingTail
-        
+                
         view.addSubView(
             userLink,
             top: AnchorOf(userDescription.bottomAnchor, 12),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-        
+  
         view.addSubView(
-            ownNFTSection.view, heigth: Dimension.functionalSectionHeigth,
+            myNFTSection, heigth: Dimension.functionalSectionHeigth,
             top: AnchorOf(userLink.bottomAnchor, 40),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-        ownNFTSection.setup()
-        ownNFTSection.setContentTitle(localized("Profile.myNTF"))
-        ownNFTSection.setAction { self.myNTFSectionClick() }
         
         view.addSubView(
-            favoriteNTFSection.view, heigth: Dimension.functionalSectionHeigth,
-            top: AnchorOf(ownNFTSection.view.bottomAnchor),
+            favoriteNTFSection, heigth: Dimension.functionalSectionHeigth,
+            top: AnchorOf(myNFTSection.bottomAnchor),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-        favoriteNTFSection.setup()
-        favoriteNTFSection.setContentTitle(localized("Profile.favoritesNTF"))
-        favoriteNTFSection.setAction { self.favoritesNTFSectionClick() }
-        
-        let developerDescription = ProfileFunctionalSection()
+    
         view.addSubView(
-            developerDescription.view, heigth: Dimension.functionalSectionHeigth,
-            top: AnchorOf(favoriteNTFSection.view.bottomAnchor),
+            developerSection, heigth: Dimension.functionalSectionHeigth,
+            top: AnchorOf(favoriteNTFSection.bottomAnchor),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-        developerDescription.setup()
-        developerDescription.setContentTitle(localized("Profile.aboutDeveloper"))
-        developerDescription.setAction { self.developerDescriptionClick() }
     }
 }

@@ -15,11 +15,48 @@ class MyNTFViewController: UIViewController {
         MyNTFScreenModel(title: "Spring", artwork: UIImage(named: "NTF2") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 4, isFavorite: true)
     ]
     
+    private let backButton: UIButton = {
+        let backButtonImage = UIImage(
+            systemName: "chevron.backward",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
+        )
+        let button = UIButton.systemButton(
+            with: backButtonImage ?? UIImage(),
+            target: nil,
+            action: #selector(onBackButtonClick)
+        )
+        button.tintColor = .ypBlack
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    private let screenTitle: UILabel = {
+        let label = UILabel()
+        label.textColor = .ypBlack
+        label.backgroundColor = .clear
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = localized("Profile.myNTF")
+        return label
+    }()
+    
+    private let sortButton: UIButton = {
+        let button = UIButton.systemButton(
+        with: UIImage(named: "Sort") ?? UIImage(),
+        target: nil,
+        action: #selector(onSortButtonClick)
+    )
+        button.tintColor = .ypBlack
+        button.backgroundColor = .clear
+        return button
+    }()
+    
     private let NTFCollection: UICollectionView = {
-        UICollectionView(
+        let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: UICollectionViewFlowLayout()
         )
+        collectionView.backgroundColor = .clear
+        return collectionView
     }()
 
     override func viewDidLoad() {
@@ -82,44 +119,18 @@ extension MyNTFViewController {
     
     private func configureLayout() {
         view.backgroundColor = .ypWhite
-        
-        let backButtonImage = UIImage(
-            systemName: "chevron.backward",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold, scale: .default)
-        )
-        let backButton = UIButton.systemButton(
-            with: backButtonImage ?? UIImage(),
-            target: nil,
-            action: #selector(onBackButtonClick)
-        )
-        backButton.tintColor = .ypBlack
-        backButton.backgroundColor = .clear
-        
+                
         view.addSubView(
             backButton, width: Property.backButtonWidth, heigth: Property.backButtonWidth,
             top: AnchorOf(view.topAnchor, 52),
             leading: AnchorOf(view.leadingAnchor, 8)
         )
-        
-        let screenTitle = UILabel()
-        screenTitle.textColor = .ypBlack
-        screenTitle.backgroundColor = .clear
-        screenTitle.font = UIFont.boldSystemFont(ofSize: 17)
-        screenTitle.text = localized("Profile.myNTF")
-        
+                
         view.addSubView(
             screenTitle,
             centerX: AnchorOf(view.centerXAnchor),
             centerY: AnchorOf(backButton.centerYAnchor)
         )
-        
-        let sortButton = UIButton.systemButton(
-            with: UIImage(named: "Sort") ?? UIImage(),
-            target: nil,
-            action: #selector(onSortButtonClick)
-        )
-        sortButton.tintColor = .ypBlack
-        sortButton.backgroundColor = .clear
         
         view.addSubView(
             sortButton, width: Property.sortButtonWidth, heigth: Property.sortButtonWidth,
@@ -127,7 +138,6 @@ extension MyNTFViewController {
             centerY: AnchorOf(screenTitle.centerYAnchor)
         )
         
-        NTFCollection.backgroundColor = .clear
         view.addSubView(
             NTFCollection,
             top: AnchorOf(screenTitle.bottomAnchor, 46),
