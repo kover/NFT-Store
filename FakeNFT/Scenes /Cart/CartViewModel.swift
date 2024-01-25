@@ -15,7 +15,10 @@ final class CartViewModel {
     var onNFTsLoaded: (() -> Void)?
     var onError: ((Error) -> Void)?
 
-    let order = OrderModel(nfts: ["1", "2", "3"], id: "order1")
+    let order = OrderModel(nfts: ["1ce4f491-877d-48d0-9428-0e0129a80ec9",
+                                  "7dc60644-d3cd-4cf9-9854-f5293ebe93f7",
+                                  "db196ee3-07ef-44e7-8ff5-16548fc6f434"],
+                           id: "order1")
 
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
