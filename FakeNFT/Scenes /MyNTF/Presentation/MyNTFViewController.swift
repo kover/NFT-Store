@@ -122,7 +122,7 @@ extension MyNTFViewController {
                 
         view.addSubView(
             backButton, width: Property.backButtonWidth, heigth: Property.backButtonWidth,
-            top: AnchorOf(view.topAnchor, 52),
+            top: AnchorOf(view.safeAreaLayoutGuide.topAnchor, 8),
             leading: AnchorOf(view.leadingAnchor, 8)
         )
                 
