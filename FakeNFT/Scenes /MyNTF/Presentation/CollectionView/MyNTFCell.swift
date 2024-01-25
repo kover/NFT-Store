@@ -11,19 +11,64 @@ class MyNTFCell: UICollectionViewCell {
     
     static let identifier = "MyNTFCell"
     
-    private let title = UILabel()
+    private let title: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = .ypBlack
+        return label
+    }()
     
-    private let artwork = UIImageView()
+    private let artwork: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 12
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
     
-    private let author = UILabel()
+    private let author: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = .ypBlack
+        return label
+    }()
     
-    private let price = UILabel()
+    private let priceSectionTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = .ypBlack
+        label.text = localized("Price")
+        return label
+    }()
     
-    private var favoriteButton: UIButton!
+    private let price: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = .ypBlack
+        return label
+    }()
+    
+    private let favoriteButton: UIButton = {
+        let button = UIButton.systemButton(
+            with: UIImage(systemName: "heart.fill") ?? UIImage(),
+            target: nil,
+            action: #selector(favoriteButtonClick)
+        )
+        return button
+    }()
+    
+    private let ratingPanel: StarRatingPanel = {
+        let starRatingPanel = StarRatingPanel(starsCount: 5)
+        starRatingPanel.starSpacing = 2
+        starRatingPanel.activeColor = .ypYellow
+        starRatingPanel.inactiveColor = .ypLigthGrey
+        starRatingPanel.symbolConfiguration =
+            UIImage.SymbolConfiguration(pointSize: 11, weight: .regular, scale: .default)
+        starRatingPanel.setup()
+        return starRatingPanel
+    }()
     
     private var isFavorite = false
-    
-    private let ratingPanel = StarRatingPanel(starsCount: 5)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,74 +97,43 @@ class MyNTFCell: UICollectionViewCell {
     
     private func configureCell() {
         contentView.backgroundColor = .clear
-        
-        artwork.layer.cornerRadius = 12
-        artwork.contentMode = .scaleAspectFill
-        artwork.clipsToBounds = true
-        
+
         contentView.addSubView(
             artwork, width: 108, heigth: 108,
             top: AnchorOf(contentView.topAnchor),
             leading: AnchorOf(contentView.leadingAnchor)
         )
         
-        title.font = UIFont.boldSystemFont(ofSize: 17)
-        title.textColor = .ypBlack
-        
         contentView.addSubView(
             title,
             top: AnchorOf(contentView.topAnchor, 24),
             leading: AnchorOf(artwork.trailingAnchor, 20)
         )
-        
-        ratingPanel.starSpacing = 2
-        ratingPanel.activeColor = .ypYellow
-        ratingPanel.inactiveColor = .ypLigthGrey
-        ratingPanel.symbolConfiguration =
-            UIImage.SymbolConfiguration(pointSize: 11, weight: .regular, scale: .default)
-        ratingPanel.setup()
-        
+                
         contentView.addSubView(
             ratingPanel.view, heigth: 12,
             top: AnchorOf(title.bottomAnchor, 4),
             leading: AnchorOf(title.leadingAnchor)
         )
         
-        author.font = UIFont.systemFont(ofSize: 13)
-        author.textColor = .ypBlack
-        
         contentView.addSubView(
             author,
             top: AnchorOf(ratingPanel.view.bottomAnchor, 4),
             leading: AnchorOf(title.leadingAnchor)
         )
-        
-        let priceSectionTitle = UILabel()
-        priceSectionTitle.font = UIFont.systemFont(ofSize: 13)
-        priceSectionTitle.textColor = .ypBlack
-        priceSectionTitle.text = localized("Price")
-        
+                
         contentView.addSubView(
             priceSectionTitle,
             leading: AnchorOf(artwork.trailingAnchor, 140),
             centerY: AnchorOf(ratingPanel.view.centerYAnchor, -8)
         )
-        
-        price.font = UIFont.boldSystemFont(ofSize: 17)
-        price.textColor = .ypBlack
-        
+                
         contentView.addSubView(
             price,
             top: AnchorOf(priceSectionTitle.bottomAnchor, 2),
             leading: AnchorOf(priceSectionTitle.leadingAnchor)
         )
-        
-        favoriteButton = UIButton.systemButton(
-            with: UIImage(systemName: "heart.fill") ?? UIImage(),
-            target: nil,
-            action: #selector(favoriteButtonClick)
-        )
-        
+                
         contentView.addSubView(
             favoriteButton, width: 42, heigth: 42,
             top: AnchorOf(artwork.topAnchor),

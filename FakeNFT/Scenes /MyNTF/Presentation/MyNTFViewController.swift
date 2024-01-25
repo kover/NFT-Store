@@ -15,7 +15,12 @@ class MyNTFViewController: UIViewController {
         MyNTFScreenModel(title: "Spring", artwork: UIImage(named: "NTF2") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 4, isFavorite: true)
     ]
     
-    private var NTFCollection: UICollectionView!
+    private let NTFCollection: UICollectionView = {
+        UICollectionView(
+            frame: .zero,
+            collectionViewLayout: UICollectionViewFlowLayout()
+        )
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +29,7 @@ class MyNTFViewController: UIViewController {
     }
     
     private func configureNTFCollection() {
-        NTFCollection = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: configureNTFCollectionFlowLayout()
-        )
+        NTFCollection.collectionViewLayout = configureNTFCollectionFlowLayout()
         NTFCollection.dataSource = self
         NTFCollection.register(MyNTFCell.self, forCellWithReuseIdentifier: MyNTFCell.identifier)
     }
