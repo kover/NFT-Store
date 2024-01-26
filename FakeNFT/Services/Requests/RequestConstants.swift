@@ -6,6 +6,7 @@ enum RequestConstants {
     case collections
     case nftById(id: String)
     case userById(id: String)
+    case profile
 
     var url: URL? {
         switch self {
@@ -18,6 +19,9 @@ enum RequestConstants {
                 string: "api/v1/users/\(id)",
                 relativeTo: URL(string: RequestConstants.baseURL)
             )
+        case .profile:
+            return URL(string: "/api/v1/profile/1", relativeTo: URL(string: RequestConstants.baseURL))
         }
+
     }
 }

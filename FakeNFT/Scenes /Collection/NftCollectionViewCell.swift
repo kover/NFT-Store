@@ -77,7 +77,7 @@ class NftCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func setupCell(with item: NftItem) {
+    func setupCell(with item: NftItem, isFavorite: Bool) {
         self.item = item
         if let imageUrl = item.images.first {
             coverImage.kf.indicatorType = .activity
@@ -86,6 +86,7 @@ class NftCollectionViewCell: UICollectionViewCell {
         ratingView.rating = item.rating
         nameLabel.text = item.name
         priceLabel.text = "\(item.price) ETH"
+        self.isFavorite = isFavorite
 
         setupSubviews()
         setupLayout()

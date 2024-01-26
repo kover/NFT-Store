@@ -17,9 +17,13 @@ final class CollectionViewModel {
     @Observable
     private(set) var nfts: [NftItem] = []
 
+    @Observable
+    private(set) var profile: Profile?
+
     init(collection: NftCollection, serviceAssembly: ServicesAssembly) {
         self.collection = collection
         self.serviceAssembly = serviceAssembly
+        loadProfile()
         loadNfts(by: collection.nfts)
     }
 
@@ -43,6 +47,40 @@ final class CollectionViewModel {
             DispatchQueue.global().async {
                 sleep(sleepFor)
                 self.loadNft(by: id)
+            }
+        }
+    }
+
+    func toggleLike(for id: String) {
+        UIBlockingProgressHUD.show()
+        var likes = profile?.likes ?? []
+        likes = likes.contains(where: { $0 == id }) ? likes.filter { $0 != id } : likes + [id]
+        let model = Likes(likes: likes)
+        serviceAssembly.profileService.setLikes(model) { [weak self] result in
+            switch result {
+            case .success(let profile):
+                self?.profile = profile
+            case .failure(let error):
+                // TODO: - Show alert with the details
+                print(error.localizedDescription)
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+
+    func isLikeSet(for id: String) -> Bool {
+        return profile?.likes.contains { $0 == id } ?? false
+    }
+}
+private extension CollectionViewModel {
+    func loadProfile() {
+        serviceAssembly.profileService.getProfile { [weak self] result in
+            switch result {
+            case .success(let profile):
+                self?.profile = profile
+            case .failure(let error):
+                // TODO: - Show alert with the details
+                print(error.localizedDescription)
             }
         }
     }
