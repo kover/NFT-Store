@@ -10,8 +10,6 @@ import Foundation
 final class CartViewModel {
     private let serviceAssembly: ServicesAssembly
     var nftModels: [NftModel] = []
-    private var isLoading = false
-
     var onNFTsLoaded: (() -> Void)?
     var onError: ((Error) -> Void)?
 
@@ -21,36 +19,36 @@ final class CartViewModel {
     }
 
     func loadOrder() {
-            isLoading = true
-            UIBlockingProgressHUD.show()
+        UIBlockingProgressHUD.show()
 
-            serviceAssembly.cartService.getOrder { [weak self] result in
-                defer {
-                    self?.isLoading = false
-                    UIBlockingProgressHUD.dismiss()
-                }
-                switch result {
-                case .success(let order):
-                    self?.loadNFTs(for: order.nfts)
-                case .failure(let error):
-                    self?.onError?(error)
-                }
+        serviceAssembly.cartService.getOrder { [weak self] result in
+            switch result {
+            case .success(let order):
+                self?.loadNFTs(for: order.nfts)
+            case .failure(let error):
+                UIBlockingProgressHUD.dismiss()
+                self?.onError?(error)
             }
         }
+    }
 
-        private func loadNFTs(for ids: [String]) {
-            serviceAssembly.cartService.getNftItems(ids: ids) { [weak self] result in
-                switch result {
-                case .success(let nfts):
-                    self?.nftModels = nfts
-                    DispatchQueue.main.async {
-                        self?.onNFTsLoaded?()
-                    }
-                case .failure(let error):
-                    self?.onError?(error)
+    private func loadNFTs(for ids: [String]) {
+        serviceAssembly.cartService.getNftItems(ids: ids) { [weak self] result in
+            defer {
+                UIBlockingProgressHUD.dismiss()
+            }
+            switch result {
+            case .success(let nfts):
+                self?.nftModels = nfts
+                DispatchQueue.main.async {
+                    self?.onNFTsLoaded?()
                 }
+            case .failure(let error):
+                self?.onError?(error)
             }
         }
+    }
+
 
 
     func totalAmount() -> Float {
