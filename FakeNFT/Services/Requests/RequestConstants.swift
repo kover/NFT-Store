@@ -4,6 +4,7 @@ enum RequestConstants {
     static let baseURL = "https://d5dn3j2ouj72b0ejucbl.apigw.yandexcloud.net/"
 
     case collections
+    case order
     case nftById(id: String)
     case userById(id: String)
 
@@ -15,6 +16,8 @@ enum RequestConstants {
             return "api/v1/nft/\(id)"
         case .userById(let id):
             return "api/v1/users/\(id)"
+        case .order:
+            return "/api/v1/orders/1"
         }
     }
 
@@ -29,6 +32,10 @@ enum RequestConstants {
                 string: RequestConstants.userById(id: id).path,
                 relativeTo: URL(string: RequestConstants.baseURL)
             )
+        case .order:
+            return URL(
+                string: RequestConstants.order.path,
+                relativeTo: URL(string: RequestConstants.baseURL))
         }
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 final class CartViewController: UIViewController {
     
-    let viewModel: CartViewModel
+    private let viewModel: CartViewModel
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -78,6 +78,7 @@ final class CartViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         view.backgroundColor = .systemBackground
         addSubViews()
         setupConstraints()
@@ -99,21 +100,21 @@ final class CartViewController: UIViewController {
         return sortButton
     }
     
-    @objc func sortButtonTapped() {
+    @objc private func sortButtonTapped() {
         let alertController = UIAlertController(title: nil, message: "Сортировка", preferredStyle: .actionSheet)
         
-        let sortByName = UIAlertAction(title: "Название", style: .default) { [weak self] _ in
-            self?.viewModel.sortNFTs(by: .name)
-            self?.tableView.reloadData()
-        }
-        
-        let sortByPrice = UIAlertAction(title: "Цена", style: .default) { [weak self] _ in
+        let sortByName = UIAlertAction(title: "По цене", style: .default) { [weak self] _ in
             self?.viewModel.sortNFTs(by: .price)
             self?.tableView.reloadData()
         }
         
-        let sortByRating = UIAlertAction(title: "Рейтинг", style: .default) { [weak self] _ in
+        let sortByPrice = UIAlertAction(title: "По рейтингу", style: .default) { [weak self] _ in
             self?.viewModel.sortNFTs(by: .rating)
+            self?.tableView.reloadData()
+        }
+        
+        let sortByRating = UIAlertAction(title: "По названию", style: .default) { [weak self] _ in
+            self?.viewModel.sortNFTs(by: .name)
             self?.tableView.reloadData()
         }
         

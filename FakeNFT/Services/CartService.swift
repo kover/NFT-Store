@@ -7,6 +7,7 @@
 import Foundation
 
 protocol CartServiceProtocol {
+    func getOrder(completion: @escaping (Result<OrderModel, Error>) -> Void)
     func getNftItems(ids: [String], completion: @escaping (Result<[NftModel], Error>) -> Void)
 }
 
@@ -41,6 +42,18 @@ struct CartService: CartServiceProtocol {
                 completion(.failure(errors[0]))
             } else {
                 completion(.success(nftItems))
+            }
+        }
+    }
+    
+    func getOrder(completion: @escaping (Result<OrderModel, Error>) -> Void) {
+        let request = GetNftOrderRequest()
+        networkClient.send(request: request, type: OrderModel.self) { result in
+            switch result {
+            case .success(let order):
+                completion(.success(order))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

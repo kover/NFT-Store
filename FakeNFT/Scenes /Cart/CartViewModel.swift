@@ -15,37 +15,42 @@ final class CartViewModel {
     var onNFTsLoaded: (() -> Void)?
     var onError: ((Error) -> Void)?
 
-    let order = OrderModel(nfts: ["1ce4f491-877d-48d0-9428-0e0129a80ec9",
-                                  "7dc60644-d3cd-4cf9-9854-f5293ebe93f7",
-                                  "db196ee3-07ef-44e7-8ff5-16548fc6f434"],
-                           id: "order1")
-
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
-        loadNFTs()
+        loadOrder()
     }
 
-    private func loadNFTs() {
-        isLoading = true
-        UIBlockingProgressHUD.show()
+    func loadOrder() {
+            isLoading = true
+            UIBlockingProgressHUD.show()
 
-        serviceAssembly.cartService.getNftItems(ids: order.nfts) { [weak self] result in
-            defer {
-                self?.isLoading = false
-                UIBlockingProgressHUD.dismiss()
-            }
-
-            switch result {
-            case .success(let nfts):
-                self?.nftModels = nfts
-                DispatchQueue.main.async {
-                    self?.onNFTsLoaded?()
+            serviceAssembly.cartService.getOrder { [weak self] result in
+                defer {
+                    self?.isLoading = false
+                    UIBlockingProgressHUD.dismiss()
                 }
-            case .failure(let error):
-                self?.onError?(error)
+                switch result {
+                case .success(let order):
+                    self?.loadNFTs(for: order.nfts)
+                case .failure(let error):
+                    self?.onError?(error)
+                }
             }
         }
-    }
+
+        private func loadNFTs(for ids: [String]) {
+            serviceAssembly.cartService.getNftItems(ids: ids) { [weak self] result in
+                switch result {
+                case .success(let nfts):
+                    self?.nftModels = nfts
+                    DispatchQueue.main.async {
+                        self?.onNFTsLoaded?()
+                    }
+                case .failure(let error):
+                    self?.onError?(error)
+                }
+            }
+        }
 
 
     func totalAmount() -> Float {
