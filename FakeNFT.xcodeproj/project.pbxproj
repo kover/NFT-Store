@@ -26,6 +26,7 @@
 		0361515C2B666FA500627EDB /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361515B2B666FA500627EDB /* AlertPresenter.swift */; };
 		036151602B66704300627EDB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361515F2B66704300627EDB /* Alert.swift */; };
 		036151612B6683C500627EDB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 036151632B6683C500627EDB /* Localizable.strings */; };
+		036151662B66882A00627EDB /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036151652B66882A00627EDB /* SortOrder.swift */; };
 		036361AF2B6002C10063E26B /* AuthorPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036361AE2B6002C10063E26B /* AuthorPageViewController.swift */; };
 		03C2C82A2B5DC7B10053F08E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8292B5DC7B10053F08E /* RatingView.swift */; };
 		03D8655D2B54616000796EE6 /* CartDecomposition.md in Resources */ = {isa = PBXBuildFile; fileRef = 03D8655C2B54616000796EE6 /* CartDecomposition.md */; };
@@ -114,6 +115,7 @@
 		0361515F2B66704300627EDB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		036151622B6683C500627EDB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		036151642B6683C700627EDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		036151652B66882A00627EDB /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 		036361AE2B6002C10063E26B /* AuthorPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPageViewController.swift; sourceTree = "<group>"; };
 		03C2C8292B5DC7B10053F08E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		03D8655C2B54616000796EE6 /* CartDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CartDecomposition.md; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 				03100A642B6362BE00EE6E13 /* Profile */,
 				03EC0D8E2B57ADB2004DD31E /* Catalog */,
 				3F6806D829CC979D00B4F915 /* Network */,
+				036151652B66882A00627EDB /* SortOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0300A5BD2B5E8012000A5DD0 /* CollectionViewController.swift in Sources */,
 				03EC0D922B57ADF8004DD31E /* CatalogViewController.swift in Sources */,
+				036151662B66882A00627EDB /* SortOrder.swift in Sources */,
 				03100A682B6362D600EE6E13 /* Likes.swift in Sources */,
 				0338D0992B5F611C0050BBB3 /* NftCollectionViewCell.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* NftService.swift in Sources */,
