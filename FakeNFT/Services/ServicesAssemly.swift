@@ -29,4 +29,8 @@ final class ServicesAssembly {
     var profileService: ProfileServiceProtocol {
         ProfileService(networkClient: networkClient)
     }
+
+    var orderService: OrderServiceProtocol {
+        OrderService(networkClient: networkClient)
+    }
 }

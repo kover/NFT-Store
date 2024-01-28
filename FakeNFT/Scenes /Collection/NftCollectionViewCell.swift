@@ -77,7 +77,16 @@ class NftCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func setupCell(with item: NftItem, isFavorite: Bool) {
+    private var isInOrder: Bool = false {
+        didSet {
+            guard let image = isInOrder ? UIImage(named: "CartFull") : UIImage(named: "CartEmpty") else {
+                return
+            }
+            cartButton.setImage(image, for: .normal)
+        }
+    }
+
+    func setupCell(with item: NftItem, isFavorite: Bool, isInOrder: Bool) {
         self.item = item
         if let imageUrl = item.images.first {
             coverImage.kf.indicatorType = .activity
@@ -87,6 +96,7 @@ class NftCollectionViewCell: UICollectionViewCell {
         nameLabel.text = item.name
         priceLabel.text = "\(item.price) ETH"
         self.isFavorite = isFavorite
+        self.isInOrder = isInOrder
 
         setupSubviews()
         setupLayout()

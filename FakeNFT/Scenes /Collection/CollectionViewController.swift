@@ -161,6 +161,10 @@ extension CollectionViewController {
         viewModel.$profile.bind { [weak self] _ in
             self?.collectionNfts.reloadData()
         }
+
+        viewModel.$order.bind { [weak self] _ in
+            self?.collectionNfts.reloadData()
+        }
     }
 
     @objc func showAuthorPage() {
@@ -187,7 +191,8 @@ extension CollectionViewController: UICollectionViewDataSource {
 
         let item = viewModel.nfts[indexPath.row]
         let isFavorite = viewModel.isLikeSet(for: item.id)
-        nftCell.setupCell(with: item, isFavorite: isFavorite)
+        let isInOrder = viewModel.isInOrder(item.id)
+        nftCell.setupCell(with: item, isFavorite: isFavorite, isInOrder: isInOrder)
         nftCell.delegate = self
 
         return nftCell
@@ -222,7 +227,7 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - NftCollectionViewCellDelegate
 extension CollectionViewController: NftCollectionViewCellDelegate {
     func didTapCart(_ item: NftItem) {
-        // TODO: - Implement add to/remove from cart feature
+        viewModel.toggleOrder(for: item.id)
     }
 
     func didTapLike(_ item: NftItem) {
