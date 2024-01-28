@@ -23,6 +23,12 @@ final class DI {
         )
     }
     
+    static func injectFavoritesNTFViewModel() -> FavoritesNTFViewModelProtocol {
+        FavoritesNTFViewModel(
+            NTFRepository: injectNTFRepository()
+        )
+    }
+    
 //MARK: - Repositories injections
     static func injectProfileRepository() -> ProfileRepository {
         ProfileRepositoryImpl()

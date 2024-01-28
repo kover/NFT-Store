@@ -117,7 +117,9 @@ final class ProfileViewController: UIViewController {
     }
     
     private func favoritesNTFSectionClick() {
-        //TODO swich on favoritesNTFViewController
+        let controller = FavoritesNTFViewController(viewModel: DI.injectFavoritesNTFViewModel())
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     private func developerSectionClick() {
