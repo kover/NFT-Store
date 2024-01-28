@@ -8,7 +8,7 @@
 import UIKit
 
 final class CatalogViewController: UIViewController {
-    let viewModel: CatalogViewModel
+    private let viewModel: CatalogViewModel
     private let serviceAssembly: ServicesAssembly
     private var alertPresenter: AlertPresenterProtocol
 
@@ -41,6 +41,7 @@ final class CatalogViewController: UIViewController {
     }()
 
     init(viewModel: CatalogViewModel, serviceAssembly: ServicesAssembly, alertPresenter: AlertPresenterProtocol) {
+        viewModel.alertPresenter = alertPresenter
         self.viewModel = viewModel
         self.serviceAssembly = serviceAssembly
         self.alertPresenter = alertPresenter
@@ -58,7 +59,6 @@ final class CatalogViewController: UIViewController {
         navigationItem.backButtonTitle = ""
 
         alertPresenter.delegate = self
-        viewModel.alertPresenter = alertPresenter
 
         configureNavBar()
         setupSubviews()
