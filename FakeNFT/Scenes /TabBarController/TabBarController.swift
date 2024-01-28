@@ -24,7 +24,7 @@ final class TabBarController: UITabBarController {
         )
         catalogController.tabBarItem = catalogTabBarItem
         
-        let profileController = ProfileViewController()
+        let profileController = ProfileViewController(viewModel: DI.injectProfileViewModel())
         profileController.tabBarItem = profileTabBarItem
 
         viewControllers = [profileController, catalogController]

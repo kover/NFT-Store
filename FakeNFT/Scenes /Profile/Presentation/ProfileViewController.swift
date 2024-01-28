@@ -9,13 +9,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-    //temporarily mocked profile information
-    private var profileModel = ProfileModel(
-        avatar: nil,
-        name: "Joaquin Phoenix",
-        description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
-        link: "Joaquin Phoenix.com"
-    )
+    private let viewModel: ProfileViewModelProtocol
     
     private let editProfileButton: UIButton = {
         let button = UIButton.systemButton(
@@ -79,49 +73,63 @@ final class ProfileViewController: UIViewController {
     private let developerSection =
         UIProfileFunctionalSection(title: localized("Profile.aboutDeveloper"))
     
+    init(viewModel: ProfileViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        setObservers()
         
         myNFTSection.setAction { self.myNTFSectionClick() }
         favoriteNTFSection.setAction { self.favoritesNTFSectionClick() }
         developerSection.setAction { self.developerSectionClick() }
-        
-        updateProfileInformation(from: profileModel)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.onViewLoaded()
     }
 
     @objc
     private func editProfileButtonClick() {
+        viewModel.profileEditRequire()
+        
         let controller = EditProfileViewController()
-        controller.setProfileModel(profileModel)
+        controller.setProfileModel(viewModel.getProfileInfo())
         controller.onProfileInfoChanged { [weak self] model in
             guard let self else { return }
-            self.updateProfileInformation(from: model)
-            self.profileModel = model
+            self.viewModel.setProfileInfo(model)
         }
         present(controller, animated: true)
     }
     
     private func myNTFSectionClick() {
-        let controller = MyNTFViewController()
+        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel())
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
     private func favoritesNTFSectionClick() {
-        
+        //TODO swich on favoritesNTFViewController
     }
     
     private func developerSectionClick() {
-        
+        //TODO swich on DeveloperViewController
     }
     
-    private func updateOwnNTFCount(_ count: Int?) {
-        
+    private func updateMyNTFCount(_ count: Int?) {
+        myNFTSection.setContentCount(count)
     }
     
     private func updateFavoritesNTFCount(_ count: Int?) {
-        
+        favoriteNTFSection.setContentCount(count)
     }
     
     private func updateProfileInformation(from model: ProfileModel) {
@@ -129,6 +137,22 @@ final class ProfileViewController: UIViewController {
         userName.text = model.name
         userDescription.text = model.description
         userLink.text = model.link
+    }
+    
+//MARK: - Observers
+    private func setObservers() {
+        viewModel.observeProfileInfo { [weak self] profileModel in
+            guard let self else { return }
+            self.updateProfileInformation(from: profileModel)
+        }
+        viewModel.observeMyNTFCount { [weak self] NTFcount in
+            guard let self else { return }
+            self.updateMyNTFCount(NTFcount)
+        }
+        viewModel.observeFavoritesNTFCount { [weak self] NTFcount in
+            guard let self else { return }
+            self.updateFavoritesNTFCount(NTFcount)
+        }
     }
 }
 

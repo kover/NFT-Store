@@ -1,5 +1,5 @@
 //
-//  MyNTFScreenModel.swift
+//  MyNTFModel.swift
 //  FakeNFT
 //
 //  Created by Avtor_103 on 22.01.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct MyNTFScreenModel {
+struct NTFModel {
     let id: String
     let title: String
     let artwork: UIImage

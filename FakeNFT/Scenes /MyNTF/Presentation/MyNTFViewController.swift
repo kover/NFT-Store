@@ -8,12 +8,8 @@
 import UIKit
 
 class MyNTFViewController: UIViewController {
-    
-    //Mocked models
-    private var NTFList = [
-        MyNTFScreenModel(title: "Lilo", artwork: UIImage(named: "NTF1") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 3, isFavorite: false),
-        MyNTFScreenModel(title: "Spring", artwork: UIImage(named: "NTF2") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 4, isFavorite: true)
-    ]
+
+    private let viewModel: MyNTFViewModelProtocol
     
     private let backButton: UIButton = {
         let backButtonImage = UIImage(
@@ -59,6 +55,15 @@ class MyNTFViewController: UIViewController {
         return collectionView
     }()
 
+    init(viewModel: MyNTFViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNTFCollection()
@@ -78,7 +83,7 @@ class MyNTFViewController: UIViewController {
     
     @objc
     private func onSortButtonClick() {
-        
+        //TODO sort NTF items
     }
 }
 
@@ -86,7 +91,7 @@ class MyNTFViewController: UIViewController {
 extension MyNTFViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int
     ) -> Int {
-        NTFList.count
+        viewModel.itemCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath
@@ -94,8 +99,9 @@ extension MyNTFViewController: UICollectionViewDataSource {
         guard let cell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: MyNTFCell.identifier, for: indexPath) as? MyNTFCell else { return UICollectionViewCell() }
         
-        cell.setModel(NTFList[indexPath.item])
-        
+        if let model = viewModel.object(for: indexPath) {
+            cell.setModel(model)
+        }
         return cell
     }
     
