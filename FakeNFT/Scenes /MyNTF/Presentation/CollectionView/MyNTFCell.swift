@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyNTFCell: UICollectionViewCell {
+final class MyNTFCell: UICollectionViewCell {
     
     static let identifier = "MyNTFCell"
     
@@ -57,14 +57,13 @@ class MyNTFCell: UICollectionViewCell {
         return button
     }()
     
-    private let ratingPanel: StarRatingPanel = {
-        let starRatingPanel = StarRatingPanel(starsCount: 5)
+    private let ratingPanel: UIStarRatingPanel = {
+        let starRatingPanel = UIStarRatingPanel(starsCount: 5)
         starRatingPanel.starSpacing = 2
         starRatingPanel.activeColor = .ypYellow
         starRatingPanel.inactiveColor = .ypLigthGrey
         starRatingPanel.symbolConfiguration =
             UIImage.SymbolConfiguration(pointSize: 11, weight: .regular, scale: .default)
-        starRatingPanel.setup()
         return starRatingPanel
     }()
     
@@ -111,21 +110,21 @@ class MyNTFCell: UICollectionViewCell {
         )
                 
         contentView.addSubView(
-            ratingPanel.view, heigth: 12,
+            ratingPanel, heigth: 12,
             top: AnchorOf(title.bottomAnchor, 4),
             leading: AnchorOf(title.leadingAnchor)
         )
         
         contentView.addSubView(
             author,
-            top: AnchorOf(ratingPanel.view.bottomAnchor, 4),
+            top: AnchorOf(ratingPanel.bottomAnchor, 4),
             leading: AnchorOf(title.leadingAnchor)
         )
                 
         contentView.addSubView(
             priceSectionTitle,
             leading: AnchorOf(artwork.trailingAnchor, 140),
-            centerY: AnchorOf(ratingPanel.view.centerYAnchor, -8)
+            centerY: AnchorOf(ratingPanel.centerYAnchor, -8)
         )
                 
         contentView.addSubView(

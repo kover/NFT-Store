@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyNTFViewController: UIViewController {
+final class MyNTFViewController: UIViewController {
 
     private let viewModel: MyNTFViewModelProtocol
     

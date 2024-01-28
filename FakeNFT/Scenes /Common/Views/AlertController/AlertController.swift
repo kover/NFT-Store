@@ -7,26 +7,12 @@
 
 import UIKit
 
-protocol AlertPresenterProtocol {
-    func present(alert: UIAlertController, animated: Bool)
-}
-
-struct alertAction {
-    let title: String
-    let action: () -> Void
-    
-    init(title: String, _ action: @escaping () -> Void) {
-        self.title = title
-        self.action = action
-    }
-}
-
 final class AlertController {
     
     static func multiAction(
         alertPresenter: AlertPresenterProtocol,
         title: String?,
-        actions: [alertAction]
+        actions: [AlertAction]
     ) {
         let alert = UIAlertController(
             title: title,
@@ -35,11 +21,20 @@ final class AlertController {
         )
         
         for action in actions {
-            alert.addAction(
-                UIAlertAction(title: action.title, style: .destructive) { _ in action.action()}
-            )
+            let alertAction = UIAlertAction(
+                title: action.title,
+                style: .destructive
+            ) { _ in action.action()}
+            
+            alert.addAction(alertAction)
         }
-        alert.addAction(UIAlertAction(title: localized("Cancel"), style: .cancel, handler: nil))
+        alert.addAction(
+            UIAlertAction(
+                title: localized("Cancel"),
+                style: .cancel,
+                handler: nil
+            )
+        )
         
         alertPresenter.present(alert: alert, animated: true)
     }

@@ -104,12 +104,12 @@ final class EditProfileViewController: UIViewController {
         imagePicker.delegate = self
         
         let actions = [
-            alertAction(title: localized("Camera")) {[weak self] in
+            AlertAction(title: localized("Camera")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .camera
                 self.present(imagePicker, animated: true)
             },
-            alertAction(title: localized("Photo Library")) {[weak self] in
+            AlertAction(title: localized("Photo Library")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .photoLibrary
                 self.present(imagePicker, animated: true)

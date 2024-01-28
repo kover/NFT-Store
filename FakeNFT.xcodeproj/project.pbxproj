@@ -53,7 +53,7 @@
 		AB4B34F22B5D5EA9003F8764 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F12B5D5EA9003F8764 /* AlertController.swift */; };
 		AB4B34F62B5D840A003F8764 /* MyNTFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F52B5D840A003F8764 /* MyNTFViewController.swift */; };
 		AB4B34F82B5D937C003F8764 /* MyNTFCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F72B5D937C003F8764 /* MyNTFCell.swift */; };
-		AB4B34FB2B5D999A003F8764 /* StarRatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FA2B5D999A003F8764 /* StarRatingPanel.swift */; };
+		AB4B34FB2B5D999A003F8764 /* UIStarRatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FA2B5D999A003F8764 /* UIStarRatingPanel.swift */; };
 		AB4B34FE2B5EF217003F8764 /* NTFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FD2B5EF217003F8764 /* NTFModel.swift */; };
 		AB4B35012B5EF24C003F8764 /* MyNTFScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */; };
 		AB4B350C2B664C27003F8764 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350B2B664C27003F8764 /* DI.swift */; };
@@ -66,6 +66,8 @@
 		AB4B35202B665C13003F8764 /* NTFRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B351F2B665C13003F8764 /* NTFRepositoryImpl.swift */; };
 		AB4B35222B666539003F8764 /* MyNTFViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35212B666539003F8764 /* MyNTFViewModelProtocol.swift */; };
 		AB4B35242B6666D6003F8764 /* MyNTFViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35232B6666D6003F8764 /* MyNTFViewModel.swift */; };
+		AB4B35272B666FCA003F8764 /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35262B666FCA003F8764 /* AlertPresenterProtocol.swift */; };
+		AB4B35292B666FF3003F8764 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35282B666FF3003F8764 /* AlertAction.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
@@ -138,7 +140,7 @@
 		AB4B34F12B5D5EA9003F8764 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		AB4B34F52B5D840A003F8764 /* MyNTFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFViewController.swift; sourceTree = "<group>"; };
 		AB4B34F72B5D937C003F8764 /* MyNTFCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFCell.swift; sourceTree = "<group>"; };
-		AB4B34FA2B5D999A003F8764 /* StarRatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingPanel.swift; sourceTree = "<group>"; };
+		AB4B34FA2B5D999A003F8764 /* UIStarRatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStarRatingPanel.swift; sourceTree = "<group>"; };
 		AB4B34FD2B5EF217003F8764 /* NTFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFModel.swift; sourceTree = "<group>"; };
 		AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFScreenModel.swift; sourceTree = "<group>"; };
 		AB4B35042B626D01003F8764 /* ProfileDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ProfileDecomposition.md; sourceTree = "<group>"; };
@@ -152,6 +154,8 @@
 		AB4B351F2B665C13003F8764 /* NTFRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRepositoryImpl.swift; sourceTree = "<group>"; };
 		AB4B35212B666539003F8764 /* MyNTFViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFViewModelProtocol.swift; sourceTree = "<group>"; };
 		AB4B35232B6666D6003F8764 /* MyNTFViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFViewModel.swift; sourceTree = "<group>"; };
+		AB4B35262B666FCA003F8764 /* AlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocol.swift; sourceTree = "<group>"; };
+		AB4B35282B666FF3003F8764 /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -232,8 +236,8 @@
 		0CF2C2DF2A784C5600FDC837 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB4B35252B666FA8003F8764 /* AlertController */,
 				0CF2C2E02A784C7000FDC837 /* LinePageControl.swift */,
-				AB4B34F12B5D5EA9003F8764 /* AlertController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -487,7 +491,7 @@
 			isa = PBXGroup;
 			children = (
 				AB4B34F72B5D937C003F8764 /* MyNTFCell.swift */,
-				AB4B34FA2B5D999A003F8764 /* StarRatingPanel.swift */,
+				AB4B34FA2B5D999A003F8764 /* UIStarRatingPanel.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -556,6 +560,16 @@
 				AB4B351F2B665C13003F8764 /* NTFRepositoryImpl.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		AB4B35252B666FA8003F8764 /* AlertController */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34F12B5D5EA9003F8764 /* AlertController.swift */,
+				AB4B35262B666FCA003F8764 /* AlertPresenterProtocol.swift */,
+				AB4B35282B666FF3003F8764 /* AlertAction.swift */,
+			);
+			path = AlertController;
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
@@ -772,7 +786,7 @@
 				0CFCB7402A78002A0009A829 /* NftService.swift in Sources */,
 				AB4B35112B664DA9003F8764 /* ProfileViewModelProtocol.swift in Sources */,
 				AB4B34DE2B57DC6A003F8764 /* ProfileViewController.swift in Sources */,
-				AB4B34FB2B5D999A003F8764 /* StarRatingPanel.swift in Sources */,
+				AB4B34FB2B5D999A003F8764 /* UIStarRatingPanel.swift in Sources */,
 				AB4B35132B66525D003F8764 /* MockedData.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				AB4B34E72B57E305003F8764 /* UIColor+Extensions.swift in Sources */,
@@ -799,6 +813,8 @@
 				AB4B350E2B664D0F003F8764 /* ProfileViewModel.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				0CFCB7492A7808900009A829 /* TestCatalogController.swift in Sources */,
+				AB4B35272B666FCA003F8764 /* AlertPresenterProtocol.swift in Sources */,
+				AB4B35292B666FF3003F8764 /* AlertAction.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				AB4B35242B6666D6003F8764 /* MyNTFViewModel.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,

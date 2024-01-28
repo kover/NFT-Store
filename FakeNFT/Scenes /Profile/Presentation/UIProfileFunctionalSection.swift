@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UIProfileFunctionalSection: UIView {
+final class UIProfileFunctionalSection: UIView {
     
     private let contentTitleLabel: UILabel = {
         let label = UILabel()
