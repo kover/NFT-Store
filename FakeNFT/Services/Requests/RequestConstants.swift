@@ -25,7 +25,7 @@ enum RequestConstants {
                 relativeTo: relativeURL
             )
         case .profile:
-            return URL(string: "/api/v1/profile/1", relativeTo: relativeURL)
+            return URL(string: "api/v1/profile/1", relativeTo: relativeURL)
         case .order:
             return URL(string: "api/v1/orders/1", relativeTo: relativeURL)
         }

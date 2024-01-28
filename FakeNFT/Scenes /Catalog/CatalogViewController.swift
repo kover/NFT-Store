@@ -170,7 +170,10 @@ extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let collection = viewModel.collections[indexPath.row]
         let collectionViewModel = CollectionViewModel(collection: collection, serviceAssembly: serviceAssembly)
-        let collectionViewController = CollectionViewController(viewModel: collectionViewModel)
+        let collectionViewController = CollectionViewController(
+            viewModel: collectionViewModel,
+            alertPresenter: AlertPresenter()
+        )
 
         navigationController?.pushViewController(collectionViewController, animated: true)
     }

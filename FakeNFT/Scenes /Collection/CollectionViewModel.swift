@@ -10,6 +10,7 @@ import Foundation
 final class CollectionViewModel {
 
     private let serviceAssembly: ServicesAssembly
+    var alertPresenter: AlertPresenterProtocol?
 
     @Observable
     private(set) var collection: NftCollection
@@ -53,8 +54,9 @@ final class CollectionViewModel {
             case .success(let profile):
                 self?.profile = profile
             case .failure(let error):
-                // TODO: - Show alert with the details
-                print(error.localizedDescription)
+                self?.showNetworkError {
+                    self?.toggleLike(for: id)
+                }
             }
             UIBlockingProgressHUD.dismiss()
         }
@@ -70,8 +72,9 @@ final class CollectionViewModel {
             case .success(let order):
                 self?.order = order
             case .failure(let error):
-                // TODO: - Show alert with the details
-                print(error.localizedDescription)
+                self?.showNetworkError {
+                    self?.toggleOrder(for: id)
+                }
             }
             UIBlockingProgressHUD.dismiss()
         }
@@ -92,9 +95,10 @@ private extension CollectionViewModel {
             switch result {
             case .success(let profile):
                 self?.profile = profile
-            case .failure(let error):
-                // TODO: - Show alert with the details
-                print(error.localizedDescription)
+            case .failure:
+                self?.showNetworkError {
+                    self?.loadProfile()
+                }
             }
         }
     }
@@ -104,9 +108,10 @@ private extension CollectionViewModel {
             switch result {
             case .success(let item):
                 self?.nfts.append(item)
-            case .failure(let error):
-                // TODO: - Show alert with error details
-                print(error.localizedDescription)
+            case .failure:
+                self?.showNetworkError {
+                    self?.loadNft(by: id)
+                }
             }
         }
     }
@@ -116,10 +121,25 @@ private extension CollectionViewModel {
             switch result {
             case .success(let order):
                 self?.order = order
-            case .failure(let error):
-                // TODO: - Show alert with the details
-                print(error.localizedDescription)
+            case .failure:
+                self?.showNetworkError {
+                    self?.loadOrder()
+                }
             }
         }
     }
+
+    func showNetworkError(completion: @escaping () -> Void) {
+        guard let alertPresenter = alertPresenter else {
+            return
+        }
+        let model = Alert(
+            title: NSLocalizedString("Error.title", comment: "Title for the error alert"),
+            message: NSLocalizedString("Error.network", comment: "Message for the network error"),
+            actionTitle: NSLocalizedString("Error.repeat", comment: "Title for the repeat button"),
+            completion: completion
+        )
+        alertPresenter.showAlert(using: model)
+    }
+
 }

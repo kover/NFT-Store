@@ -11,6 +11,7 @@ import Kingfisher
 final class CollectionViewController: UIViewController {
 
     private let viewModel: CollectionViewModel
+    private var alertPresenter: AlertPresenterProtocol
 
     private lazy var collectionCoverImageView: UIImageView = {
         let coverImageView = UIImageView()
@@ -69,8 +70,9 @@ final class CollectionViewController: UIViewController {
         return collectionView
     }()
 
-    init(viewModel: CollectionViewModel) {
+    init(viewModel: CollectionViewModel, alertPresenter: AlertPresenterProtocol) {
         self.viewModel = viewModel
+        self.alertPresenter = alertPresenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -84,6 +86,9 @@ final class CollectionViewController: UIViewController {
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .ypWhite
         navigationController?.navigationBar.tintColor = .black
+
+        alertPresenter.delegate = self
+        viewModel.alertPresenter = alertPresenter
 
         setupSubviews()
         setupLayout()
