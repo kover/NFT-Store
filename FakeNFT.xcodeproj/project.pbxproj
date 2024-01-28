@@ -23,6 +23,8 @@
 		036151562B665FE600627EDB /* PutOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036151552B665FE600627EDB /* PutOrderRequest.swift */; };
 		036151582B66603200627EDB /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036151572B66603200627EDB /* Order.swift */; };
 		0361515A2B66613B00627EDB /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036151592B66613B00627EDB /* OrderService.swift */; };
+		0361515C2B666FA500627EDB /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361515B2B666FA500627EDB /* AlertPresenter.swift */; };
+		036151602B66704300627EDB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361515F2B66704300627EDB /* Alert.swift */; };
 		036361AF2B6002C10063E26B /* AuthorPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036361AE2B6002C10063E26B /* AuthorPageViewController.swift */; };
 		03C2C82A2B5DC7B10053F08E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8292B5DC7B10053F08E /* RatingView.swift */; };
 		03D8655D2B54616000796EE6 /* CartDecomposition.md in Resources */ = {isa = PBXBuildFile; fileRef = 03D8655C2B54616000796EE6 /* CartDecomposition.md */; };
@@ -108,6 +110,8 @@
 		036151552B665FE600627EDB /* PutOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOrderRequest.swift; sourceTree = "<group>"; };
 		036151572B66603200627EDB /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		036151592B66613B00627EDB /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
+		0361515B2B666FA500627EDB /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		0361515F2B66704300627EDB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		036361AE2B6002C10063E26B /* AuthorPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPageViewController.swift; sourceTree = "<group>"; };
 		03C2C8292B5DC7B10053F08E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		03D8655C2B54616000796EE6 /* CartDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CartDecomposition.md; sourceTree = "<group>"; };
@@ -215,9 +219,24 @@
 			children = (
 				03100A652B6362C800EE6E13 /* Profile.swift */,
 				03100A672B6362D600EE6E13 /* Likes.swift */,
-				036151572B66603200627EDB /* Order.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		0361515D2B66700300627EDB /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				036151572B66603200627EDB /* Order.swift */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		0361515E2B66703B00627EDB /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				0361515F2B66704300627EDB /* Alert.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		03D8655B2B5460A700796EE6 /* Decomposition */ = {
@@ -397,6 +416,8 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0361515E2B66703B00627EDB /* Alert */,
+				0361515D2B66700300627EDB /* Order */,
 				03100A642B6362BE00EE6E13 /* Profile */,
 				03EC0D8E2B57ADB2004DD31E /* Catalog */,
 				3F6806D829CC979D00B4F915 /* Network */,
@@ -416,6 +437,7 @@
 				03EC0D9F2B57F3C4004DD31E /* Observable.swift */,
 				03C2C8292B5DC7B10053F08E /* RatingView.swift */,
 				032D3F072B60EFEB0071BE29 /* ApiConstants.swift */,
+				0361515B2B666FA500627EDB /* AlertPresenter.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -697,7 +719,9 @@
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				0361515A2B66613B00627EDB /* OrderService.swift in Sources */,
 				0CFCB7492A7808900009A829 /* TestCatalogController.swift in Sources */,
+				036151602B66704300627EDB /* Alert.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
+				0361515C2B666FA500627EDB /* AlertPresenter.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,
 				0C79EE632A76DD1900EE90EA /* RequestConstants.swift in Sources */,
 				03EC0D9E2B57F3A6004DD31E /* UIBlockingProgressHUD.swift in Sources */,

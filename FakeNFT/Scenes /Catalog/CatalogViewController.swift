@@ -10,6 +10,7 @@ import UIKit
 final class CatalogViewController: UIViewController {
     let viewModel: CatalogViewModel
     private let serviceAssembly: ServicesAssembly
+    private var alertPresenter: AlertPresenterProtocol
 
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -39,9 +40,10 @@ final class CatalogViewController: UIViewController {
         return label
     }()
 
-    init(viewModel: CatalogViewModel, serviceAssembly: ServicesAssembly) {
+    init(viewModel: CatalogViewModel, serviceAssembly: ServicesAssembly, alertPresenter: AlertPresenterProtocol) {
         self.viewModel = viewModel
         self.serviceAssembly = serviceAssembly
+        self.alertPresenter = alertPresenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -54,6 +56,9 @@ final class CatalogViewController: UIViewController {
 
         view.backgroundColor = .ypWhite
         navigationItem.backButtonTitle = ""
+
+        alertPresenter.delegate = self
+        viewModel.alertPresenter = alertPresenter
 
         configureNavBar()
         setupSubviews()

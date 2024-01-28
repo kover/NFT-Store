@@ -10,6 +10,7 @@ import Foundation
 final class CatalogViewModel {
 
     let serviceAssembly: ServicesAssembly
+    var alertPresenter: AlertPresenterProtocol?
 
     @Observable
     private(set) var collections: [NftCollection] = []
@@ -25,9 +26,10 @@ final class CatalogViewModel {
             switch result {
             case .success(let items):
                 self?.collections = items
-            case .failure(let error):
-                // TODO: - Show alert with error details
-                print(error.localizedDescription)
+            case .failure:
+                self?.showNetworkError {
+                    self?.loadCollections(completion: completion)
+                }
             }
             UIBlockingProgressHUD.dismiss()
             completion?()
@@ -40,5 +42,19 @@ final class CatalogViewModel {
 
     func sortCollectionsByCount() {
         collections = collections.sorted(by: { $0.nfts.count < $1.nfts.count })
+    }
+}
+private extension CatalogViewModel {
+    func showNetworkError(completion: @escaping () -> Void) {
+        guard let alertPresenter = alertPresenter else {
+            return
+        }
+        let model = Alert(
+            title: NSLocalizedString("Error.title", comment: "Title for the error alert"),
+            message: NSLocalizedString("Error.network", comment: "Message for the network error"),
+            actionTitle: NSLocalizedString("Error.repeat", comment: "Title for the repeat button"),
+            completion: completion
+        )
+        alertPresenter.showAlert(using: model)
     }
 }
