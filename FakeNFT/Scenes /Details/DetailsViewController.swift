@@ -93,6 +93,18 @@ class DetailsViewController: UIViewController {
         return stackView
     }()
 
+    private lazy var contentController: DetailsContentViewController = {
+        let contentController = DetailsContentViewController()
+
+        addChild(contentController)
+
+        view.addSubview(contentController.view)
+
+        contentController.didMove(toParent: self)
+
+        return contentController
+    }()
+
     private lazy var pageControl = LinePageControl()
 
     init(viewModel: DetailsViewModelProtocol) {
@@ -118,7 +130,7 @@ class DetailsViewController: UIViewController {
 private extension DetailsViewController {
     func setupSubviews() {
 
-        [coverCollectionView, pageControl, namesStackView, cartStackView].forEach {
+        [coverCollectionView, pageControl, namesStackView, cartStackView, contentController.view].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -140,7 +152,12 @@ private extension DetailsViewController {
 
             cartStackView.topAnchor.constraint(equalTo: namesStackView.bottomAnchor, constant: 24),
             cartStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
-            cartStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            cartStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            contentController.view.topAnchor.constraint(equalTo: cartStackView.bottomAnchor, constant: 8),
+            contentController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
