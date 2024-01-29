@@ -53,7 +53,7 @@ final class CollectionViewModel {
             switch result {
             case .success(let profile):
                 self?.profile = profile
-            case .failure(let error):
+            case .failure:
                 self?.showNetworkError {
                     self?.toggleLike(for: id)
                 }
@@ -71,7 +71,7 @@ final class CollectionViewModel {
             switch result {
             case .success(let order):
                 self?.order = order
-            case .failure(let error):
+            case .failure:
                 self?.showNetworkError {
                     self?.toggleOrder(for: id)
                 }

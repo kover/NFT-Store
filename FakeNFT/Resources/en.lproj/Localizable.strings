@@ -10,3 +10,6 @@
 "Sort.byCount" = "By NFT count";
 "Sort.close" = "Close";
 "Collection.author" = "Author:";
+"Details.price" = "Price";
+"Details.addToCart" = "Add to cart";
+"Details.removeFromCart" = "Remove from cart";

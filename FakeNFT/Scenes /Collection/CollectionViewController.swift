@@ -232,7 +232,7 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
 extension CollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = viewModel.nfts[indexPath.row]
-        let detailViewModel = DetailsViewModel(nft: item)
+        let detailViewModel = DetailsViewModel(nft: item, collection: viewModel.collection)
         let detailViewController = DetailsViewController(viewModel: detailViewModel)
         navigationController?.pushViewController(detailViewController, animated: true)
     }

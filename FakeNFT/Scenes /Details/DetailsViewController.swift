@@ -28,6 +28,71 @@ class DetailsViewController: UIViewController {
         return collectionView
     }()
 
+    private lazy var nftNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 22)
+        label.text = viewModel.nft.name
+        return label
+    }()
+
+    private lazy var ratingView: RatingView = {
+        let rating = RatingView()
+        rating.rating = viewModel.nft.rating
+        return rating
+    }()
+
+    private lazy var collectionNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 17)
+        label.text = viewModel.collection.name
+        return label
+    }()
+
+    private lazy var namesStackView: UIStackView = {
+        let spacer = UIView()
+        spacer.backgroundColor = .clear
+        spacer.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        let stackView = UIStackView(arrangedSubviews: [nftNameLabel, ratingView, spacer, collectionNameLabel])
+        stackView.spacing = 8
+        return stackView
+    }()
+
+    private lazy var priceTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.text = NSLocalizedString("Details.price", comment: "Title for the price label")
+        return label
+    }()
+
+    private lazy var priceTickerLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 17)
+        label.text = "\(viewModel.nft.price) ETH"
+        return label
+    }()
+
+    private lazy var cartButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(NSLocalizedString("Details.addToCart", comment: "Title for add to cart button"), for: .normal)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 16
+        button.setTitleColor(.ypWhite, for: .normal)
+        button.backgroundColor = .ypBlack
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.translatesAutoresizingMaskIntoConstraints = true
+        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        return button
+    }()
+
+    private lazy var cartStackView: UIStackView = {
+        let priceStackView = UIStackView(arrangedSubviews: [priceTitleLabel, priceTickerLabel])
+        priceStackView.axis = .vertical
+        priceStackView.spacing = 2
+        let stackView = UIStackView(arrangedSubviews: [priceStackView, cartButton])
+        stackView.spacing = 28
+        return stackView
+    }()
+
     private lazy var pageControl = LinePageControl()
 
     init(viewModel: DetailsViewModelProtocol) {
@@ -52,7 +117,8 @@ class DetailsViewController: UIViewController {
 }
 private extension DetailsViewController {
     func setupSubviews() {
-        [coverCollectionView, pageControl].forEach {
+
+        [coverCollectionView, pageControl, namesStackView, cartStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -66,7 +132,15 @@ private extension DetailsViewController {
 
             pageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.topAnchor.constraint(equalTo: coverCollectionView.bottomAnchor, constant: 12)
+            pageControl.topAnchor.constraint(equalTo: coverCollectionView.bottomAnchor, constant: 12),
+
+            namesStackView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 16),
+            namesStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
+            namesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            cartStackView.topAnchor.constraint(equalTo: namesStackView.bottomAnchor, constant: 24),
+            cartStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
+            cartStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }
