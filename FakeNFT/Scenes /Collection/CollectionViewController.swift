@@ -12,6 +12,7 @@ final class CollectionViewController: UIViewController {
 
     private let viewModel: CollectionViewModel
     private var alertPresenter: AlertPresenterProtocol
+    private let serviceAssembly: ServicesAssembly
 
     private lazy var collectionCoverImageView: UIImageView = {
         let coverImageView = UIImageView()
@@ -70,9 +71,10 @@ final class CollectionViewController: UIViewController {
         return collectionView
     }()
 
-    init(viewModel: CollectionViewModel, alertPresenter: AlertPresenterProtocol) {
+    init(viewModel: CollectionViewModel, alertPresenter: AlertPresenterProtocol, serviceAssembly: ServicesAssembly) {
         self.viewModel = viewModel
         self.alertPresenter = alertPresenter
+        self.serviceAssembly = serviceAssembly
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -233,7 +235,9 @@ extension CollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = viewModel.nfts[indexPath.row]
         let detailViewModel = DetailsViewModel(nft: item, collection: viewModel.collection)
-        let detailViewController = DetailsViewController(viewModel: detailViewModel)
+        let detailViewController = DetailsViewController(viewModel: detailViewModel,
+                                                         serviceAssembly: serviceAssembly,
+                                                         alertPresenter: alertPresenter)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

@@ -7,9 +7,11 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController {
+final class DetailsViewController: UIViewController {
 
     private let viewModel: DetailsViewModelProtocol
+    private let serviceAssembly: ServicesAssembly
+    private var alertPresenter: AlertPresenterProtocol?
 
     private lazy var coverCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -93,10 +95,28 @@ class DetailsViewController: UIViewController {
         return stackView
     }()
 
+    private lazy var contentController: DetailsContentViewController = {
+        let detailsContentViewModel = DetailsContentViewModel(serviceAssembly: serviceAssembly,
+                                                              alertPresenter: alertPresenter)
+        let contentController = DetailsContentViewController(viewModel: detailsContentViewModel)
+
+        addChild(contentController)
+
+        view.addSubview(contentController.view)
+
+        contentController.didMove(toParent: self)
+
+        return contentController
+    }()
+
     private lazy var pageControl = LinePageControl()
 
-    init(viewModel: DetailsViewModelProtocol) {
+    init(viewModel: DetailsViewModelProtocol,
+         serviceAssembly: ServicesAssembly,
+         alertPresenter: AlertPresenterProtocol? = nil) {
         self.viewModel = viewModel
+        self.serviceAssembly = serviceAssembly
+        self.alertPresenter = alertPresenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -115,10 +135,11 @@ class DetailsViewController: UIViewController {
     }
 
 }
+// MARK: - Private routines
 private extension DetailsViewController {
     func setupSubviews() {
 
-        [coverCollectionView, pageControl, namesStackView, cartStackView].forEach {
+        [coverCollectionView, pageControl, namesStackView, cartStackView, contentController.view].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -140,7 +161,12 @@ private extension DetailsViewController {
 
             cartStackView.topAnchor.constraint(equalTo: namesStackView.bottomAnchor, constant: 24),
             cartStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
-            cartStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            cartStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            contentController.view.topAnchor.constraint(equalTo: cartStackView.bottomAnchor, constant: 8),
+            contentController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

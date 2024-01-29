@@ -172,7 +172,8 @@ extension CatalogViewController: UITableViewDelegate {
         let collectionViewModel = CollectionViewModel(collection: collection, serviceAssembly: serviceAssembly)
         let collectionViewController = CollectionViewController(
             viewModel: collectionViewModel,
-            alertPresenter: AlertPresenter()
+            alertPresenter: AlertPresenter(),
+            serviceAssembly: serviceAssembly
         )
 
         navigationController?.pushViewController(collectionViewController, animated: true)

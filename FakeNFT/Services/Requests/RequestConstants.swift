@@ -12,6 +12,7 @@ enum RequestConstants {
     case userById(id: String)
     case profile
     case order
+    case currencies
 
     var url: URL? {
         switch self {
@@ -28,6 +29,8 @@ enum RequestConstants {
             return URL(string: "api/v1/profile/1", relativeTo: relativeURL)
         case .order:
             return URL(string: "api/v1/orders/1", relativeTo: relativeURL)
+        case .currencies:
+            return URL(string: "api/v1/currencies", relativeTo: relativeURL)
         }
     }
 }

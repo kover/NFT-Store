@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class DetailsImageCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
+final class DetailsImageCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
