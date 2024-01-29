@@ -229,6 +229,14 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         CGSize(width: (collectionView.bounds.width - 9 * 2 - 32) / 3, height: 192)
     }
 }
+extension CollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = viewModel.nfts[indexPath.row]
+        let detailViewModel = DetailsViewModel(nft: item)
+        let detailViewController = DetailsViewController(viewModel: detailViewModel)
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
 // MARK: - NftCollectionViewCellDelegate
 extension CollectionViewController: NftCollectionViewCellDelegate {
     func didTapCart(_ item: NftItem) {
