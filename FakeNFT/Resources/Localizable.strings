@@ -5,12 +5,9 @@
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
-<<<<<<< HEAD
 "Cart.price" = "Цена";
-=======
 "Catalog.empty" = "Нет данных для отображения";
 "Sort.title" = "Сортировка";
 "Sort.byName" = "По названиию";
 "Sort.byCount" = "По количеству NFT";
 "Sort.close" = "Закрыть";
->>>>>>> origin/common

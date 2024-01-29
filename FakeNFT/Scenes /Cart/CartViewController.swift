@@ -10,6 +10,7 @@ import UIKit
 final class CartViewController: UIViewController {
     
     private let viewModel: CartViewModel
+    private let serviceAssembly: ServicesAssembly
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -42,7 +43,7 @@ final class CartViewController: UIViewController {
     private lazy var totalAmountLabel: UILabel = {
         let label = UILabel()
         label.text = "\(viewModel.totalAmount()) ETH"
-        label.textColor = UIColor(hexString: "1C9F00")
+        label.textColor = UIColor.ypGreenUniversal
         label.font = .boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,6 +55,7 @@ final class CartViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.backgroundColor = UIColor.segmentActive
         button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -68,8 +70,9 @@ final class CartViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: CartViewModel) {
+    init(viewModel: CartViewModel, serviceAssembly: ServicesAssembly) {
         self.viewModel = viewModel
+        self.serviceAssembly = serviceAssembly
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -89,6 +92,13 @@ final class CartViewController: UIViewController {
         }
         
         updateUI()
+        configureBackButtonForNextScreen()
+    }
+    
+    private func configureBackButtonForNextScreen() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
     }
     
     private func createSortButton() -> UIBarButtonItem {
@@ -129,7 +139,12 @@ final class CartViewController: UIViewController {
     }
     
     @objc func checkoutButtonTapped() {
-        //todo: реализовать переход к экрану выбора валюты
+        let currencySelectionVM = CurrencySelectionViewModel(serviceAssembly: serviceAssembly)
+        let currencySelectionVC = CurrencySelectionViewController(viewModel: currencySelectionVM)
+        
+        currencySelectionVC.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(currencySelectionVC, animated: true)
     }
     
     private func updateUI() {
@@ -201,6 +216,7 @@ extension CartViewController: UITableViewDataSource {
         
         let nftModel = viewModel.nftModels[indexPath.row]
         cell.configure(with: nftModel)
+        cell.selectionStyle = .none
         return cell
     }
 }
