@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol CartTableViewCellDelegate: AnyObject {
+    func cartTableViewCellDidTapDelete(_ cell: CartTableViewCell)
+}
+
 final class CartTableViewCell: UITableViewCell {
+    
+    weak var delegate: CartTableViewCellDelegate?
     
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,7 +60,7 @@ final class CartTableViewCell: UITableViewCell {
     }()
     
     @objc func deleteButtonTapped() {
-        //todo: Реализовать удаление NFT из корзины
+        delegate?.cartTableViewCellDidTapDelete(self)
     }
     
     func configure(with cellModel: NftModel) {

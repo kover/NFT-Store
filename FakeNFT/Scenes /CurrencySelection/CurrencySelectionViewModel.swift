@@ -11,7 +11,7 @@ final class CurrencySelectionViewModel {
     
     private let serviceAssembly: ServicesAssembly
     
- // temporary data
+    // Temporary data used awaiting backend update for currency logos URLs.
     let currencies: [CurrencyModel] = [
         CurrencyModel(title: "Bitcoin", name: "BTC", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Bitcoin_(BTC).png", id: "1"),
         CurrencyModel(title: "Dogecoin", name: "DOGE", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Dogecoin_(DOGE).png", id: "2"),

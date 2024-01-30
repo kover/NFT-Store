@@ -110,15 +110,28 @@ struct DefaultNetworkClient: NetworkClient {
     // MARK: - Private
 
     private func create(request: NetworkRequest) -> URLRequest? {
-        guard let endpoint = request.endpoint else {
+        guard let endpoint = request.endpoint,
+              var urlComponents = URLComponents(url: endpoint, resolvingAgainstBaseURL: true)
+        else {
             assertionFailure("Empty endpoint")
             return nil
         }
 
-        var urlRequest = URLRequest(url: endpoint)
+        urlComponents.queryItems = request.query ?? []
+
+        guard let url = urlComponents.url else {
+            assertionFailure("Unable to construct URL")
+            return nil
+        }
+
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.httpMethod.rawValue
 
         urlRequest.setValue("ab33768d-02ac-4f45-9890-7acf503bde54", forHTTPHeaderField: "X-Practicum-Mobile-Token")
+
+        if request.query != nil {
+            urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        }
 
         if let dto = request.dto,
            let dtoEncoded = try? encoder.encode(dto) {

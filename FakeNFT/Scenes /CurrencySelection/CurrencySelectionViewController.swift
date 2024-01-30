@@ -32,7 +32,7 @@ final class CurrencySelectionViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Оплатить", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        button.backgroundColor = UIColor.segmentActive
+        button.backgroundColor = UIColor.ypBlack
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -91,6 +91,12 @@ final class CartViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
+        viewModel.onNftRemoved = { [weak self] in
+            self?.hideDeleteConfirmationView()
+            self?.tableView.reloadData()
+            self?.updateUI()
+        }
+        
         updateUI()
         configureBackButtonForNextScreen()
     }
@@ -200,6 +206,36 @@ final class CartViewController: UIViewController {
             
         ])
     }
+    
+    func showDeleteConfirmationView(for nft: NftModel, onDelete: @escaping () -> Void, onCancel: @escaping () -> Void) {
+        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+
+        let deleteConfirmationView = DeleteConfirmationView()
+        deleteConfirmationView.configure(with: nft)
+        deleteConfirmationView.onDeleteConfirmed = onDelete
+        deleteConfirmationView.onCancel = onCancel
+        deleteConfirmationView.frame = window.bounds
+        window.addSubview(deleteConfirmationView)
+
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = window.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.tag = 100
+        window.insertSubview(blurEffectView, belowSubview: deleteConfirmationView)
+    }
+
+    func hideDeleteConfirmationView() {
+        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+
+        if let deleteConfirmationView = window.subviews.first(where: { $0 is DeleteConfirmationView }) {
+            deleteConfirmationView.removeFromSuperview()
+        }
+
+        if let blurEffectView = window.subviews.first(where: { $0.tag == 100 }) {
+            blurEffectView.removeFromSuperview()
+        }
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -217,6 +253,7 @@ extension CartViewController: UITableViewDataSource {
         let nftModel = viewModel.nftModels[indexPath.row]
         cell.configure(with: nftModel)
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
 }
@@ -226,5 +263,20 @@ extension CartViewController: UITableViewDataSource {
 extension CartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+}
+
+//MARK: - UITableViewDelegate
+
+extension CartViewController: CartTableViewCellDelegate {
+    func cartTableViewCellDidTapDelete(_ cell: CartTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let nftToRemove = viewModel.nftModels[indexPath.row]
+
+        showDeleteConfirmationView(for: nftToRemove, onDelete: { [weak self] in
+            self?.viewModel.removeNftFromOrder(nftToRemove.id)
+        }, onCancel: { [weak self] in
+            self?.hideDeleteConfirmationView()
+        })
     }
 }
