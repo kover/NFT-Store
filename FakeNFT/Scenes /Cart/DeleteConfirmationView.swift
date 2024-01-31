@@ -53,14 +53,14 @@ final class DeleteConfirmationView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubviews()
         setupConstraints()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,7 +71,7 @@ final class DeleteConfirmationView: UIView {
         addSubview(deleteButton)
         addSubview(cancelButton)
     }
-
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             nftImageView.topAnchor.constraint(equalTo: centerYAnchor, constant: -162),
@@ -95,15 +95,15 @@ final class DeleteConfirmationView: UIView {
             cancelButton.widthAnchor.constraint(equalToConstant: 127),
         ])
     }
-
+    
     @objc private func deleteButtonTapped() {
         onDeleteConfirmed?()
     }
-
+    
     @objc private func cancelButtonTapped() {
         onCancel?()
     }
-
+    
     func configure(with nft: NftModel) {
         nftImageView.kf.setImage(with: URL(string: nft.images.first ?? ""))
     }

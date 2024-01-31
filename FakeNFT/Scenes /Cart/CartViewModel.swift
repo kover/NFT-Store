@@ -13,15 +13,15 @@ final class CartViewModel {
     var onNFTsLoaded: (() -> Void)?
     var onError: ((Error) -> Void)?
     var onNftRemoved: (() -> Void)?
-
+    
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
         loadOrder()
     }
-
+    
     func loadOrder() {
         UIBlockingProgressHUD.show()
-
+        
         serviceAssembly.cartService.getOrder { [weak self] result in
             switch result {
             case .success(let order):
@@ -32,7 +32,7 @@ final class CartViewModel {
             }
         }
     }
-
+    
     private func loadNFTs(for ids: [String]) {
         serviceAssembly.cartService.getNftItems(ids: ids) { [weak self] result in
             defer {
@@ -49,16 +49,16 @@ final class CartViewModel {
             }
         }
     }
-
+    
     func totalAmount() -> Float {
         return nftModels.reduce(0) { $0 + $1.price }
     }
     
     func removeNftFromOrder(_ nftId: String) {
         UIBlockingProgressHUD.show()
-
+        
         nftModels.removeAll { $0.id == nftId }
-
+        
         if !nftModels.isEmpty {
             let updatedOrder = OrderModel(nfts: nftModels.map { $0.id })
             serviceAssembly.cartService.updateOrder(updatedOrder) { [weak self] result in
@@ -72,6 +72,7 @@ final class CartViewModel {
             }
         } else {
             UIBlockingProgressHUD.dismiss()
+            onNftRemoved?()
         }
     }
 }

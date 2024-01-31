@@ -152,7 +152,7 @@ final class CartViewController: UIViewController {
         
         self.navigationController?.pushViewController(currencySelectionVC, animated: true)
     }
-    
+
     private func updateUI() {
         let isCartEmpty = viewModel.nftModels.isEmpty
         tableView.isHidden = isCartEmpty
@@ -161,14 +161,14 @@ final class CartViewController: UIViewController {
         quantityLabel.isHidden = isCartEmpty
         chekoutButton.isHidden = isCartEmpty
         emptyCartLabel.isHidden = !isCartEmpty
-        
-        navigationItem.rightBarButtonItem = isCartEmpty ? nil : createSortButton()
-        
+        quantityLabel.text = "\(viewModel.nftModels.count) NFT"
+        totalAmountLabel.text = "\(viewModel.totalAmount()) ETH"
+
         if !isCartEmpty {
             tableView.reloadData()
         }
     }
-    
+
     private func addSubViews() {
         view.addSubview(tableView)
         view.addSubview(bottomPanel)

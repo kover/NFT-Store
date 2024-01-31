@@ -78,7 +78,7 @@ final class CurrencySelectionViewController: UIViewController {
         currencyCollectionView.register(CurrencyCollectionViewCell.self, forCellWithReuseIdentifier: "CurrencyCell")
         addSubViews()
         setupConstraints()
-
+        
     }
     
     @objc private func payButtonTapped() {
@@ -94,19 +94,19 @@ final class CurrencySelectionViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.boldSystemFont(ofSize: 17),
-                .foregroundColor: UIColor.black
-            ]
-            navigationController?.navigationBar.titleTextAttributes = titleAttributes
-            navigationItem.title = "Выберите способ оплаты"
-
-            navigationController?.navigationBar.tintColor = .black
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.boldSystemFont(ofSize: 17),
+            .foregroundColor: UIColor.black
+        ]
+        navigationController?.navigationBar.titleTextAttributes = titleAttributes
+        navigationItem.title = "Выберите способ оплаты"
         
-            let backItem = UIBarButtonItem()
-            backItem.title = ""
-            navigationItem.backBarButtonItem = backItem
-        }
+        navigationController?.navigationBar.tintColor = .black
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+    }
     
     private func addSubViews() {
         view.addSubview(currencyCollectionView)
@@ -122,12 +122,12 @@ final class CurrencySelectionViewController: UIViewController {
             currencyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             currencyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             currencyCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -186),
-        
+            
             bottomPanel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomPanel.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -186),
             bottomPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bottomPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        
+            
             agreementLabel.topAnchor.constraint(equalTo: bottomPanel.topAnchor, constant: 16),
             agreementLabel.leadingAnchor.constraint(equalTo: bottomPanel.leadingAnchor, constant: 16),
             agreementLabel.heightAnchor.constraint(equalToConstant: 18),
@@ -168,6 +168,18 @@ extension CurrencySelectionViewController: UICollectionViewDataSource {
 
 extension CurrencySelectionViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CurrencyCollectionViewCell {
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor.ypBlack.cgColor
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CurrencyCollectionViewCell {
+            cell.layer.borderWidth = 0
+        }
+    }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout

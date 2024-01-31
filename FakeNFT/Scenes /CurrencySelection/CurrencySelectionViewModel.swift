@@ -28,8 +28,8 @@ final class CurrencySelectionViewModel {
     }
     
     func linkTapped(completion: @escaping (URL) -> Void) {
-            if let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") {
-                completion(url)
-            }
+        if let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") {
+            completion(url)
         }
+    }
 }

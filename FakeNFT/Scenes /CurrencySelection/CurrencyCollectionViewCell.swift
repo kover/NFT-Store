@@ -11,6 +11,7 @@ final class CurrencyCollectionViewCell: UICollectionViewCell {
     
     private lazy var currencyImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.ypBlackUniversal
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -33,7 +34,8 @@ final class CurrencyCollectionViewCell: UICollectionViewCell {
     
     func configure(with cellModel: CurrencyModel) {
         contentView.backgroundColor = UIColor.ypLightGray
-        contentView.layer.cornerRadius = 12
+        self.layer.cornerRadius = 12
+        self.clipsToBounds = true
         currencyImageView.kf.setImage(with: URL(string: cellModel.imageURL))
         currencyImageView.layer.cornerRadius = 6
         titleLabel.text = cellModel.title
@@ -52,12 +54,12 @@ final class CurrencyCollectionViewCell: UICollectionViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            currencyImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            currencyImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             currencyImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             currencyImageView.widthAnchor.constraint(equalToConstant: 36),
             currencyImageView.heightAnchor.constraint(equalToConstant: 36),
             
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: currencyImageView.trailingAnchor, constant: 4),
             titleLabel.heightAnchor.constraint(equalToConstant: 18),
             
