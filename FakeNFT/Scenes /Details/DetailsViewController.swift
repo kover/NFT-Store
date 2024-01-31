@@ -163,7 +163,7 @@ private extension DetailsViewController {
             cartStackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
             cartStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            contentController.view.topAnchor.constraint(equalTo: cartStackView.bottomAnchor, constant: 8),
+            contentController.view.topAnchor.constraint(equalTo: cartStackView.bottomAnchor, constant: 24),
             contentController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

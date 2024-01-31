@@ -11,17 +11,25 @@ final class CurrenciesCollectionViewCell: UICollectionViewCell, ReuseIdentifying
     private var currencies: [Currency] = []
 
     private lazy var tableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .insetGrouped)
         table.dataSource = self
+        table.delegate = self
         table.register(CurrencyTableViewCell.self, forCellReuseIdentifier: CurrencyTableViewCell.identifier)
+        table.backgroundColor = .ypWhite
+        table.separatorStyle = .none
+        table.contentInset = UIEdgeInsets(top: -36, left: 0, bottom: -36, right: 0)
+        table.allowsSelection = false
         return table
     }()
 
-    func configureCell(currencies: [Currency]) {
+    func configureCell(viewModel: DetailsContentViewModel) {
         setupSubviews()
         setupLayout()
 
-        self.currencies = currencies
+        viewModel.$currencies.bind { [weak self] currencies in
+            self?.currencies = currencies
+            self?.tableView.reloadData()
+        }
     }
 }
 // MARK: - Private routines
@@ -59,4 +67,10 @@ extension CurrenciesCollectionViewCell: UITableViewDataSource {
         return cell
     }
 
+}
+// MARK: - UITableViewDelegate
+extension CurrenciesCollectionViewCell: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        72
+    }
 }

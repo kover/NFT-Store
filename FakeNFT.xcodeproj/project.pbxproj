@@ -37,6 +37,8 @@
 		036151612B6683C500627EDB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 036151632B6683C500627EDB /* Localizable.strings */; };
 		036151662B66882A00627EDB /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036151652B66882A00627EDB /* SortOrder.swift */; };
 		036361AF2B6002C10063E26B /* AuthorPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036361AE2B6002C10063E26B /* AuthorPageViewController.swift */; };
+		03650FB72B6A157200B09BE5 /* CurrencyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03650FB62B6A157200B09BE5 /* CurrencyConstants.swift */; };
+		03650FB92B6A219000B09BE5 /* AuthorPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03650FB82B6A219000B09BE5 /* AuthorPageCollectionViewCell.swift */; };
 		03783F3F2B681794001B2491 /* DetailsContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03783F3E2B681794001B2491 /* DetailsContentViewController.swift */; };
 		03C2C82A2B5DC7B10053F08E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C2C8292B5DC7B10053F08E /* RatingView.swift */; };
 		03D8655D2B54616000796EE6 /* CartDecomposition.md in Resources */ = {isa = PBXBuildFile; fileRef = 03D8655C2B54616000796EE6 /* CartDecomposition.md */; };
@@ -136,6 +138,8 @@
 		036151642B6683C700627EDB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		036151652B66882A00627EDB /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 		036361AE2B6002C10063E26B /* AuthorPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPageViewController.swift; sourceTree = "<group>"; };
+		03650FB62B6A157200B09BE5 /* CurrencyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConstants.swift; sourceTree = "<group>"; };
+		03650FB82B6A219000B09BE5 /* AuthorPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		03783F3E2B681794001B2491 /* DetailsContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsContentViewController.swift; sourceTree = "<group>"; };
 		03C2C8292B5DC7B10053F08E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		03D8655C2B54616000796EE6 /* CartDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CartDecomposition.md; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				035CC1642B696F6500BFD262 /* CurrenciesCollectionViewCell.swift */,
 				035CC1662B69718600BFD262 /* DetailsContentViewModel.swift */,
 				035CC16F2B697EFD00BFD262 /* CurrencyTableViewCell.swift */,
+				03650FB82B6A219000B09BE5 /* AuthorPageCollectionViewCell.swift */,
 			);
 			path = DetailsContent;
 			sourceTree = "<group>";
@@ -495,6 +500,7 @@
 				03C2C8292B5DC7B10053F08E /* RatingView.swift */,
 				032D3F072B60EFEB0071BE29 /* ApiConstants.swift */,
 				0361515B2B666FA500627EDB /* AlertPresenter.swift */,
+				03650FB62B6A157200B09BE5 /* CurrencyConstants.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -735,6 +741,7 @@
 				03100A6E2B6364D000EE6E13 /* ProfileService.swift in Sources */,
 				0300A5BB2B5E7FFA000A5DD0 /* CollectionViewModel.swift in Sources */,
 				03EC0DA82B58633D004DD31E /* CatalogTableViewCell.swift in Sources */,
+				03650FB72B6A157200B09BE5 /* CurrencyConstants.swift in Sources */,
 				0308EA142B6795B40016BB4D /* DetailsViewController.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
 				035CC16E2B6972EA00BFD262 /* CurrencyService.swift in Sources */,
@@ -765,6 +772,7 @@
 				03100A662B6362C800EE6E13 /* Profile.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				0308EA162B6799ED0016BB4D /* DetailsImageCollectionViewCell.swift in Sources */,
+				03650FB92B6A219000B09BE5 /* AuthorPageCollectionViewCell.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				03EC0DA02B57F3C4004DD31E /* Observable.swift in Sources */,
 				03EC0DA22B57F5FD004DD31E /* CollectionsRequest.swift in Sources */,

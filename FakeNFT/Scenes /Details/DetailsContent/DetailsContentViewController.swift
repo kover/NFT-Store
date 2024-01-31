@@ -19,6 +19,7 @@ final class DetailsContentViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(CurrenciesCollectionViewCell.self)
+        collectionView.register(AuthorPageCollectionViewCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -38,8 +39,6 @@ final class DetailsContentViewController: UIViewController {
 
         setupSubviews()
         setupLayout()
-
-        bind()
     }
 
 }
@@ -60,17 +59,11 @@ private extension DetailsContentViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
-    func bind() {
-        viewModel.$currencies.bind { [weak self] _ in
-            self?.collectionView.reloadData()
-        }
-    }
 }
 // MARK: - UICollectionViewDataSource
 extension DetailsContentViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+        2
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -82,8 +75,16 @@ extension DetailsContentViewController: UICollectionViewDataSource {
                 for: indexPath) as? CurrenciesCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            currenciesCell.configureCell(currencies: viewModel.currencies)
+            currenciesCell.configureCell(viewModel: viewModel)
             return currenciesCell
+        case 1:
+            guard let authorPageCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: AuthorPageCollectionViewCell.defaultReuseIdentifier,
+                for: indexPath) as? AuthorPageCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            authorPageCell.configureCell()
+            return authorPageCell
         default:
             return UICollectionViewCell()
         }
@@ -95,6 +96,19 @@ extension DetailsContentViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        collectionView.bounds.size
+        switch indexPath.row {
+        case 0:
+            return CGSize(width: collectionView.frame.width, height: 72 * 5)
+        case 1:
+            return CGSize(width: collectionView.frame.width, height: 40)
+        default:
+            return CGSize(width: collectionView.frame.width, height: 40)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        24
     }
 }
