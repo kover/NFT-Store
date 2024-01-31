@@ -40,7 +40,11 @@ final class CatalogViewController: UIViewController {
         return label
     }()
 
-    init(viewModel: CatalogViewModel, serviceAssembly: ServicesAssembly, alertPresenter: AlertPresenterProtocol) {
+    init(
+        viewModel: CatalogViewModel,
+        serviceAssembly: ServicesAssembly,
+        alertPresenter: AlertPresenterProtocol
+    ) {
         viewModel.alertPresenter = alertPresenter
         self.viewModel = viewModel
         self.serviceAssembly = serviceAssembly
@@ -172,7 +176,7 @@ extension CatalogViewController: UITableViewDelegate {
         let collectionViewModel = CollectionViewModel(collection: collection, serviceAssembly: serviceAssembly)
         let collectionViewController = CollectionViewController(
             viewModel: collectionViewModel,
-            alertPresenter: AlertPresenter(),
+            alertPresenter: alertPresenter,
             serviceAssembly: serviceAssembly
         )
 

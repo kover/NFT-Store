@@ -8,13 +8,16 @@
 import Foundation
 
 final class DetailsContentViewModel {
-    let serviceAssembly: ServicesAssembly
-    var alertPresenter: AlertPresenterProtocol?
+    private let serviceAssembly: ServicesAssembly
+    private var alertPresenter: AlertPresenterProtocol?
 
     @Observable
     private(set) var currencies: [Currency] = []
 
-    init(serviceAssembly: ServicesAssembly, alertPresenter: AlertPresenterProtocol? = nil) {
+    init(
+        serviceAssembly: ServicesAssembly,
+        alertPresenter: AlertPresenterProtocol? = nil
+    ) {
         self.serviceAssembly = serviceAssembly
         self.alertPresenter = alertPresenter
         loadCurrencies()
@@ -35,6 +38,7 @@ final class DetailsContentViewModel {
         }
     }
 }
+// MARK: - Private routines
 private extension DetailsContentViewModel {
     func showNetworkError(completion: @escaping () -> Void) {
         guard let alertPresenter = alertPresenter else {

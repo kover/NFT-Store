@@ -9,7 +9,7 @@ import UIKit
 
 final class DetailsViewController: UIViewController {
 
-    private let viewModel: DetailsViewModelProtocol
+    private let viewModel: DetailsViewModel
     private let serviceAssembly: ServicesAssembly
     private var alertPresenter: AlertPresenterProtocol?
 
@@ -83,6 +83,7 @@ final class DetailsViewController: UIViewController {
         button.titleLabel?.font = .boldSystemFont(ofSize: 17)
         button.translatesAutoresizingMaskIntoConstraints = true
         button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.addTarget(self, action: #selector(toggleCart), for: .touchUpInside)
         return button
     }()
 
@@ -99,6 +100,7 @@ final class DetailsViewController: UIViewController {
         let detailsContentViewModel = DetailsContentViewModel(serviceAssembly: serviceAssembly,
                                                               alertPresenter: alertPresenter)
         let contentController = DetailsContentViewController(viewModel: detailsContentViewModel)
+        contentController.authorPageDelegate = self
 
         addChild(contentController)
 
@@ -111,9 +113,11 @@ final class DetailsViewController: UIViewController {
 
     private lazy var pageControl = LinePageControl()
 
-    init(viewModel: DetailsViewModelProtocol,
-         serviceAssembly: ServicesAssembly,
-         alertPresenter: AlertPresenterProtocol? = nil) {
+    init(
+        viewModel: DetailsViewModel,
+        serviceAssembly: ServicesAssembly,
+        alertPresenter: AlertPresenterProtocol? = nil
+    ) {
         self.viewModel = viewModel
         self.serviceAssembly = serviceAssembly
         self.alertPresenter = alertPresenter
@@ -127,13 +131,18 @@ final class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.backButtonTitle = ""
         view.backgroundColor = .ypWhite
         pageControl.numberOfItems = viewModel.nft.images.count
 
         setupSubviews()
         setupLayout()
+        bind()
     }
 
+    @objc func toggleCart() {
+        viewModel.toggleOrder()
+    }
 }
 // MARK: - Private routines
 private extension DetailsViewController {
@@ -169,6 +178,27 @@ private extension DetailsViewController {
             contentController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
+    func bind() {
+        viewModel.$order.bind { [weak self] _ in
+            guard let viewModel = self?.viewModel else {
+                return
+            }
+            if viewModel.isInOrder {
+                self?.cartButton.setTitle(
+                    NSLocalizedString("Details.removeFromCart",
+                                      comment: "TItle for remove from cart button"),
+                    for: .normal
+                )
+            } else {
+                self?.cartButton.setTitle(
+                    NSLocalizedString("Details.addToCart",
+                                      comment: "TItle for remove from cart button"),
+                    for: .normal
+                )
+            }
+        }
+    }
 }
 // MARK: - UICollectionViewDataSource
 extension DetailsViewController: UICollectionViewDataSource {
@@ -198,5 +228,12 @@ extension DetailsViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let selectedItem = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.selectedItem = selectedItem
+    }
+}
+// MARK: - AuthorPageCollectionViewCellProtocol
+extension DetailsViewController: AuthorPageCollectionViewCellProtocol {
+    func showAuthorPage() {
+        let authorPageViewController = AuthorPageViewController(url: ApiConstants.authorUrl.rawValue)
+        navigationController?.pushViewController(authorPageViewController, animated: true)
     }
 }

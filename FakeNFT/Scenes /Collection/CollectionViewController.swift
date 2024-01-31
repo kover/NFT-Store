@@ -71,7 +71,11 @@ final class CollectionViewController: UIViewController {
         return collectionView
     }()
 
-    init(viewModel: CollectionViewModel, alertPresenter: AlertPresenterProtocol, serviceAssembly: ServicesAssembly) {
+    init(
+        viewModel: CollectionViewModel,
+        alertPresenter: AlertPresenterProtocol,
+        serviceAssembly: ServicesAssembly
+    ) {
         self.viewModel = viewModel
         self.alertPresenter = alertPresenter
         self.serviceAssembly = serviceAssembly
@@ -95,6 +99,12 @@ final class CollectionViewController: UIViewController {
         setupSubviews()
         setupLayout()
         bind()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.loadOrder()
     }
 
     override func viewDidLayoutSubviews() {
@@ -234,7 +244,11 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
 extension CollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = viewModel.nfts[indexPath.row]
-        let detailViewModel = DetailsViewModel(nft: item, collection: viewModel.collection)
+        let detailViewModel = DetailsViewModel(nft: item,
+                                               collection: viewModel.collection,
+                                               serviceAssembly: serviceAssembly,
+                                               alertPresenter: alertPresenter
+        )
         let detailViewController = DetailsViewController(viewModel: detailViewModel,
                                                          serviceAssembly: serviceAssembly,
                                                          alertPresenter: alertPresenter)

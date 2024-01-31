@@ -228,7 +228,6 @@
 				0300A5BA2B5E7FFA000A5DD0 /* CollectionViewModel.swift */,
 				0300A5BC2B5E8012000A5DD0 /* CollectionViewController.swift */,
 				0338D0982B5F611C0050BBB3 /* NftCollectionViewCell.swift */,
-				036361AE2B6002C10063E26B /* AuthorPageViewController.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -297,6 +296,14 @@
 			path = DetailsContent;
 			sourceTree = "<group>";
 		};
+		03BE947A2B6AADEA00C8B034 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				036361AE2B6002C10063E26B /* AuthorPageViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		03D8655B2B5460A700796EE6 /* Decomposition */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +337,7 @@
 		0CF2C2D92A783C1600FDC837 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				03BE947A2B6AADEA00C8B034 /* Controllers */,
 				0CF2C2DF2A784C5600FDC837 /* Views */,
 				0CF2C2DE2A784C4C00FDC837 /* Protocols */,
 			);

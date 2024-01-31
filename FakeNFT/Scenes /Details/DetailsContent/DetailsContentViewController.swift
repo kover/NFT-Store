@@ -9,14 +9,16 @@ import UIKit
 
 final class DetailsContentViewController: UIViewController {
 
-    let viewModel: DetailsContentViewModel
+    var authorPageDelegate: AuthorPageCollectionViewCellProtocol?
+
+    private let viewModel: DetailsContentViewModel
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumLineSpacing = 0
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 36, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(CurrenciesCollectionViewCell.self)
         collectionView.register(AuthorPageCollectionViewCell.self)
@@ -84,6 +86,7 @@ extension DetailsContentViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             authorPageCell.configureCell()
+            authorPageCell.delegate = authorPageDelegate
             return authorPageCell
         default:
             return UICollectionViewCell()

@@ -9,7 +9,7 @@ import Foundation
 
 final class CatalogViewModel {
 
-    let serviceAssembly: ServicesAssembly
+    private let serviceAssembly: ServicesAssembly
     var alertPresenter: AlertPresenterProtocol?
 
     private let defaults = UserDefaults.standard

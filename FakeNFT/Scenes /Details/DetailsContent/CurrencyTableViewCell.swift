@@ -60,6 +60,7 @@ final class CurrencyTableViewCell: UITableViewCell {
         setupLayout()
     }
 }
+// MARK: - Private routines
 private extension CurrencyTableViewCell {
     func setupSubviews() {
         [currencyImageView, priceStack, priceChangeLabel].forEach {

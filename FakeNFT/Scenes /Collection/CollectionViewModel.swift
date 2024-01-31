@@ -24,12 +24,14 @@ final class CollectionViewModel {
     @Observable
     private(set) var order: Order?
 
-    init(collection: NftCollection, serviceAssembly: ServicesAssembly) {
+    init(
+        collection: NftCollection,
+        serviceAssembly: ServicesAssembly
+    ) {
         self.collection = collection
         self.serviceAssembly = serviceAssembly
         loadProfile()
         loadNfts(by: collection.nfts)
-        loadOrder()
     }
 
     func loadNfts(by ids: [String]) {
@@ -87,6 +89,20 @@ final class CollectionViewModel {
     func isInOrder(_ id: String) -> Bool {
         return order?.nfts.contains { $0 == id } ?? false
     }
+
+    func loadOrder() {
+        serviceAssembly.orderService.getOrder { [weak self] result in
+            switch result {
+            case .success(let order):
+                self?.order = order
+            case .failure:
+                self?.showNetworkError {
+                    self?.loadOrder()
+                }
+            }
+        }
+    }
+
 }
 // MARK: - Private routines
 private extension CollectionViewModel {
@@ -104,6 +120,9 @@ private extension CollectionViewModel {
     }
 
     func loadNft(by id: String) {
+        DispatchQueue.main.async {
+            UIBlockingProgressHUD.show()
+        }
         serviceAssembly.collectionService.getNft(by: id) { [weak self] result in
             switch result {
             case .success(let item):
@@ -113,18 +132,8 @@ private extension CollectionViewModel {
                     self?.loadNft(by: id)
                 }
             }
-        }
-    }
-
-    func loadOrder() {
-        serviceAssembly.orderService.getOrder { [weak self] result in
-            switch result {
-            case .success(let order):
-                self?.order = order
-            case .failure:
-                self?.showNetworkError {
-                    self?.loadOrder()
-                }
+            DispatchQueue.main.async {
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }

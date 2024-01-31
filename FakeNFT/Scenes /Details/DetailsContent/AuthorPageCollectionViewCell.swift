@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol AuthorPageCollectionViewCellProtocol: AnyObject {
+    func showAuthorPage()
+}
+
 final class AuthorPageCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
+    var delegate: AuthorPageCollectionViewCellProtocol?
+
     private lazy var authorPageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("Details.sellerPage", comment: "Title for the seller page button"),
@@ -17,12 +23,17 @@ final class AuthorPageCollectionViewCell: UICollectionViewCell, ReuseIdentifying
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
+        button.addTarget(self, action: #selector(showAuthorPage), for: .touchUpInside)
         return button
     }()
 
     func configureCell() {
         setupSubviews()
         setupLayout()
+    }
+
+    @objc func showAuthorPage() {
+        delegate?.showAuthorPage()
     }
 }
 private extension AuthorPageCollectionViewCell {
