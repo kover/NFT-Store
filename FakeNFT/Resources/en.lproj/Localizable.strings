@@ -1,0 +1,16 @@
+"Tab.catalog" = "Catalog";
+"Catalog.openNft" = "Open Nft";
+"Error.network" = "A network error occurred";
+"Error.unknown" = "An unknown error occurred";
+"Error.repeat" = "Retry";
+"Error.title" = "Error";
+"Catalog.empty" = "There is no data to display";
+"Sort.title" = "Sort";
+"Sort.byName" = "By name";
+"Sort.byCount" = "By NFT count";
+"Sort.close" = "Close";
+"Collection.author" = "Author:";
+"Details.price" = "Price";
+"Details.addToCart" = "Add to cart";
+"Details.removeFromCart" = "Remove from cart";
+"Details.sellerPage" = "Seller page";

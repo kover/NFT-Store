@@ -11,6 +11,8 @@ import Kingfisher
 final class CollectionViewController: UIViewController {
 
     private let viewModel: CollectionViewModel
+    private var alertPresenter: AlertPresenterProtocol
+    private let serviceAssembly: ServicesAssembly
 
     private lazy var collectionCoverImageView: UIImageView = {
         let coverImageView = UIImageView()
@@ -69,8 +71,14 @@ final class CollectionViewController: UIViewController {
         return collectionView
     }()
 
-    init(viewModel: CollectionViewModel) {
+    init(
+        viewModel: CollectionViewModel,
+        alertPresenter: AlertPresenterProtocol,
+        serviceAssembly: ServicesAssembly
+    ) {
         self.viewModel = viewModel
+        self.alertPresenter = alertPresenter
+        self.serviceAssembly = serviceAssembly
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -85,9 +93,18 @@ final class CollectionViewController: UIViewController {
         view.backgroundColor = .ypWhite
         navigationController?.navigationBar.tintColor = .black
 
+        alertPresenter.delegate = self
+        viewModel.alertPresenter = alertPresenter
+
         setupSubviews()
         setupLayout()
         bind()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.loadOrder()
     }
 
     override func viewDidLayoutSubviews() {
@@ -157,6 +174,14 @@ extension CollectionViewController {
         viewModel.$nfts.bind { [weak self] _ in
             self?.collectionNfts.reloadData()
         }
+
+        viewModel.$profile.bind { [weak self] _ in
+            self?.collectionNfts.reloadData()
+        }
+
+        viewModel.$order.bind { [weak self] _ in
+            self?.collectionNfts.reloadData()
+        }
     }
 
     @objc func showAuthorPage() {
@@ -182,7 +207,10 @@ extension CollectionViewController: UICollectionViewDataSource {
         }
 
         let item = viewModel.nfts[indexPath.row]
-        nftCell.setupCell(with: item)
+        let isFavorite = viewModel.isLikeSet(for: item.id)
+        let isInOrder = viewModel.isInOrder(item.id)
+        nftCell.setupCell(with: item, isFavorite: isFavorite, isInOrder: isInOrder)
+        nftCell.delegate = self
 
         return nftCell
     }
@@ -212,4 +240,29 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         CGSize(width: (collectionView.bounds.width - 9 * 2 - 32) / 3, height: 192)
     }
+}
+extension CollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = viewModel.nfts[indexPath.row]
+        let detailViewModel = DetailsViewModel(nft: item,
+                                               collection: viewModel.collection,
+                                               serviceAssembly: serviceAssembly,
+                                               alertPresenter: alertPresenter
+        )
+        let detailViewController = DetailsViewController(viewModel: detailViewModel,
+                                                         serviceAssembly: serviceAssembly,
+                                                         alertPresenter: alertPresenter)
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+// MARK: - NftCollectionViewCellDelegate
+extension CollectionViewController: NftCollectionViewCellDelegate {
+    func didTapCart(_ item: NftItem) {
+        viewModel.toggleOrder(for: item.id)
+    }
+
+    func didTapLike(_ item: NftItem) {
+        viewModel.toggleLike(for: item.id)
+    }
+
 }

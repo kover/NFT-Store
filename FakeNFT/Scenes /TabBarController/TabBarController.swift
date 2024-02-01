@@ -15,7 +15,8 @@ final class TabBarController: UITabBarController {
 
         let catalogController = CatalogViewController(
             viewModel: CatalogViewModel(serviceAssembly: servicesAssembly),
-            serviceAssembly: servicesAssembly
+            serviceAssembly: servicesAssembly,
+            alertPresenter: AlertPresenter()
         )
         catalogController.tabBarItem = catalogTabBarItem
 
