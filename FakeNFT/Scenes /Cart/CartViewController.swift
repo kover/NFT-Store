@@ -163,6 +163,7 @@ final class CartViewController: UIViewController {
         emptyCartLabel.isHidden = !isCartEmpty
         quantityLabel.text = "\(viewModel.nftModels.count) NFT"
         totalAmountLabel.text = "\(viewModel.totalAmount()) ETH"
+        navigationItem.rightBarButtonItem = isCartEmpty ? nil : createSortButton()
 
         if !isCartEmpty {
             tableView.reloadData()
