@@ -57,4 +57,16 @@ struct CartService: CartServiceProtocol {
             }
         }
     }
+    
+    func updateOrder(_ order: OrderModel, completion: @escaping (Result<OrderModel, Error>) -> Void) {
+        let request = PutOrderRequest(order: order)
+        networkClient.send(request: request, type: OrderModel.self) { result in
+            switch result {
+            case .success(let order):
+                completion(.success(order))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

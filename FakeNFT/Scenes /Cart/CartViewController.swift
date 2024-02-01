@@ -10,6 +10,7 @@ import UIKit
 final class CartViewController: UIViewController {
     
     private let viewModel: CartViewModel
+    private let serviceAssembly: ServicesAssembly
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -42,7 +43,7 @@ final class CartViewController: UIViewController {
     private lazy var totalAmountLabel: UILabel = {
         let label = UILabel()
         label.text = "\(viewModel.totalAmount()) ETH"
-        label.textColor = UIColor(hexString: "1C9F00")
+        label.textColor = UIColor.ypGreenUniversal
         label.font = .boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,6 +55,7 @@ final class CartViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.backgroundColor = UIColor.segmentActive
         button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -68,8 +70,9 @@ final class CartViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: CartViewModel) {
+    init(viewModel: CartViewModel, serviceAssembly: ServicesAssembly) {
         self.viewModel = viewModel
+        self.serviceAssembly = serviceAssembly
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -88,7 +91,20 @@ final class CartViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
+        viewModel.onNftRemoved = { [weak self] in
+            self?.hideDeleteConfirmationView()
+            self?.tableView.reloadData()
+            self?.updateUI()
+        }
+        
         updateUI()
+        configureBackButtonForNextScreen()
+    }
+    
+    private func configureBackButtonForNextScreen() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
     }
     
     private func createSortButton() -> UIBarButtonItem {
@@ -129,9 +145,14 @@ final class CartViewController: UIViewController {
     }
     
     @objc func checkoutButtonTapped() {
-        //todo: реализовать переход к экрану выбора валюты
+        let currencySelectionVM = CurrencySelectionViewModel(serviceAssembly: serviceAssembly)
+        let currencySelectionVC = CurrencySelectionViewController(viewModel: currencySelectionVM)
+        
+        currencySelectionVC.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(currencySelectionVC, animated: true)
     }
-    
+
     private func updateUI() {
         let isCartEmpty = viewModel.nftModels.isEmpty
         tableView.isHidden = isCartEmpty
@@ -140,14 +161,15 @@ final class CartViewController: UIViewController {
         quantityLabel.isHidden = isCartEmpty
         chekoutButton.isHidden = isCartEmpty
         emptyCartLabel.isHidden = !isCartEmpty
-        
+        quantityLabel.text = "\(viewModel.nftModels.count) NFT"
+        totalAmountLabel.text = "\(viewModel.totalAmount()) ETH"
         navigationItem.rightBarButtonItem = isCartEmpty ? nil : createSortButton()
-        
+
         if !isCartEmpty {
             tableView.reloadData()
         }
     }
-    
+
     private func addSubViews() {
         view.addSubview(tableView)
         view.addSubview(bottomPanel)
@@ -185,6 +207,36 @@ final class CartViewController: UIViewController {
             
         ])
     }
+    
+    func showDeleteConfirmationView(for nft: NftModel, onDelete: @escaping () -> Void, onCancel: @escaping () -> Void) {
+        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+
+        let deleteConfirmationView = DeleteConfirmationView()
+        deleteConfirmationView.configure(with: nft)
+        deleteConfirmationView.onDeleteConfirmed = onDelete
+        deleteConfirmationView.onCancel = onCancel
+        deleteConfirmationView.frame = window.bounds
+        window.addSubview(deleteConfirmationView)
+
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = window.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.tag = 100
+        window.insertSubview(blurEffectView, belowSubview: deleteConfirmationView)
+    }
+
+    func hideDeleteConfirmationView() {
+        guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+
+        if let deleteConfirmationView = window.subviews.first(where: { $0 is DeleteConfirmationView }) {
+            deleteConfirmationView.removeFromSuperview()
+        }
+
+        if let blurEffectView = window.subviews.first(where: { $0.tag == 100 }) {
+            blurEffectView.removeFromSuperview()
+        }
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -201,6 +253,8 @@ extension CartViewController: UITableViewDataSource {
         
         let nftModel = viewModel.nftModels[indexPath.row]
         cell.configure(with: nftModel)
+        cell.selectionStyle = .none
+        cell.delegate = self
         return cell
     }
 }
@@ -210,5 +264,20 @@ extension CartViewController: UITableViewDataSource {
 extension CartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+}
+
+//MARK: - UITableViewDelegate
+
+extension CartViewController: CartTableViewCellDelegate {
+    func cartTableViewCellDidTapDelete(_ cell: CartTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let nftToRemove = viewModel.nftModels[indexPath.row]
+
+        showDeleteConfirmationView(for: nftToRemove, onDelete: { [weak self] in
+            self?.viewModel.removeNftFromOrder(nftToRemove.id)
+        }, onCancel: { [weak self] in
+            self?.hideDeleteConfirmationView()
+        })
     }
 }

@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol CartTableViewCellDelegate: AnyObject {
+    func cartTableViewCellDidTapDelete(_ cell: CartTableViewCell)
+}
+
 final class CartTableViewCell: UITableViewCell {
+    
+    weak var delegate: CartTableViewCellDelegate?
     
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +29,7 @@ final class CartTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var ratingView: RatingView = {
         let view = RatingView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +60,7 @@ final class CartTableViewCell: UITableViewCell {
     }()
     
     @objc func deleteButtonTapped() {
-        //todo: Реализовать удаление NFT из корзины
+        delegate?.cartTableViewCellDidTapDelete(self)
     }
     
     func configure(with cellModel: NftModel) {
@@ -79,31 +85,31 @@ final class CartTableViewCell: UITableViewCell {
         contentView.addSubview(priceLabel)
         contentView.addSubview(deleteButton)
     }
-
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-        nftImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-        nftImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-        nftImageView.heightAnchor.constraint(equalToConstant: 108),
-        nftImageView.widthAnchor.constraint(equalToConstant: 108),
-        
-        titleLabel.topAnchor.constraint(equalTo: nftImageView.topAnchor, constant: 8),
-        titleLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
-        titleLabel.heightAnchor.constraint(equalToConstant: 22),
-        
-        ratingView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-        ratingView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-        
-        cryptoPriceLabel.bottomAnchor.constraint(equalTo: nftImageView.bottomAnchor, constant: -8),
-        cryptoPriceLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
-        cryptoPriceLabel.heightAnchor.constraint(equalToConstant: 22),
-        
-        priceLabel.bottomAnchor.constraint(equalTo: cryptoPriceLabel.topAnchor, constant: -2),
-        priceLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
-        priceLabel.heightAnchor.constraint(equalToConstant: 18),
-        
-        deleteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -16)
+            nftImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            nftImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            nftImageView.heightAnchor.constraint(equalToConstant: 108),
+            nftImageView.widthAnchor.constraint(equalToConstant: 108),
+            
+            titleLabel.topAnchor.constraint(equalTo: nftImageView.topAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
+            titleLabel.heightAnchor.constraint(equalToConstant: 22),
+            
+            ratingView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            ratingView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            
+            cryptoPriceLabel.bottomAnchor.constraint(equalTo: nftImageView.bottomAnchor, constant: -8),
+            cryptoPriceLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
+            cryptoPriceLabel.heightAnchor.constraint(equalToConstant: 22),
+            
+            priceLabel.bottomAnchor.constraint(equalTo: cryptoPriceLabel.topAnchor, constant: -2),
+            priceLabel.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
+            priceLabel.heightAnchor.constraint(equalToConstant: 18),
+            
+            deleteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -16)
         ])
     }
 }
