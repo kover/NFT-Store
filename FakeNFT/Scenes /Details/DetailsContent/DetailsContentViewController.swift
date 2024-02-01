@@ -20,6 +20,7 @@ final class DetailsContentViewController: UIViewController {
         layout.minimumLineSpacing = 0
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 36, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .ypWhite
         collectionView.register(CurrenciesCollectionViewCell.self)
         collectionView.register(AuthorPageCollectionViewCell.self)
         collectionView.dataSource = self

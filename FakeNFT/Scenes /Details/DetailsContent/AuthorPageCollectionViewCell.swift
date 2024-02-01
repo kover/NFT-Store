@@ -14,6 +14,10 @@ protocol AuthorPageCollectionViewCellProtocol: AnyObject {
 final class AuthorPageCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     var delegate: AuthorPageCollectionViewCellProtocol?
 
+    private var dynamicColor: CGColor {
+        return UIColor.ypBlack.cgColor
+    }
+
     private lazy var authorPageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("Details.sellerPage", comment: "Title for the seller page button"),
@@ -23,9 +27,16 @@ final class AuthorPageCollectionViewCell: UICollectionViewCell, ReuseIdentifying
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
+        button.layer.borderColor = dynamicColor
         button.addTarget(self, action: #selector(showAuthorPage), for: .touchUpInside)
         return button
     }()
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        authorPageButton.layer.borderColor = dynamicColor
+    }
 
     func configureCell() {
         setupSubviews()
