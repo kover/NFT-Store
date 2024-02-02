@@ -9,6 +9,8 @@ import UIKit
 
 final class CurrencySelectionViewController: UIViewController {
     
+    weak var delegate: PaymentSuccessDelegate?
+    
     private let viewModel: CurrencySelectionViewModel
     
     private let currencyCollectionView: UICollectionView = {
@@ -82,7 +84,9 @@ final class CurrencySelectionViewController: UIViewController {
     }
     
     @objc private func payButtonTapped() {
-        //todo: implement payment logic
+        let paymentSuccessVC = PaymentSuccessViewController()
+        paymentSuccessVC.delegate = delegate
+        self.navigationController?.pushViewController(paymentSuccessVC, animated: true)
     }
     
     @objc private func linkLabelTapped() {

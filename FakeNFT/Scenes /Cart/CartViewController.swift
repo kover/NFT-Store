@@ -147,7 +147,7 @@ final class CartViewController: UIViewController {
     @objc func checkoutButtonTapped() {
         let currencySelectionVM = CurrencySelectionViewModel(serviceAssembly: serviceAssembly)
         let currencySelectionVC = CurrencySelectionViewController(viewModel: currencySelectionVM)
-        
+        currencySelectionVC.delegate = self
         currencySelectionVC.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(currencySelectionVC, animated: true)
@@ -281,3 +281,13 @@ extension CartViewController: CartTableViewCellDelegate {
         })
     }
 }
+
+//MARK: - PaymentSuccessDelegate
+
+extension CartViewController: PaymentSuccessDelegate {
+    func navigateToCatalog() {
+        tabBarController?.selectedIndex = 0
+    }
+}
+
+
