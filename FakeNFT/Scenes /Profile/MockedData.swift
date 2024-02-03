@@ -8,12 +8,12 @@
 import UIKit
 
 enum MockedData {
-    static let profileInfo = ProfileModel(
-        avatar: nil,
-        name: "Joaquin Phoenix",
-        description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
-        link: "Joaquin Phoenix.com"
-    )
+//    static let profileInfo = ProfileModel(
+//        avatar: nil,
+//        name: "Joaquin Phoenix",
+//        description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
+//        link: "Joaquin Phoenix.com"
+//    )
     
     static let NTFList = [
         NTFModel(id: "01", title: "Lilo", artwork: UIImage(named: "NTF1") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 3, isFavorite: false),

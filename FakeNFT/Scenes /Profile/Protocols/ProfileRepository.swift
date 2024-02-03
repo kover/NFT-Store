@@ -9,8 +9,9 @@ import Foundation
 
 protocol ProfileRepository {
     
-    func saveProfileInfo(_ model: ProfileModel)
+    func saveProfile(model: ProfileModel, handler: @escaping (Error?) -> Void)
     
-    func loadProfileInfo() -> ProfileModel
+    func loadProfile(handler: @escaping (Result<ProfileModel, Error>) -> Void)
     
+    func getProfileFromCache() -> ProfileModel?    
 }
