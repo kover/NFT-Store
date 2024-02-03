@@ -12,8 +12,7 @@ final class DI {
 //MARK: - ViewModels injections
     static func injectProfileViewModel() -> ProfileViewModelProtocol {
         ProfileViewModel(
-            profileRepository: injectProfileRepository(),
-            NTFRepository: injectNTFRepository()
+            profileRepository: injectProfileRepository()
         )
     }
     
@@ -31,10 +30,17 @@ final class DI {
     
 //MARK: - Repositories injections
     static func injectProfileRepository() -> ProfileRepository {
-        ProfileRepositoryImpl()
+        ProfileRepositoryImpl(
+            networkClient: injectNetworkClient()
+        )
     }
     
     static func injectNTFRepository() -> NTFRepository {
         NTFRepositoryImpl()
+    }
+    
+//MARK: - Services
+    static func injectNetworkClient() -> NetworkClient {
+        DefaultNetworkClient()
     }
 }
