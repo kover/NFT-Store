@@ -33,6 +33,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         isProfileLoadingAvailable = true
     }
     
+    func onProfileWebsiteWillPresent() {
+        isProfileLoadingAvailable = false
+    }
+    
     func observeProfileInfo(_ completion: @escaping (ProfileModel) -> Void) {
         self.updateProfileInfo = completion
     }

@@ -28,6 +28,10 @@ final class DI {
         )
     }
     
+    static func injectProfileWebsiteViewModel(profileLink: String) -> ProfileWebsiteViewModelProtocol {
+        ProfileWebsiteViewModel(profileLink: profileLink)
+    }
+    
 //MARK: - Repositories injections
     static func injectProfileRepository() -> ProfileRepository {
         ProfileRepositoryImpl(

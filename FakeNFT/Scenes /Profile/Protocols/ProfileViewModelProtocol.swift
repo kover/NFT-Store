@@ -11,6 +11,8 @@ protocol ProfileViewModelProtocol {
     
     func onViewWillAppear()
     
+    func onProfileWebsiteWillPresent()
+    
     func observeProfileInfo(_ completion: @escaping (ProfileModel) -> Void)
     
     func observeLoadingError(_ completion: @escaping (String) -> Void)
