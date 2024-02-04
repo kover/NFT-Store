@@ -9,7 +9,7 @@ import UIKit
 
 final class CartViewController: UIViewController {
     
-    private let viewModel: CartViewModel
+    private var viewModel: CartViewModelProtocol
     private let serviceAssembly: ServicesAssembly
     
     private lazy var tableView: UITableView = {
@@ -70,7 +70,7 @@ final class CartViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: CartViewModel, serviceAssembly: ServicesAssembly) {
+    init(viewModel: CartViewModelProtocol, serviceAssembly: ServicesAssembly) {
         self.viewModel = viewModel
         self.serviceAssembly = serviceAssembly
         super.init(nibName: nil, bundle: nil)
@@ -145,13 +145,14 @@ final class CartViewController: UIViewController {
     }
     
     @objc func checkoutButtonTapped() {
-        let currencySelectionVM = CurrencySelectionViewModel(serviceAssembly: serviceAssembly)
+        let currencySelectionVM: CurrencySelectionViewModelProtocol = CurrencySelectionViewModel(serviceAssembly: serviceAssembly)
         let currencySelectionVC = CurrencySelectionViewController(viewModel: currencySelectionVM)
         currencySelectionVC.delegate = self
         currencySelectionVC.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(currencySelectionVC, animated: true)
     }
+
 
     private func updateUI() {
         let isCartEmpty = viewModel.nftModels.isEmpty

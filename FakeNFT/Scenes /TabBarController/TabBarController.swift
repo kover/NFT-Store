@@ -10,11 +10,18 @@ final class TabBarController: UITabBarController {
         tag: 0
     )
     
-    private let cartTabBarItem = UITabBarItem(
-        title: NSLocalizedString("Tab.cart", comment: ""),
-        image: UIImage(systemName: "trash"), // todo: Заменить на пользовательскую иконку согласно дизайну
-        tag: 1
-    )
+    private let cartTabBarItem: UITabBarItem = {
+        let normalIcon = UIImage(named: "cartInactive")
+        let selectedIcon = UIImage(named: "cartActive")
+        let item = UITabBarItem(
+            title: NSLocalizedString("Tab.cart", comment: ""),
+            image: normalIcon,
+            selectedImage: selectedIcon
+        )
+        item.tag = 1
+        return item
+    }()
+
     
     
 
@@ -26,8 +33,9 @@ final class TabBarController: UITabBarController {
         )
         catalogController.tabBarItem = catalogTabBarItem
         
-        let cartController = CartViewController(viewModel: CartViewModel(serviceAssembly: servicesAssembly), serviceAssembly: servicesAssembly)
-        
+        let cartViewModel: CartViewModelProtocol = CartViewModel(serviceAssembly: servicesAssembly)
+        let cartController = CartViewController(viewModel: cartViewModel, serviceAssembly: servicesAssembly)
+
         cartController.tabBarItem = cartTabBarItem
         
         let cartNavController = UINavigationController(rootViewController: cartController)

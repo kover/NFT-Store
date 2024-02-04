@@ -11,7 +11,7 @@ final class CurrencySelectionViewController: UIViewController {
     
     weak var delegate: PaymentSuccessDelegate?
     
-    private let viewModel: CurrencySelectionViewModel
+    private var viewModel: CurrencySelectionViewModelProtocol
     
     private var currencyId = ""
     
@@ -63,7 +63,7 @@ final class CurrencySelectionViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: CurrencySelectionViewModel) {
+    init(viewModel: CurrencySelectionViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

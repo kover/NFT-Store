@@ -7,7 +7,18 @@
 
 import Foundation
 
-final class CurrencySelectionViewModel {
+protocol CurrencySelectionViewModelProtocol {
+    var currencies: [CurrencyModel] { get }
+    var onError: ((Error) -> Void)? { get set }
+    var onCurrenciesLoaded: (() -> Void)? { get set }
+    var onPaymentSuccess: (() -> Void)? { get set }
+    
+    func loadCurrencies()
+    func makePayment(with currencyId: String)
+    func linkTapped(completion: @escaping (URL) -> Void)
+}
+
+final class CurrencySelectionViewModel: CurrencySelectionViewModelProtocol {
     
     private let serviceAssembly: ServicesAssembly
     var currencies: [CurrencyModel] = []
@@ -23,13 +34,13 @@ final class CurrencySelectionViewModel {
     
     func loadCurrencies() {
         UIBlockingProgressHUD.show()
-
+        
         serviceAssembly.cartService.getCurrencies { [weak self] result in
             switch result {
             case .success(let currencies):
                 self?.currencies = currencies
                 DispatchQueue.main.async {
-                    self?.onCurrenciesLoaded?() 
+                    self?.onCurrenciesLoaded?()
                 }
             case .failure(let error):
                 self?.onError?(error)
@@ -39,7 +50,8 @@ final class CurrencySelectionViewModel {
     }
     
     func makePayment(with currencyId: String) {
-
+        UIBlockingProgressHUD.show()
+        
         serviceAssembly.cartService.makePayment(with: currencyId) { [weak self] result in
             switch result {
             case .success(let response):
@@ -52,9 +64,10 @@ final class CurrencySelectionViewModel {
             case .failure(let error):
                 self?.onError?(error)
             }
+            UIBlockingProgressHUD.dismiss()
         }
     }
-
+    
     
     func linkTapped(completion: @escaping (URL) -> Void) {
         if let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") {

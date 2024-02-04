@@ -7,7 +7,19 @@
 
 import Foundation
 
-final class CartViewModel {
+protocol CartViewModelProtocol {
+    var nftModels: [NftModel] { get }
+    var onNFTsLoaded: (() -> Void)? { get set }
+    var onError: ((Error) -> Void)? { get set }
+    var onNftRemoved: (() -> Void)? { get set }
+    
+    func loadOrder()
+    func totalAmount() -> Float
+    func removeNftFromOrder(_ nftId: String)
+    func sortNFTs(by criterion: SortingCriterion)
+}
+
+final class CartViewModel: CartViewModelProtocol {
     private let serviceAssembly: ServicesAssembly
     var nftModels: [NftModel] = []
     var onNFTsLoaded: (() -> Void)?
