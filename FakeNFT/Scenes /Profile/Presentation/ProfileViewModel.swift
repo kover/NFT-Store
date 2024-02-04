@@ -123,8 +123,6 @@ final class ProfileViewModel: ProfileViewModelProtocol {
             guard let self else { return }
             switch result {
             case .success(let profileModel):
-                print(profileModel)
-                print(profileModel.favoritesNtsIds.count)
                 self.dataLoadingStatus?(false)
                 self.updateProfileInfo?(profileModel)
             case .failure(let error):

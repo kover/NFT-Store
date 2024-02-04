@@ -163,8 +163,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func onLoadingError(description: String) {
-        print("Loading Error")
-        print(description)
+        //TODO alert if error data loading
     }
     
     //MARK: - Observers

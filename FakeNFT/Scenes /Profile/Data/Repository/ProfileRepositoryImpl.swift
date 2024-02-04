@@ -21,7 +21,6 @@ final class ProfileRepositoryImpl: ProfileRepository {
     
     func saveProfile(model: ProfileModel, handler: @escaping (Error?) -> Void) {
         let requestBody = map(model)
-        print(requestBody)
         
         let profileRequest = ProfileRequest(requestBody: requestBody, httpMethod: .put)
         
