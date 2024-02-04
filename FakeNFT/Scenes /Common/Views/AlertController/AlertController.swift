@@ -23,7 +23,7 @@ final class AlertController {
         for action in actions {
             let alertAction = UIAlertAction(
                 title: action.title,
-                style: .destructive
+                style: .default
             ) { _ in action.action()}
             
             alert.addAction(alertAction)
@@ -75,5 +75,28 @@ final class AlertController {
         })
          
         alertPresenter.present(alert: alert, animated: true)
+    }
+    
+    static func showInputDialog(
+        alertPresenter: AlertPresenterProtocol,
+        title: String,
+        action: @escaping (String) -> Void
+    ) {
+        let alert = UIAlertController(
+            title: title,
+            message: nil,
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: localized("ok"), style: .default) { _ in
+            guard let textField = alert.textFields?.first as UITextField? else { return }
+            guard let stringUrl = textField.text else { return }
+            action(stringUrl)
+        })
+        
+        alert.addAction(UIAlertAction(title: localized("Cancel"), style: .cancel, handler: nil))
+        alert.addTextField()
+        alertPresenter.present(alert: alert, animated: true)
+        
     }
 }

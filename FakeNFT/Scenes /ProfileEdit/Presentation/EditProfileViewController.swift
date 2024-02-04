@@ -111,12 +111,24 @@ final class EditProfileViewController: UIViewController {
             AlertAction(title: localized("Camera")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .camera
-                self.present(imagePicker, animated: true)
+                self.delayedRelease()
+                //self.present(imagePicker, animated: true)
             },
             AlertAction(title: localized("Photo Library")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker, animated: true)
+                self.delayedRelease()
+                //self.present(imagePicker, animated: true)
+            },
+            AlertAction(title: localized("Photo Link")) {[weak self] in
+                guard let self else { return }
+                AlertController.showInputDialog(
+                    alertPresenter: self,
+                    title: localized("Profile.Edit.EnterAvatarLink")) { urlString in
+                        let newAvatarUrl = URL(string: urlString)
+                        self.updateProfileAvatar(for: newAvatarUrl)
+                        self.avatarUrl = newAvatarUrl
+                    }
             }
         ]
         AlertController.multiAction(alertPresenter: self, title: nil, actions: actions)
@@ -133,6 +145,14 @@ final class EditProfileViewController: UIViewController {
     private func updateProfileAvatar(for url: URL?) {
         userAvatar.kf.setImage(
             with: url
+        )
+    }
+    
+    private func delayedRelease() {
+        AlertController.showNotification(
+            alertPresenter: self,
+            title: localized("Not available"),
+            message: localized("Will avaible in the next release")
         )
     }
 }
