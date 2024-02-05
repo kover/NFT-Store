@@ -18,14 +18,14 @@ final class DI {
     
     static func injectMyNTFViewModel(myNTFsID: [String]) -> MyNTFViewModelProtocol {
         MyNTFViewModel(
-            NTFRepository: injectNTFRepository(),
+            ntfRepository: injectNTFRepository(),
             myNTFsIds: myNTFsID
         )
     }
     
     static func injectFavoritesNTFViewModel(favoritesNTFsID: [String]) -> FavoritesNTFViewModelProtocol {
         FavoritesNTFViewModel(
-            NTFRepository: injectNTFRepository(),
+            ntfRepository: injectNTFRepository(),
             favoritesNTFsID: favoritesNTFsID
         )
     }

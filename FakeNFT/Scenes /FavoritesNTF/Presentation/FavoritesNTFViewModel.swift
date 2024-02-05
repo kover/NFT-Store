@@ -11,25 +11,25 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
     private var updFavoritesNTFsIds = [String]() //temporary property will be removed on next stage
     
-    private let NTFRepository: NTFRepository
+    private let ntfRepository: NTFRepository
     
     init(
-        NTFRepository: NTFRepository,
+        ntfRepository: NTFRepository,
         favoritesNTFsID: [String]
     ) {
-        self.NTFRepository = NTFRepository
-        NTFRepository.loadFavoritesNTFsByID(favoritesNTFsID)
+        self.ntfRepository = ntfRepository
+        self.ntfRepository.loadFavoritesNTFsByID(favoritesNTFsID)
         self.updFavoritesNTFsIds = favoritesNTFsID //temporary step will be removed on next stage
     }
         
     func itemCount() -> Int {
-        NTFRepository.loadFavoritesNTFsFromCache().count
+        ntfRepository.loadFavoritesNTFsFromCache().count
     }
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel? {
-        let NTFlist = NTFRepository.loadFavoritesNTFsFromCache()
-        if NTFlist.isEmpty { return nil }
-        return map(NTFlist[indexPath.item])
+        let ntfList = ntfRepository.loadFavoritesNTFsFromCache()
+        if ntfList.isEmpty { return nil }
+        return map(ntfList[indexPath.item])
     }
     
     func removeFavoriteNTF(id: String) {

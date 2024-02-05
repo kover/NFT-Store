@@ -12,11 +12,11 @@ final class NTFRepositoryImpl: NTFRepository {
     private var favoritesNTFsCache = [NTFModel]()
     
     func loadMyNTFsByID(_ IDs: [String]) -> [NTFModel] {
-        MockedData.NTFList //mocked storage
+        MockedData.ntfList //mocked storage
     }
     
     func loadFavoritesNTFsByID(_ IDs: [String]) {
-        favoritesNTFsCache = MockedData.NTFList //mocked storage
+        favoritesNTFsCache = MockedData.ntfList //mocked storage
     }
     
     func loadFavoritesNTFsFromCache() -> [NTFModel] {

@@ -46,7 +46,7 @@ final class MyNTFViewController: UIViewController {
         return button
     }()
     
-    private let NTFCollection: UICollectionView = {
+    private let ntfCollection: UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: UICollectionViewFlowLayout()
@@ -71,9 +71,9 @@ final class MyNTFViewController: UIViewController {
     }
     
     private func configureNTFCollection() {
-        NTFCollection.collectionViewLayout = configureNTFCollectionFlowLayout()
-        NTFCollection.dataSource = self
-        NTFCollection.register(MyNTFCell.self, forCellWithReuseIdentifier: MyNTFCell.identifier)
+        ntfCollection.collectionViewLayout = configureNTFCollectionFlowLayout()
+        ntfCollection.dataSource = self
+        ntfCollection.register(MyNTFCell.self, forCellWithReuseIdentifier: MyNTFCell.identifier)
     }
         
     @objc
@@ -145,7 +145,7 @@ extension MyNTFViewController {
         )
         
         view.addSubView(
-            NTFCollection,
+            ntfCollection,
             top: AnchorOf(screenTitle.bottomAnchor, 46),
             bottom: AnchorOf(view.bottomAnchor),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin),

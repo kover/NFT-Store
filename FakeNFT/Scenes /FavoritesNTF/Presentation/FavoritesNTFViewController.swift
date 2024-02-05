@@ -35,7 +35,7 @@ final class FavoritesNTFViewController: UIViewController {
         return label
     }()
     
-    private let NTFCollection: UICollectionView = {
+    private let ntfCollection: UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: UICollectionViewFlowLayout()
@@ -72,9 +72,9 @@ final class FavoritesNTFViewController: UIViewController {
     }
     
     private func configureNTFCollection() {
-        NTFCollection.dataSource = self
-        NTFCollection.delegate = self
-        NTFCollection.register(FavoritesNTFCell.self, forCellWithReuseIdentifier: FavoritesNTFCell.identifier)
+        ntfCollection.dataSource = self
+        ntfCollection.delegate = self
+        ntfCollection.register(FavoritesNTFCell.self, forCellWithReuseIdentifier: FavoritesNTFCell.identifier)
     }
         
     @objc
@@ -144,7 +144,7 @@ extension FavoritesNTFViewController {
         )
         
         view.addSubView(
-            NTFCollection,
+            ntfCollection,
             top: AnchorOf(screenTitle.bottomAnchor, 46),
             bottom: AnchorOf(view.bottomAnchor),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin),
