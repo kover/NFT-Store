@@ -13,4 +13,8 @@ protocol FavoritesNTFViewModelProtocol {
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel?
     
+    func removeFavoriteNTF(id: String)
+    
+    func getUpdatedFavoritesNTFsIds() -> [String]
+    
 }

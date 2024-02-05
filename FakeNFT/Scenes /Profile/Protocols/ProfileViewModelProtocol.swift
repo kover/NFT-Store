@@ -11,7 +11,9 @@ protocol ProfileViewModelProtocol {
     
     func onViewWillAppear()
     
-    func onProfileWebsiteWillPresent()
+    func onViewDidAppear()
+    
+    func onChildControllerWillPresent()
     
     func observeProfileInfo(_ completion: @escaping (ProfileModel) -> Void)
     
@@ -25,5 +27,5 @@ protocol ProfileViewModelProtocol {
     
     func setProfilePersonalData(_ model: ProfilePersonalDataModel)
     
-    func setProfileNTFs(_ model: ProfileNTFsModel)
+    func setFavoritesNTFsID(_ favoritesNtsIds: [String])
 }

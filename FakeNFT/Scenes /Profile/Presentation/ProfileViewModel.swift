@@ -30,10 +30,13 @@ final class ProfileViewModel: ProfileViewModelProtocol {
             loadProfileFromServer()
             return
         }
+    }
+    
+    func onViewDidAppear() {
         isProfileLoadingAvailable = true
     }
     
-    func onProfileWebsiteWillPresent() {
+    func onChildControllerWillPresent() {
         isProfileLoadingAvailable = false
     }
     
@@ -81,7 +84,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         saveProfile(updProfileModel)
     }
     
-    func setProfileNTFs(_ model: ProfileNTFsModel) {
+    func setFavoritesNTFsID(_ favoritesNtsIds: [String]) {
         guard let cacheProfileModel = profileRepository.getProfileFromCache() else { return }
         
         let updProfileModel = ProfileModel(
@@ -89,16 +92,14 @@ final class ProfileViewModel: ProfileViewModelProtocol {
             name: cacheProfileModel.name,
             description: cacheProfileModel.description,
             link: cacheProfileModel.link,
-            myNtfIds: model.myNtfIds,
-            favoritesNtsIds: model.favoritesNtsIds
+            myNtfIds: cacheProfileModel.myNtfIds,
+            favoritesNtsIds: favoritesNtsIds
         )
         saveProfile(updProfileModel)
     }
     
     private func saveProfile(_ updModel: ProfileModel) {
-        isProfileLoadingAvailable = false
         if updModel == profileRepository.getProfileFromCache() {
-            isProfileLoadingAvailable = true
             return
         }
         
@@ -113,7 +114,6 @@ final class ProfileViewModel: ProfileViewModelProtocol {
                 self.loadingProfileError?(error.localizedDescription)
                 self.loadProfileFromCache()
             }
-            self.isProfileLoadingAvailable = true
         }
     }
     

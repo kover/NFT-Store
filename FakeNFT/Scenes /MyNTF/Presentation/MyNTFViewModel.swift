@@ -11,18 +11,23 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
     
     private let NTFRepository: NTFRepository
     
-    init(NTFRepository: NTFRepository) {
+    private let NTFs: [NTFModel]
+    
+    init(
+        NTFRepository: NTFRepository,
+        myNTFsIds: [String]
+    ) {
         self.NTFRepository = NTFRepository
+        self.NTFs = NTFRepository.loadMyNTFsByID(myNTFsIds)
     }
     
     func itemCount() -> Int {
-        NTFRepository.loadMyNTF().count
+        NTFs.count
     }
     
     func object(for indexPath: IndexPath) -> MyNTFScreenModel? {
-        let NTFlist = NTFRepository.loadMyNTF()
-        if NTFlist.isEmpty { return nil }
-        return map(NTFlist[indexPath.item])
+        if NTFs.isEmpty { return nil }
+        return map(NTFs[indexPath.item])
     }
     
     private func map(_ model: NTFModel) -> MyNTFScreenModel {

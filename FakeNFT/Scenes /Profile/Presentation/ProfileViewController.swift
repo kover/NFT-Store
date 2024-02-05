@@ -103,6 +103,11 @@ final class ProfileViewController: UIViewController {
         viewModel.onViewWillAppear()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.onViewDidAppear()
+    }
+    
     @objc
     private func editProfileButtonClick() {
         let controller = EditProfileViewController()
@@ -115,14 +120,26 @@ final class ProfileViewController: UIViewController {
     }
     
     private func myNTFSectionClick() {
-        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel())
+        let myNTFsID = viewModel.getProfileNTFs()?.myNtfIds ?? []
+        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel(myNTFsID: myNTFsID))
         controller.modalPresentationStyle = .fullScreen
+        
+        viewModel.onChildControllerWillPresent()
         present(controller, animated: true)
     }
     
     private func favoritesNTFSectionClick() {
-        let controller = FavoritesNTFViewController(viewModel: DI.injectFavoritesNTFViewModel())
+        let favoritesNTFsID = viewModel.getProfileNTFs()?.favoritesNtsIds ?? []
+        let controller = FavoritesNTFViewController(
+            viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID)
+        )
+        controller.onFavoritesNTFsChanged { [weak self] updFavoritesNTFsID in
+            guard let self else { return }
+            self.viewModel.setFavoritesNTFsID(updFavoritesNTFsID)
+        }
+        
         controller.modalPresentationStyle = .fullScreen
+        viewModel.onChildControllerWillPresent()
         present(controller, animated: true)
     }
     
@@ -138,7 +155,7 @@ final class ProfileViewController: UIViewController {
         )
         controller.modalPresentationStyle = .fullScreen
         
-        viewModel.onProfileWebsiteWillPresent()
+        viewModel.onChildControllerWillPresent()
         present(controller, animated: true)
     }
     

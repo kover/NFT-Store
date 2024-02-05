@@ -8,22 +8,18 @@
 import Foundation
 
 final class NTFRepositoryImpl: NTFRepository {
+
+    private var favoritesNTFsCache = [NTFModel]()
     
-    //mocked storage
-    private var myNTF = MockedData.NTFList
-    private var favoritesNTF = MockedData.NTFList
-    
-    func loadMyNTF() -> [NTFModel] {
-        myNTF
+    func loadMyNTFsByID(_ IDs: [String]) -> [NTFModel] {
+        MockedData.NTFList //mocked storage
     }
     
-    func loadFavoritesNTF() -> [NTFModel] {
-        favoritesNTF
+    func loadFavoritesNTFsByID(_ IDs: [String]) {
+        favoritesNTFsCache = MockedData.NTFList //mocked storage
     }
     
-    func removeFavoriteNTF(id: String) {
-        favoritesNTF = favoritesNTF.filter { $0.id != id }
+    func loadFavoritesNTFsFromCache() -> [NTFModel] {
+        favoritesNTFsCache
     }
-    
-    
 }

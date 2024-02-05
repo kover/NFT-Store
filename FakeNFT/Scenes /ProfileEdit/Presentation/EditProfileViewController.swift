@@ -112,13 +112,11 @@ final class EditProfileViewController: UIViewController {
                 guard let self else { return }
                 imagePicker.sourceType = .camera
                 self.delayedRelease()
-                //self.present(imagePicker, animated: true)
             },
             AlertAction(title: localized("Photo Library")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .photoLibrary
                 self.delayedRelease()
-                //self.present(imagePicker, animated: true)
             },
             AlertAction(title: localized("Photo Link")) {[weak self] in
                 guard let self else { return }

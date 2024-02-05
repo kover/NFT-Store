@@ -9,20 +9,37 @@ import Foundation
 
 final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
+    private var updFavoritesNTFsIds = [String]() //temporary property will be removed on next stage
+    
     private let NTFRepository: NTFRepository
     
-    init(NTFRepository: NTFRepository) {
+    init(
+        NTFRepository: NTFRepository,
+        favoritesNTFsID: [String]
+    ) {
         self.NTFRepository = NTFRepository
+        NTFRepository.loadFavoritesNTFsByID(favoritesNTFsID)
+        self.updFavoritesNTFsIds = favoritesNTFsID //temporary step will be removed on next stage
     }
-    
+        
     func itemCount() -> Int {
-        NTFRepository.loadFavoritesNTF().count
+        NTFRepository.loadFavoritesNTFsFromCache().count
     }
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel? {
-        let NTFlist = NTFRepository.loadFavoritesNTF()
+        let NTFlist = NTFRepository.loadFavoritesNTFsFromCache()
         if NTFlist.isEmpty { return nil }
         return map(NTFlist[indexPath.item])
+    }
+    
+    func removeFavoriteNTF(id: String) {
+        //temporary implementation will be update on next stage
+        updFavoritesNTFsIds = updFavoritesNTFsIds.filter {$0 != id}
+    }
+    
+    func getUpdatedFavoritesNTFsIds() -> [String] {
+        //temporary implementation will be update on next stage
+        updFavoritesNTFsIds
     }
     
     private func map(_ model: NTFModel) -> FavoritesNTFScreenModel {

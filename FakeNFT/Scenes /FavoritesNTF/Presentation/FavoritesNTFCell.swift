@@ -106,7 +106,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
         )
         
         contentView.addSubView(
-            favoriteButton, width: 42, heigth: 42,
+            favoriteButton, width: 30, heigth: 30,
             top: AnchorOf(artwork.topAnchor),
             trailing: AnchorOf(artwork.trailingAnchor)
         )
