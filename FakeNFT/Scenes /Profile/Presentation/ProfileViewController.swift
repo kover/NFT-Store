@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
@@ -54,24 +55,25 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
-    private let userLink: UILabel = {
+    private let profileLink: UILabel = {
         let label = UILabel()
         label.textColor = .ypBlue
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
+        label.isUserInteractionEnabled = true
         return label
     }()
     
     private let myNFTSection =
-        UIProfileFunctionalSection(title: localized("Profile.myNTF"))
- 
+    UIProfileFunctionalSection(title: localized("Profile.myNTF"))
+    
     private let favoriteNTFSection =
-        UIProfileFunctionalSection(title: localized("Profile.favoritesNTF"))
+    UIProfileFunctionalSection(title: localized("Profile.favoritesNTF"))
     
     private let developerSection =
-        UIProfileFunctionalSection(title: localized("Profile.aboutDeveloper"))
+    UIProfileFunctionalSection(title: localized("Profile.aboutDeveloper"))
     
     init(viewModel: ProfileViewModelProtocol) {
         self.viewModel = viewModel
@@ -90,73 +92,115 @@ final class ProfileViewController: UIViewController {
         myNFTSection.setAction { self.myNTFSectionClick() }
         favoriteNTFSection.setAction { self.favoritesNTFSectionClick() }
         developerSection.setAction { self.developerSectionClick() }
+        
+        profileLink.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(profileLinkClick))
+        )
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.onViewLoaded()
+        viewModel.onViewWillAppear()
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.onViewDidAppear()
+    }
+    
     @objc
     private func editProfileButtonClick() {
-        viewModel.profileEditRequire()
-        
         let controller = EditProfileViewController()
-        controller.setProfileModel(viewModel.getProfileInfo())
-        controller.onProfileInfoChanged { [weak self] model in
+        controller.setProfileModel(viewModel.getProfilePersonalData())
+        controller.onProfileInfoChanged { [weak self] updModel in
             guard let self else { return }
-            self.viewModel.setProfileInfo(model)
+            self.viewModel.setProfilePersonalData(updModel)
         }
         present(controller, animated: true)
     }
     
     private func myNTFSectionClick() {
-        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel())
+        let myNTFsID = viewModel.getProfileNTFs()?.myNtfIds ?? []
+        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel(myNTFsID: myNTFsID))
         controller.modalPresentationStyle = .fullScreen
+        
+        viewModel.onChildControllerWillPresent()
         present(controller, animated: true)
     }
     
     private func favoritesNTFSectionClick() {
-        //TODO swich on favoritesNTFViewController
+        let favoritesNTFsID = viewModel.getProfileNTFs()?.favoritesNtsIds ?? []
+        let controller = FavoritesNTFViewController(
+            viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID)
+        )
+        controller.onFavoritesNTFsChanged { [weak self] updFavoritesNTFsID in
+            guard let self else { return }
+            self.viewModel.setFavoritesNTFsID(updFavoritesNTFsID)
+        }
+        
+        controller.modalPresentationStyle = .fullScreen
+        viewModel.onChildControllerWillPresent()
+        present(controller, animated: true)
     }
     
     private func developerSectionClick() {
         //TODO swich on DeveloperViewController
     }
     
-    private func updateMyNTFCount(_ count: Int?) {
-        myNFTSection.setContentCount(count)
-    }
-    
-    private func updateFavoritesNTFCount(_ count: Int?) {
-        favoriteNTFSection.setContentCount(count)
+    @objc
+    private func profileLinkClick() {
+        guard let profileLink = profileLink.text else { return }
+        let controller = ProfileWebViewController(
+            viewModel: DI.injectProfileWebsiteViewModel(profileLink: profileLink)
+        )
+        controller.modalPresentationStyle = .fullScreen
+        
+        viewModel.onChildControllerWillPresent()
+        present(controller, animated: true)
     }
     
     private func updateProfileInformation(from model: ProfileModel) {
-        userAvatar.image = model.avatar ?? UIImage(systemName: "person.circle.fill")
         userName.text = model.name
         userDescription.text = model.description
-        userLink.text = model.link
+        profileLink.text = model.link
+        updateProfileAvatar(for: model.avatarUrl)
+        myNFTSection.setContentCount(model.myNtfIds.count)
+        favoriteNTFSection.setContentCount(model.favoritesNtsIds.count)
     }
     
-//MARK: - Observers
+    private func updateProfileAvatar(for url: URL?) {
+        userAvatar.kf.setImage(
+            with: url,
+            placeholder: UIImage(systemName: "person.circle.fill")
+        )
+    }
+    
+    private func updateLoadingStatus(isLoading: Bool) {
+        UIBlockingProgressHUD.execute(isLoading)
+    }
+    
+    private func onLoadingError(description: String) {
+        //TODO alert if error data loading
+    }
+    
+    //MARK: - Observers
     private func setObservers() {
         viewModel.observeProfileInfo { [weak self] profileModel in
             guard let self else { return }
             self.updateProfileInformation(from: profileModel)
         }
-        viewModel.observeMyNTFCount { [weak self] NTFcount in
+        viewModel.observeLoadingError { [weak self] errorDescription in
             guard let self else { return }
-            self.updateMyNTFCount(NTFcount)
+            self.onLoadingError(description: errorDescription)
         }
-        viewModel.observeFavoritesNTFCount { [weak self] NTFcount in
+        viewModel.observeLoadingStatus { [weak self] loadingStatus in
             guard let self else { return }
-            self.updateFavoritesNTFCount(NTFcount)
+            self.updateLoadingStatus(isLoading: loadingStatus)
         }
     }
 }
 
-//MARK: - Configure layout
+    //MARK: - Configure layout
 extension ProfileViewController {
     
     private struct Dimension {
@@ -185,24 +229,24 @@ extension ProfileViewController {
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin),
             centerY: AnchorOf(userAvatar.centerYAnchor)
         )
-               
+        
         view.addSubView(
             userDescription,
             top: AnchorOf(userAvatar.bottomAnchor, 20),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-                
+        
         view.addSubView(
-            userLink,
+            profileLink,
             top: AnchorOf(userDescription.bottomAnchor, 12),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-  
+        
         view.addSubView(
             myNFTSection, heigth: Dimension.functionalSectionHeigth,
-            top: AnchorOf(userLink.bottomAnchor, 40),
+            top: AnchorOf(profileLink.bottomAnchor, 40),
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
@@ -213,7 +257,7 @@ extension ProfileViewController {
             leading: AnchorOf(view.leadingAnchor, Dimension.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Dimension.commonMargin)
         )
-    
+        
         view.addSubView(
             developerSection, heigth: Dimension.functionalSectionHeigth,
             top: AnchorOf(favoriteNTFSection.bottomAnchor),
@@ -222,3 +266,4 @@ extension ProfileViewController {
         )
     }
 }
+

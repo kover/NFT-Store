@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class EditProfileViewController: UIViewController {
     
@@ -62,7 +63,9 @@ final class EditProfileViewController: UIViewController {
         return textField
     }()
     
-    private var onProfileInfoChanged: ( (ProfileModel) -> Void )?
+    private var onProfileInfoChanged: ( (ProfilePersonalDataModel) -> Void )?
+    
+    private var avatarUrl: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +79,8 @@ final class EditProfileViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        let updatedProfileModel = ProfileModel(
-            avatar: userAvatar.image,
+        let updatedProfileModel = ProfilePersonalDataModel(
+            avatarUrl: avatarUrl,
             name: userNameField.text ?? "",
             description: userDescriptionField.text ?? "",
             link: userLinkField.text ?? ""
@@ -85,11 +88,12 @@ final class EditProfileViewController: UIViewController {
         onProfileInfoChanged?(updatedProfileModel)
     }
     
-    func setProfileModel(_ model: ProfileModel) {
+    func setProfileModel(_ model: ProfilePersonalDataModel?) {
+        avatarUrl = model?.avatarUrl
         updateProfileInformation(from: model)
     }
     
-    func onProfileInfoChanged(_ completion: @escaping (ProfileModel) -> Void) {
+    func onProfileInfoChanged(_ completion: @escaping (ProfilePersonalDataModel) -> Void) {
         self.onProfileInfoChanged = completion
     }
     
@@ -107,22 +111,47 @@ final class EditProfileViewController: UIViewController {
             AlertAction(title: localized("Camera")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .camera
-                self.present(imagePicker, animated: true)
+                self.delayedRelease()
             },
             AlertAction(title: localized("Photo Library")) {[weak self] in
                 guard let self else { return }
                 imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker, animated: true)
+                self.delayedRelease()
+            },
+            AlertAction(title: localized("Photo Link")) {[weak self] in
+                guard let self else { return }
+                AlertController.showInputDialog(
+                    alertPresenter: self,
+                    title: localized("Profile.Edit.EnterAvatarLink")) { urlString in
+                        let newAvatarUrl = URL(string: urlString)
+                        self.updateProfileAvatar(for: newAvatarUrl)
+                        self.avatarUrl = newAvatarUrl
+                    }
             }
         ]
         AlertController.multiAction(alertPresenter: self, title: nil, actions: actions)
     }
     
-    private func updateProfileInformation(from model: ProfileModel) {
-        userAvatar.image = model.avatar
+    private func updateProfileInformation(from model: ProfilePersonalDataModel?) {
+        guard let model else { return }
+        updateProfileAvatar(for: model.avatarUrl)
         userNameField.text = model.name
         userDescriptionField.text = model.description
         userLinkField.text = model.link
+    }
+    
+    private func updateProfileAvatar(for url: URL?) {
+        userAvatar.kf.setImage(
+            with: url
+        )
+    }
+    
+    private func delayedRelease() {
+        AlertController.showNotification(
+            alertPresenter: self,
+            title: localized("Not available"),
+            message: localized("Will avaible in the next release")
+        )
     }
 }
 //MARK: - UIImagePickerControllerDelegate
@@ -130,6 +159,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
     ) {
         userAvatar.image = info[.originalImage] as? UIImage
+        
         dismiss(animated: true)
     }
 }

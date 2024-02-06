@@ -9,17 +9,23 @@ import Foundation
 
 protocol ProfileViewModelProtocol {
     
-    func onViewLoaded()
+    func onViewWillAppear()
     
-    func profileEditRequire()
+    func onViewDidAppear()
+    
+    func onChildControllerWillPresent()
     
     func observeProfileInfo(_ completion: @escaping (ProfileModel) -> Void)
     
-    func observeMyNTFCount(_ completion: @escaping (Int) -> Void)
+    func observeLoadingError(_ completion: @escaping (String) -> Void)
     
-    func observeFavoritesNTFCount(_ completion: @escaping (Int) -> Void)
+    func observeLoadingStatus(_ completion: @escaping (Bool) -> Void)
     
-    func getProfileInfo() -> ProfileModel
+    func getProfilePersonalData() -> ProfilePersonalDataModel?
     
-    func setProfileInfo(_ model: ProfileModel)
+    func getProfileNTFs() -> ProfileNTFsModel?
+    
+    func setProfilePersonalData(_ model: ProfilePersonalDataModel)
+    
+    func setFavoritesNTFsID(_ favoritesNtsIds: [String])
 }

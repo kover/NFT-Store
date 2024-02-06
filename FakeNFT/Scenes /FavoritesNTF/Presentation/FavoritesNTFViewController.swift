@@ -1,15 +1,15 @@
 //
-//  MyNTFViewController.swift
+//  FavoritesNTFViewController.swift
 //  FakeNFT
 //
-//  Created by Avtor_103 on 21.01.2024.
+//  Created by Avtor_103 on 28.01.2024.
 //
 
 import UIKit
 
-final class MyNTFViewController: UIViewController {
+final class FavoritesNTFViewController: UIViewController {
 
-    private let viewModel: MyNTFViewModelProtocol
+    private let viewModel: FavoritesNTFViewModelProtocol
     
     private let backButton: UIButton = {
         let backButtonImage = UIImage(
@@ -31,19 +31,8 @@ final class MyNTFViewController: UIViewController {
         label.textColor = .ypBlack
         label.backgroundColor = .clear
         label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.text = localized("Profile.myNTF")
+        label.text = localized("Profile.favoritesNTF")
         return label
-    }()
-    
-    private let sortButton: UIButton = {
-        let button = UIButton.systemButton(
-        with: UIImage(named: "Sort") ?? UIImage(),
-        target: nil,
-        action: #selector(onSortButtonClick)
-    )
-        button.tintColor = .ypBlack
-        button.backgroundColor = .clear
-        return button
     }()
     
     private let ntfCollection: UICollectionView = {
@@ -54,8 +43,10 @@ final class MyNTFViewController: UIViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
+    private var onFavoritesNTFsChanged: ( ([String]) -> Void )?
 
-    init(viewModel: MyNTFViewModelProtocol) {
+    init(viewModel: FavoritesNTFViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -70,25 +61,30 @@ final class MyNTFViewController: UIViewController {
         configureLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        onFavoritesNTFsChanged?(viewModel.getUpdatedFavoritesNTFsIds())
+        
+    }
+    
+    func onFavoritesNTFsChanged(_ completion: @escaping ([String]) -> Void) {
+        self.onFavoritesNTFsChanged = completion
+    }
+    
     private func configureNTFCollection() {
-        ntfCollection.collectionViewLayout = configureNTFCollectionFlowLayout()
         ntfCollection.dataSource = self
-        ntfCollection.register(MyNTFCell.self, forCellWithReuseIdentifier: MyNTFCell.identifier)
+        ntfCollection.delegate = self
+        ntfCollection.register(FavoritesNTFCell.self, forCellWithReuseIdentifier: FavoritesNTFCell.identifier)
     }
         
     @objc
     private func onBackButtonClick() {
         dismiss(animated: true)
     }
-    
-    @objc
-    private func onSortButtonClick() {
-        //TODO sort NTF items
-    }
 }
 
 //MARK: - UICollectionViewDataSource
-extension MyNTFViewController: UICollectionViewDataSource {
+extension FavoritesNTFViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int
     ) -> Int {
         viewModel.itemCount()
@@ -97,30 +93,39 @@ extension MyNTFViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell =
-                collectionView.dequeueReusableCell(withReuseIdentifier: MyNTFCell.identifier, for: indexPath) as? MyNTFCell else { return UICollectionViewCell() }
+                collectionView.dequeueReusableCell(withReuseIdentifier: FavoritesNTFCell.identifier, for: indexPath) as? FavoritesNTFCell else { return UICollectionViewCell() }
         
         if let model = viewModel.object(for: indexPath) {
             cell.setModel(model)
         }
         return cell
     }
-    
-    
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension FavoritesNTFViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: collectionView.frame.width/2 - 4, height: 80)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int)
+    -> CGFloat {
+        return 20
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 8
+    }
+}
+
 //MARK: - Configure layout
-extension MyNTFViewController {
+extension FavoritesNTFViewController {
     
     private struct Property {
         static let commonMargin: CGFloat = 16
         static let backButtonWidth: CGFloat = 24
-        static let sortButtonWidth: CGFloat = 42
-    }
-    
-    private func configureNTFCollectionFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = .init(width: view.frame.width - Property.commonMargin * 2, height: 108)
-        layout.minimumLineSpacing = 32
-        return layout
     }
     
     private func configureLayout() {
@@ -136,12 +141,6 @@ extension MyNTFViewController {
             screenTitle,
             centerX: AnchorOf(view.centerXAnchor),
             centerY: AnchorOf(backButton.centerYAnchor)
-        )
-        
-        view.addSubView(
-            sortButton, width: Property.sortButtonWidth, heigth: Property.sortButtonWidth,
-            trailing: AnchorOf(view.trailingAnchor, -8),
-            centerY: AnchorOf(screenTitle.centerYAnchor)
         )
         
         view.addSubView(

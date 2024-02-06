@@ -17,7 +17,12 @@
 "Profile.Edit.UserLink.Placeholder" = "Введите сайт";
 "Camera" = "Камера";
 "Photo Library" = "Библиотека";
+"Photo Link" = "Ссылка на фото";
+"Profile.Edit.EnterAvatarLink" = "Введите ссылку";
+"ok" = "OK";
 "Cancel" = "Отмена";
 "Delete" = "Удалить";
 "From" = "от";
 "Price" = "Цена";
+"Not available" = "Не доступно";
+"Will avaible in the next release" = "Функция будет доступна\nв следующем релизе";
