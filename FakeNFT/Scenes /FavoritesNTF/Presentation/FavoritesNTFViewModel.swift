@@ -18,7 +18,6 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
         favoritesNTFsID: [String]
     ) {
         self.ntfRepository = ntfRepository
-        self.ntfRepository.loadFavoritesNTFsByID(favoritesNTFsID)
         self.updFavoritesNTFsIds = favoritesNTFsID //temporary step will be removed on next stage
     }
         
@@ -46,8 +45,8 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
         FavoritesNTFScreenModel(
             id: model.id,
             title: model.title,
-            artwork: model.artwork,
-            price: model.price,
+            artworkUrl: model.artworkUrl,
+            price: String(model.price),
             currency: model.currency,
             rating: model.rating,
             isFavorite: model.isFavorite

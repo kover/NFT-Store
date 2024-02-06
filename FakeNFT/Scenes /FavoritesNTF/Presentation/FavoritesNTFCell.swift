@@ -65,17 +65,25 @@ final class FavoritesNTFCell: UICollectionViewCell {
     
     func setModel(_ model: FavoritesNTFScreenModel) {
         title.text = model.title
-        artwork.image = model.artwork
         price.text = model.price + " " + model.currency
         isFavorite = model.isFavorite
         favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
         ratingPanel.setRating(model.rating)
+        
+        updateArtwork(for: model.artworkUrl)
     }
     
     @objc
     private func favoriteButtonClick() {
         isFavorite = !isFavorite
         favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
+    }
+    
+    private func updateArtwork(for url: URL?) {
+        artwork.kf.setImage(
+            with: url,
+            placeholder: UIImage(systemName: "scribble.variable")
+        )
     }
     
     private func configureCell() {

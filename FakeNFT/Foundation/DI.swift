@@ -42,7 +42,9 @@ final class DI {
     }
     
     static func injectNTFRepository() -> NTFRepository {
-        NTFRepositoryImpl()
+        NTFRepositoryImpl(
+            networkClient: injectNetworkClient()
+        )
     }
     
 //MARK: - Services

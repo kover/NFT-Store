@@ -11,14 +11,16 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
     
     private let ntfRepository: NTFRepository
     
-    private let ntfList: [NTFModel]
+    private let myNTFsIds: [String]
+    
+    private var ntfList = [NTFModel]()
     
     init(
         ntfRepository: NTFRepository,
         myNTFsIds: [String]
     ) {
         self.ntfRepository = ntfRepository
-        self.ntfList = ntfRepository.loadMyNTFsByID(myNTFsIds)
+        self.myNTFsIds = myNTFsIds
     }
     
     func itemCount() -> Int {
@@ -34,9 +36,9 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
         MyNTFScreenModel(
             id: model.id,
             title: model.title,
-            artwork: model.artwork,
+            artworkUrl: model.artworkUrl,
             author: model.author,
-            price: model.price,
+            price: String(model.price),
             currency: model.currency,
             rating: model.rating,
             isFavorite: model.isFavorite
