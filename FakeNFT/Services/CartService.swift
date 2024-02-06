@@ -69,4 +69,36 @@ struct CartService: CartServiceProtocol {
             }
         }
     }
+    
+    func getCurrencies(completion: @escaping (Result<[CurrencyModel], Error>) -> Void) {
+        let request = GetCurrenciesRequest()
+        networkClient.send(request: request, type: [CurrencyModel].self) { result in
+            switch result {
+            case.success(let currencies):
+                completion(.success(currencies))
+            case.failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func makePayment(with currencyId: String, completion: @escaping (Result<PaymentResponse, Error>) -> Void) {
+        let request = PaymentResponseRequest(id: currencyId)
+
+        networkClient.send(request: request, type: PaymentResponse.self) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    if response.success {
+                        completion(.success(response))
+                    } else {
+                        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Payment failed: server returned success as false"])
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }

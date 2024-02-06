@@ -7,29 +7,77 @@
 
 import Foundation
 
-final class CurrencySelectionViewModel {
+protocol CurrencySelectionViewModelProtocol {
+    var currencies: [CurrencyModel] { get }
+    var currencyId: String { get set }
+    var onError: ((Error) -> Void)? { get set }
+    var onCurrenciesLoaded: (() -> Void)? { get set }
+    var onPaymentSuccess: (() -> Void)? { get set }
+    
+    func loadCurrencies()
+    func makePayment(with currencyId: String)
+    func linkTapped(completion: @escaping (URL) -> Void)
+}
+
+final class CurrencySelectionViewModel: CurrencySelectionViewModelProtocol {
     
     private let serviceAssembly: ServicesAssembly
+    private let cartViewModel: CartViewModelProtocol
+    var currencyId: String = ""
+    var currencies: [CurrencyModel] = []
+    var onError: ((Error) -> Void)?
+    var onCurrenciesLoaded: (() -> Void)?
+    var onPaymentSuccess:(() -> Void)?
     
-    // Temporary data used awaiting backend update for currency logos URLs.
-    let currencies: [CurrencyModel] = [
-        CurrencyModel(title: "Bitcoin", name: "BTC", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Bitcoin_(BTC).png", id: "1"),
-        CurrencyModel(title: "Dogecoin", name: "DOGE", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Dogecoin_(DOGE).png", id: "2"),
-        CurrencyModel(title: "Tether", name: "USDT", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Tether_(USDT).png", id: "3"),
-        CurrencyModel(title: "Apecoin", name: "APE", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/ApeCoin_(APE).png", id: "4"),
-        CurrencyModel(title: "Solana", name: "SOL", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Solana_(SOL).png", id: "5"),
-        CurrencyModel(title: "Ethereum", name: "ETH", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Ethereum_(ETH).png", id: "6"),
-        CurrencyModel(title: "Cardano", name: "ADA", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Cardano_(ADA).png", id: "7"),
-        CurrencyModel(title: "Shiba Inu", name: "SHIB", imageURL: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Shiba_Inu_(SHIB).png", id: "8")
-    ]
     
-    init(serviceAssembly: ServicesAssembly) {
+    init(serviceAssembly: ServicesAssembly, cartViewModel: CartViewModelProtocol) {
         self.serviceAssembly = serviceAssembly
+        self.cartViewModel = cartViewModel
+        loadCurrencies()
     }
+    
+    func loadCurrencies() {
+        UIBlockingProgressHUD.show()
+        
+        serviceAssembly.cartService.getCurrencies { [weak self] result in
+            switch result {
+            case .success(let currencies):
+                self?.currencies = currencies
+                DispatchQueue.main.async {
+                    self?.onCurrenciesLoaded?()
+                }
+            case .failure(let error):
+                self?.onError?(error)
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    func makePayment(with currencyId: String) {
+        UIBlockingProgressHUD.show()
+        
+        serviceAssembly.cartService.makePayment(with: currencyId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                if response.success {
+                    self?.onPaymentSuccess?()
+                    self?.cartViewModel.clearCart()
+                } else {
+                    let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Payment failed."])
+                    self?.onError?(error)
+                }
+            case .failure(let error):
+                self?.onError?(error)
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
     
     func linkTapped(completion: @escaping (URL) -> Void) {
         if let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") {
             completion(url)
         }
     }
+    
 }

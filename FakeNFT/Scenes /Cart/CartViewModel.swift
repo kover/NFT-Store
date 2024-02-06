@@ -7,7 +7,20 @@
 
 import Foundation
 
-final class CartViewModel {
+protocol CartViewModelProtocol {
+    var nftModels: [NftModel] { get }
+    var onNFTsLoaded: (() -> Void)? { get set }
+    var onError: ((Error) -> Void)? { get set }
+    var onNftRemoved: (() -> Void)? { get set }
+    
+    func loadOrder()
+    func totalAmount() -> Float
+    func removeNftFromOrder(_ nftId: String)
+    func clearCart()
+    func sortNFTs(by criterion: SortingCriterion)
+}
+
+final class CartViewModel: CartViewModelProtocol {
     private let serviceAssembly: ServicesAssembly
     var nftModels: [NftModel] = []
     var onNFTsLoaded: (() -> Void)?
@@ -73,6 +86,24 @@ final class CartViewModel {
         } else {
             UIBlockingProgressHUD.dismiss()
             onNftRemoved?()
+        }
+    }
+    
+    func clearCart() {
+
+        nftModels.removeAll()
+
+        let emptyOrder = OrderModel(nfts: [])
+
+        serviceAssembly.cartService.updateOrder(emptyOrder) { [weak self] result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self?.onNftRemoved?()
+                }
+            case .failure(let error):
+                self?.onError?(error)
+            }
         }
     }
 }

@@ -9,8 +9,10 @@ import UIKit
 
 final class CurrencySelectionViewController: UIViewController {
     
-    private let viewModel: CurrencySelectionViewModel
+    weak var delegate: PaymentSuccessDelegate?
     
+    private var viewModel: CurrencySelectionViewModelProtocol
+        
     private let currencyCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -59,7 +61,7 @@ final class CurrencySelectionViewController: UIViewController {
         return label
     }()
     
-    init(viewModel: CurrencySelectionViewModel) {
+    init(viewModel: CurrencySelectionViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -79,10 +81,11 @@ final class CurrencySelectionViewController: UIViewController {
         addSubViews()
         setupConstraints()
         
+        bindViewModel()
     }
     
     @objc private func payButtonTapped() {
-        //todo: implement payment logic
+        viewModel.makePayment(with: viewModel.currencyId)
     }
     
     @objc private func linkLabelTapped() {
@@ -106,6 +109,26 @@ final class CurrencySelectionViewController: UIViewController {
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
+    }
+    
+    private func bindViewModel() {
+        
+        viewModel.onCurrenciesLoaded = { [weak self] in
+                self?.currencyCollectionView.reloadData()
+            }
+        
+        viewModel.onPaymentSuccess = { [weak self] in
+            let paymentSuccessVC = PaymentSuccessViewController()
+            paymentSuccessVC.delegate = self?.delegate
+            self?.navigationController?.pushViewController(paymentSuccessVC, animated: true)
+        }
+
+        viewModel.onError = { [weak self] error in
+            self?.showRetryCancelAlert(message: "", retryAction: {
+                self?.viewModel.makePayment(with: self?.viewModel.currencyId ?? "")
+            })
+        }
+
     }
     
     private func addSubViews() {
@@ -172,6 +195,8 @@ extension CurrencySelectionViewController: UICollectionViewDelegate {
         if let cell = collectionView.cellForItem(at: indexPath) as? CurrencyCollectionViewCell {
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.ypBlack.cgColor
+            viewModel.currencyId = String(indexPath.row)
+            print(viewModel.currencyId)
         }
     }
     
@@ -201,5 +226,24 @@ extension CurrencySelectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         7
+    }
+}
+
+//MARK: - UIAlertController
+
+extension CurrencySelectionViewController {
+
+    func showRetryCancelAlert(message: String, retryAction: @escaping () -> Void) {
+        let alert = UIAlertController(title: "Не удалось произвести оплату", message: message, preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Повторить", style: .default) { _ in
+            retryAction()
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+
+        alert.addAction(retryAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
     }
 }
