@@ -145,7 +145,7 @@ final class CartViewController: UIViewController {
     }
     
     @objc func checkoutButtonTapped() {
-        let currencySelectionVM: CurrencySelectionViewModelProtocol = CurrencySelectionViewModel(serviceAssembly: serviceAssembly)
+        let currencySelectionVM: CurrencySelectionViewModelProtocol = CurrencySelectionViewModel(serviceAssembly: serviceAssembly, cartViewModel: self.viewModel)
         let currencySelectionVC = CurrencySelectionViewController(viewModel: currencySelectionVM)
         currencySelectionVC.delegate = self
         currencySelectionVC.hidesBottomBarWhenPushed = true

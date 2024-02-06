@@ -9,6 +9,7 @@ import Foundation
 
 protocol CurrencySelectionViewModelProtocol {
     var currencies: [CurrencyModel] { get }
+    var currencyId: String { get set }
     var onError: ((Error) -> Void)? { get set }
     var onCurrenciesLoaded: (() -> Void)? { get set }
     var onPaymentSuccess: (() -> Void)? { get set }
@@ -21,14 +22,17 @@ protocol CurrencySelectionViewModelProtocol {
 final class CurrencySelectionViewModel: CurrencySelectionViewModelProtocol {
     
     private let serviceAssembly: ServicesAssembly
+    private let cartViewModel: CartViewModelProtocol
+    var currencyId: String = ""
     var currencies: [CurrencyModel] = []
     var onError: ((Error) -> Void)?
     var onCurrenciesLoaded: (() -> Void)?
     var onPaymentSuccess:(() -> Void)?
     
     
-    init(serviceAssembly: ServicesAssembly) {
+    init(serviceAssembly: ServicesAssembly, cartViewModel: CartViewModelProtocol) {
         self.serviceAssembly = serviceAssembly
+        self.cartViewModel = cartViewModel
         loadCurrencies()
     }
     
@@ -57,6 +61,7 @@ final class CurrencySelectionViewModel: CurrencySelectionViewModelProtocol {
             case .success(let response):
                 if response.success {
                     self?.onPaymentSuccess?()
+                    self?.cartViewModel.clearCart()
                 } else {
                     let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Payment failed."])
                     self?.onError?(error)

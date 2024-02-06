@@ -12,9 +12,7 @@ final class CurrencySelectionViewController: UIViewController {
     weak var delegate: PaymentSuccessDelegate?
     
     private var viewModel: CurrencySelectionViewModelProtocol
-    
-    private var currencyId = ""
-    
+        
     private let currencyCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -87,7 +85,7 @@ final class CurrencySelectionViewController: UIViewController {
     }
     
     @objc private func payButtonTapped() {
-        viewModel.makePayment(with: self.currencyId)
+        viewModel.makePayment(with: viewModel.currencyId)
     }
     
     @objc private func linkLabelTapped() {
@@ -127,7 +125,7 @@ final class CurrencySelectionViewController: UIViewController {
 
         viewModel.onError = { [weak self] error in
             self?.showRetryCancelAlert(message: "", retryAction: {
-                self?.viewModel.makePayment(with: self?.currencyId ?? "")
+                self?.viewModel.makePayment(with: self?.viewModel.currencyId ?? "")
             })
         }
 
@@ -197,8 +195,8 @@ extension CurrencySelectionViewController: UICollectionViewDelegate {
         if let cell = collectionView.cellForItem(at: indexPath) as? CurrencyCollectionViewCell {
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.ypBlack.cgColor
-            self.currencyId = String(indexPath.row)
-            print(self.currencyId)
+            viewModel.currencyId = String(indexPath.row)
+            print(viewModel.currencyId)
         }
     }
     

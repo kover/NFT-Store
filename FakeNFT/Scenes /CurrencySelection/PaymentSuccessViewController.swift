@@ -16,7 +16,7 @@ final class PaymentSuccessViewController: UIViewController {
     weak var delegate: PaymentSuccessDelegate?
     
     private lazy var successArtImageView: UIImageView = {
-        let image = UIImage(named: "SuccessPayment")
+        let image = UIImage(named: "successPayment")
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
