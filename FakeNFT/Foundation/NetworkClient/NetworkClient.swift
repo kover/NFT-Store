@@ -110,13 +110,28 @@ struct DefaultNetworkClient: NetworkClient {
     // MARK: - Private
 
     private func create(request: NetworkRequest) -> URLRequest? {
-        guard let endpoint = request.endpoint else {
+        guard let endpoint = request.endpoint,
+              var urlComponents = URLComponents(url: endpoint, resolvingAgainstBaseURL: true)
+        else {
             assertionFailure("Empty endpoint")
             return nil
         }
 
-        var urlRequest = URLRequest(url: endpoint)
+        urlComponents.queryItems = request.query ?? []
+
+        guard let url = urlComponents.url else {
+            assertionFailure("Unable to construct URL")
+            return nil
+        }
+
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.httpMethod.rawValue
+
+        urlRequest.setValue(ApiConstants.token.rawValue, forHTTPHeaderField: ApiConstants.authorizationHeader.rawValue)
+
+        if request.query != nil {
+            urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        }
 
         if let dto = request.dto,
            let dtoEncoded = try? encoder.encode(dto) {
