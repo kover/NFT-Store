@@ -9,9 +9,9 @@ import Foundation
 
 protocol NTFRepository {
     
-    func loadMyNTFsByID(_ ntfModel: ProfileNTFsModel, handler: @escaping ([NTFModel]?) -> Void)
+    func loadNTFsByID(_ IDs: [String], handler: @escaping (Int) -> Void)
     
-    func loadFavoritesNTFsByID(_ IDs: [String], handler: @escaping ([NTFModel]?) -> Void)
+    func loadNTFbyID(id: String, itemIndex: Int, callback: @escaping () -> Void)
     
-    func loadFavoritesNTFsFromCache() -> [NTFModel]
+    func loadNTFsFromCache() -> [NTFModel?]
 }

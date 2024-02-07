@@ -11,7 +11,7 @@ final class ProfileRepositoryImpl: ProfileRepository {
     
     private let networkClient: NetworkClient
     
-    private var responseCache: ProfileResponseBody?
+    private var responseCache: ProfileModel?//ProfileResponseBody?
     
     init(
         networkClient: NetworkClient
@@ -20,45 +20,55 @@ final class ProfileRepositoryImpl: ProfileRepository {
     }
     
     func saveProfile(model: ProfileModel, handler: @escaping (Error?) -> Void) {
-        let requestBody = map(model)
-        
-        let profileRequest = ProfileRequest(requestBody: requestBody, httpMethod: .put)
-        
-        self.networkClient.send(
-            request: profileRequest
-        ) { result in
-            switch result {
-            case .success( _ ):
-                handler(nil)
-            case .failure(let error):
-                handler(error)
-            }
-        }
+//        let requestBody = map(model)
+//
+//        let profileRequest = ProfileRequest(requestBody: requestBody, httpMethod: .put)
+//
+//        self.networkClient.send(
+//            request: profileRequest
+//        ) { result in
+//            switch result {
+//            case .success( _ ):
+//                handler(nil)
+//            case .failure(let error):
+//                handler(error)
+//            }
+//        }
+        responseCache = model
+        handler(nil)
     }
     
     func loadProfile(handler: @escaping (Result<ProfileModel, Error>) -> Void) {
-        networkClient.send(
-            request: ProfileRequest(httpMethod: .get),
-            type: ProfileResponseBody.self
-        ) { (result: Result<ProfileResponseBody, Error>) in
-            switch result {
-            case .success(let profileResponseBody):
-                self.responseCache = profileResponseBody
-                handler(
-                    .success(
-                        self.map(profileResponseBody)
-                    )
-                )
-            case .failure(let error):
-                handler(.failure(error))
-            }
-                
+//        networkClient.send(
+//            request: ProfileRequest(httpMethod: .get),
+//            type: ProfileResponseBody.self
+//        ) { (result: Result<ProfileResponseBody, Error>) in
+//            switch result {
+//            case .success(let profileResponseBody):
+//                self.responseCache = profileResponseBody
+//                handler(
+//                    .success(
+//                        self.map(profileResponseBody)
+//                    )
+//                )
+//            case .failure(let error):
+//                handler(.failure(error))
+//            }
+//
+//        }
+        let profileModel = MockedData.profileModel
+        if let responseCache {
+            handler(.success(responseCache))
+            return
         }
+        responseCache = profileModel
+        handler(.success(profileModel))
     }
         
     func getProfileFromCache() -> ProfileModel? {
-        guard let responseCache = self.responseCache else { return nil }
-        return map(responseCache)
+//        guard let responseCache = self.responseCache else { return nil }
+//        return map(responseCache)
+        return responseCache
     }
     
     private func map(_ responseModel: ProfileResponseBody) -> ProfileModel {

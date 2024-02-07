@@ -8,12 +8,10 @@
 import Foundation
 
 final class NTFRepositoryImpl: NTFRepository {
-   
+    
     private let networkClient: NetworkClient
     
-    private var myNTFsCache = [NTFModel]()
-
-    private var favoritesNTFsCache = [NTFModel]()
+    private var ntfCache = [NTFModel?]()
     
     private let requestQueue = RequestQueue<String>()
     
@@ -21,65 +19,54 @@ final class NTFRepositoryImpl: NTFRepository {
         self.networkClient = networkClient
     }
     
-    func loadMyNTFsByID(_ ntfModel: ProfileNTFsModel, handler: @escaping ([NTFModel]?) -> Void) {
-        requestQueue.add(ntfModel.myNtfIds)
-        requestQueue.onFinished {
-            if self.myNTFsCache.isEmpty {
-                handler(nil)
-                return
-            }
-            handler(self.myNTFsCache)
-        }
-        
-        requestQueue.request { ntfID in
-            self.loadNTFbyID(ntfID) { [weak self] (result: Result<NTFResponseBody, Error>) in
-                guard let self else { return }
-                switch result {
-                case .success(let ntfResponseBody):
-                    self.myNTFsCache.append(
-                        self.map(dto: ntfResponseBody, favoritesNtfIDs: ntfModel.favoritesNtsIds)
-                    )
-                    requestQueue.next()
-                case .failure(_):
-                    requestQueue.next()
-                }
-            }
-        }
-        requestQueue.next()
-    }
-    
-    func loadFavoritesNTFsByID(_ IDs: [String], handler: @escaping ([NTFModel]?) -> Void) {
+    func loadNTFsByID(_ IDs: [String], handler: @escaping (Int) -> Void) {
+        var i = 1
         requestQueue.add(IDs)
-        requestQueue.onFinished {
-            if self.favoritesNTFsCache.isEmpty {
-                handler(nil)
-                return
-            }
-            handler(self.favoritesNTFsCache)
-        }
         
         requestQueue.request { ntfID in
-            self.loadNTFbyID(ntfID) { [weak self] (result: Result<NTFResponseBody, Error>) in
+            self.fetchNTFbyID(ntfID) { [weak self] (result: Result<NTFResponseBody, Error>) in
                 guard let self else { return }
+                var ntfModel: NTFModel?
+                
                 switch result {
                 case .success(let ntfResponseBody):
-                    self.favoritesNTFsCache.append(
-                        self.map(dto: ntfResponseBody, favoritesNtfIDs: IDs)
-                    )
-                    requestQueue.next()
+                    ntfModel = self.map(dto: ntfResponseBody)
                 case .failure(_):
-                    requestQueue.next()
+                    ntfModel = nil
                 }
+                
+                if i == 1 { ntfModel = nil }
+                
+                self.ntfCache.append(ntfModel)
+                handler(self.ntfCache.count - 1)
+                i += 1
+                requestQueue.next()
             }
         }
         requestQueue.next()
     }
     
-    func loadFavoritesNTFsFromCache() -> [NTFModel] {
-        favoritesNTFsCache
+    func loadNTFbyID(id: String, itemIndex: Int, callback: @escaping () -> Void) {
+        fetchNTFbyID(id) { [weak self] (result: Result<NTFResponseBody, Error>) in
+            guard let self else { return }
+            var ntfModel: NTFModel?
+            
+            switch result {
+            case .success(let ntfResponseBody):
+                ntfModel = self.map(dto: ntfResponseBody)
+            case .failure(_):
+                ntfModel = nil
+            }
+            self.ntfCache[itemIndex] = ntfModel
+            callback()
+        }
     }
     
-    private func loadNTFbyID(_ id: String, handler: @escaping (Result<NTFResponseBody, Error>)-> Void) {
+    func loadNTFsFromCache() -> [NTFModel?] {
+        ntfCache
+    }
+    
+    private func fetchNTFbyID(_ id: String, handler: @escaping (Result<NTFResponseBody, Error>)-> Void) {
         let ntsRequest = NFTRequest(id: id)
         
         networkClient.send(
@@ -92,10 +79,9 @@ final class NTFRepositoryImpl: NTFRepository {
                     handler(.failure(error))
                 }
             }
-        
     }
     
-    private func map(dto: NTFResponseBody, favoritesNtfIDs: [String]) -> NTFModel {
+    private func map(dto: NTFResponseBody) -> NTFModel {
         let artworkStringUrl = dto.images.first ?? ""
         
         return NTFModel(
@@ -105,15 +91,7 @@ final class NTFRepositoryImpl: NTFRepository {
             author: dto.author,
             price: dto.price,
             currency: "ETH",//mocked
-            rating: dto.rating,
-            isFavorite: checkNTFisFavorite(id: dto.id, favoritesNtfIDs: favoritesNtfIDs)
+            rating: dto.rating
         )
-    }
-    
-    private func checkNTFisFavorite(id: String, favoritesNtfIDs: [String]) -> Bool {
-        for favoritesNtfID in favoritesNtfIDs where favoritesNtfID == id {
-            return true
-        }
-        return false
     }
 }

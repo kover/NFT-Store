@@ -15,5 +15,4 @@ struct NTFModel {
     let price: Float
     let currency: String
     let rating: Int
-    let isFavorite: Bool
 }

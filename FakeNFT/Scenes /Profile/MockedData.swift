@@ -7,11 +7,18 @@
 
 import UIKit
 
-//enum MockedData {
-//    static let ntfList = [
-//        NTFModel(id: "01", title: "Lilo", artworkUrl: UIImage(named: "NTF1") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 3, isFavorite: false),
-//        NTFModel(id: "02", title: "Spring", artworkUrl: UIImage(named: "NTF2") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 4, isFavorite: true),
-//        NTFModel(id: "03", title: "Stich", artworkUrl: UIImage(named: "NTF1") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 2, isFavorite: false),
-//        NTFModel(id: "04", title: "Venom", artworkUrl: UIImage(named: "NTF2") ?? UIImage(), author: "John Doe", price: "1,78", currency: "ETH", rating: 5, isFavorite: true)
-//    ]
-//}
+enum MockedData {
+    static let profileModel = ProfileModel(
+        avatarUrl: nil,
+        name: "name",
+        description: "description",
+        link: "link.com",
+        myNtfIds: [],
+        favoritesNtsIds: [
+            "cc74e9ab-2189-465f-a1a6-8405e07e9fe4",
+            "739e293c-1067-43e5-8f1d-4377e744ddde",
+            "77c9aa30-f07a-4bed-886b-dd41051fade2",
+            "ca34d35a-4507-47d9-9312-5ea7053994c0"
+        ]
+    )
+}

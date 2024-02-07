@@ -9,47 +9,91 @@ import Foundation
 
 final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
-    private var updFavoritesNTFsIds = [String]() //temporary property will be removed on next stage
+    private var initFavoritesNTFsIds = [String]()
+    
+    private var updFavoritesNTFsIds = [String]()
     
     private let ntfRepository: NTFRepository
+    
+    private var updateNTFModel: ( (IndexPath) -> Void )?
     
     init(
         ntfRepository: NTFRepository,
         favoritesNTFsID: [String]
     ) {
         self.ntfRepository = ntfRepository
-        self.updFavoritesNTFsIds = favoritesNTFsID //temporary step will be removed on next stage
+        self.initFavoritesNTFsIds = favoritesNTFsID
+        self.updFavoritesNTFsIds = favoritesNTFsID
+    }
+    
+    func onViewDidAppear() {
+        if !ntfRepository.loadNTFsFromCache().isEmpty { return }
+        
+        ntfRepository.loadNTFsByID(initFavoritesNTFsIds) { [weak self] itemIndex in
+            guard let self else { return }
+            let indexPath = IndexPath(item: itemIndex, section: 0)
+            updateNTFModel?(indexPath)
+        }
     }
         
     func itemCount() -> Int {
-        ntfRepository.loadFavoritesNTFsFromCache().count
+        if ntfRepository.loadNTFsFromCache().isEmpty {
+            return initFavoritesNTFsIds.count
+        }
+        return ntfRepository.loadNTFsFromCache().count
     }
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel? {
-        let ntfList = ntfRepository.loadFavoritesNTFsFromCache()
-        if ntfList.isEmpty { return nil }
+        let ntfList = ntfRepository.loadNTFsFromCache()
+        if ntfList.isEmpty || indexPath.item > ntfList.count - 1 { return nil }
+        
         return map(ntfList[indexPath.item])
     }
     
-    func removeFavoriteNTF(id: String) {
-        //temporary implementation will be update on next stage
+    func changeFavoriteNTFStatus(for id: String) {
+        guard let _ = updFavoritesNTFsIds.filter({$0 == id}).first else {
+            updFavoritesNTFsIds.append(id)
+            return
+        }
         updFavoritesNTFsIds = updFavoritesNTFsIds.filter {$0 != id}
     }
     
     func getUpdatedFavoritesNTFsIds() -> [String] {
-        //temporary implementation will be update on next stage
         updFavoritesNTFsIds
     }
     
-    private func map(_ model: NTFModel) -> FavoritesNTFScreenModel {
-        FavoritesNTFScreenModel(
+    func refreshNTFforItemIndex(_ itemIndex: Int) {
+        let id = initFavoritesNTFsIds[itemIndex]
+        ntfRepository.loadNTFbyID(id: id, itemIndex: itemIndex) { [weak self] in
+            guard let self else { return }
+            let indexPath = IndexPath(item: itemIndex, section: 0)
+            updateNTFModel?(indexPath)
+        }
+    }
+    
+    func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void) {
+        self.updateNTFModel = completion
+    }
+    
+    private func map(_ model: NTFModel?) -> FavoritesNTFScreenModel? {
+        guard let model else { return nil }
+        
+        return FavoritesNTFScreenModel(
             id: model.id,
             title: model.title,
             artworkUrl: model.artworkUrl,
             price: String(model.price),
             currency: model.currency,
             rating: model.rating,
-            isFavorite: model.isFavorite
+            isFavorite: checkNTFisFavorite(id: model.id)
         )
     }
+    
+    private func checkNTFisFavorite(id: String) -> Bool {
+        for favoritesNtfID in updFavoritesNTFsIds where favoritesNtfID == id {
+            return true
+        }
+        return false
+    }
 }
+

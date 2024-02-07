@@ -59,12 +59,17 @@ final class FavoritesNTFViewController: UIViewController {
         super.viewDidLoad()
         configureNTFCollection()
         configureLayout()
+        setObservers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.onViewDidAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         onFavoritesNTFsChanged?(viewModel.getUpdatedFavoritesNTFsIds())
-        
     }
     
     func onFavoritesNTFsChanged(_ completion: @escaping ([String]) -> Void) {
@@ -76,10 +81,38 @@ final class FavoritesNTFViewController: UIViewController {
         ntfCollection.delegate = self
         ntfCollection.register(FavoritesNTFCell.self, forCellWithReuseIdentifier: FavoritesNTFCell.identifier)
     }
+    
+    private func setObservers() {
+        viewModel.observeUpdateNTFModel { [weak self] indexPath in
+            guard let self else { return }
+            self.updateNTFCollectionCell(for: indexPath)
+        }
+    }
+    
+    private func updateNTFCollectionCell(for indexPath: IndexPath) {
+        guard let cell = ntfCollection.cellForItem(at: indexPath) as? FavoritesNTFCell else { return }
         
+        guard let ntfModel = viewModel.object(for: indexPath) else {
+            cell.loadingErrorState(isError: true)
+            return
+        }
+        cell.setModel(ntfModel)
+    }
+            
     @objc
     private func onBackButtonClick() {
         dismiss(animated: true)
+    }
+}
+
+//MARK: - FavoritesNTFCellDelegate
+extension FavoritesNTFViewController: FavoritesNTFCellDelegate {
+    func onFavoriteStatusChanged(id: String) {
+        viewModel.changeFavoriteNTFStatus(for: id)
+    }
+    
+    func onRefresh(for itemIndex: Int) {
+        viewModel.refreshNTFforItemIndex(itemIndex)
     }
 }
 
@@ -94,10 +127,12 @@ extension FavoritesNTFViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         guard let cell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: FavoritesNTFCell.identifier, for: indexPath) as? FavoritesNTFCell else { return UICollectionViewCell() }
-        
-        if let model = viewModel.object(for: indexPath) {
-            cell.setModel(model)
-        }
+    
+        cell.setModel(
+            viewModel.object(for: indexPath)
+        )
+        cell.setItemIndex(indexPath.item)
+        cell.setDelegate(self)
         return cell
     }
 }

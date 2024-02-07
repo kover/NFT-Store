@@ -41,7 +41,7 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
             price: String(model.price),
             currency: model.currency,
             rating: model.rating,
-            isFavorite: model.isFavorite
+            isFavorite: false // mocked
         )
     }
     
