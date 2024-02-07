@@ -1,6 +1,7 @@
 import UIKit
 
 enum RequestConstants {
+
     static let baseURL = ApiConstants.baseUrl.rawValue
 
     var relativeURL: URL? {
@@ -13,6 +14,7 @@ enum RequestConstants {
     case profile
     case order
     case currencies
+    case payment(id: String)
 
     var url: URL? {
         switch self {
@@ -31,6 +33,11 @@ enum RequestConstants {
             return URL(string: "api/v1/orders/1", relativeTo: relativeURL)
         case .currencies:
             return URL(string: "api/v1/currencies", relativeTo: relativeURL)
+        case .payment(let id):
+            return URL(
+                string: "api/v1/orders/1/payment/\(id)",
+                relativeTo: relativeURL
+            )
         }
     }
 }

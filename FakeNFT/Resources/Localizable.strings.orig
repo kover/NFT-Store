@@ -5,14 +5,12 @@
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
+<<<<<<< HEAD
 "Cart.price" = "Цена";
+=======
 "Catalog.empty" = "Нет данных для отображения";
 "Sort.title" = "Сортировка";
 "Sort.byName" = "По названиию";
 "Sort.byCount" = "По количеству NFT";
 "Sort.close" = "Закрыть";
-"Collection.author" = "Автор коллекции:";
-"Details.price" = "Цена";
-"Details.addToCart" = "Добавить в корзину";
-"Details.removeFromCart" = "Удалить из корзины";
-"Details.sellerPage" = "Перейти на сайт продавца";
+>>>>>>> origin/common

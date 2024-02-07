@@ -17,7 +17,11 @@ final class ServicesAssembly {
             storage: nftStorage
         )
     }
-
+    
+    var cartService: CartService {
+        CartService(networkClient: networkClient)
+    }
+    
     var catalogService: CatalogServiceProtocol {
         CatalogService(networkClient: networkClient)
     }
@@ -36,5 +40,6 @@ final class ServicesAssembly {
 
     var currencyService: CurrencyServiceProtocol {
         CurrencyService(networkClient: networkClient)
+
     }
 }
