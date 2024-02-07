@@ -29,7 +29,6 @@ final class CartViewModel: CartViewModelProtocol {
     
     init(serviceAssembly: ServicesAssembly) {
         self.serviceAssembly = serviceAssembly
-        loadOrder()
     }
     
     func loadOrder() {
@@ -73,7 +72,7 @@ final class CartViewModel: CartViewModelProtocol {
         nftModels.removeAll { $0.id == nftId }
         
         if !nftModels.isEmpty {
-            let updatedOrder = OrderModel(nfts: nftModels.map { $0.id })
+            let updatedOrder = Order(nfts: nftModels.map { $0.id })
             serviceAssembly.cartService.updateOrder(updatedOrder) { [weak self] result in
                 switch result {
                 case .success(let updatedOrder):
@@ -93,7 +92,7 @@ final class CartViewModel: CartViewModelProtocol {
 
         nftModels.removeAll()
 
-        let emptyOrder = OrderModel(nfts: [])
+        let emptyOrder = Order(nfts: [])
 
         serviceAssembly.cartService.updateOrder(emptyOrder) { [weak self] result in
             switch result {

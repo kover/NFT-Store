@@ -127,7 +127,7 @@ struct DefaultNetworkClient: NetworkClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.httpMethod.rawValue
 
-        urlRequest.setValue("ab33768d-02ac-4f45-9890-7acf503bde54", forHTTPHeaderField: "X-Practicum-Mobile-Token")
+        urlRequest.setValue(ApiConstants.token.rawValue, forHTTPHeaderField: ApiConstants.authorizationHeader.rawValue)
 
         if request.query != nil {
             urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")

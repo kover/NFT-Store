@@ -11,3 +11,8 @@
 "Sort.byName" = "По названиию";
 "Sort.byCount" = "По количеству NFT";
 "Sort.close" = "Закрыть";
+"Collection.author" = "Автор коллекции:";
+"Details.price" = "Цена";
+"Details.addToCart" = "Добавить в корзину";
+"Details.removeFromCart" = "Удалить из корзины";
+"Details.sellerPage" = "Перейти на сайт продавца";

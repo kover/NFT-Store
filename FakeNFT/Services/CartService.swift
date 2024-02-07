@@ -7,7 +7,7 @@
 import Foundation
 
 protocol CartServiceProtocol {
-    func getOrder(completion: @escaping (Result<OrderModel, Error>) -> Void)
+    func getOrder(completion: @escaping (Result<Order, Error>) -> Void)
     func getNftItems(ids: [String], completion: @escaping (Result<[NftModel], Error>) -> Void)
 }
 
@@ -46,9 +46,9 @@ struct CartService: CartServiceProtocol {
         }
     }
     
-    func getOrder(completion: @escaping (Result<OrderModel, Error>) -> Void) {
+    func getOrder(completion: @escaping (Result<Order, Error>) -> Void) {
         let request = GetNftOrderRequest()
-        networkClient.send(request: request, type: OrderModel.self) { result in
+        networkClient.send(request: request, type: Order.self) { result in
             switch result {
             case .success(let order):
                 completion(.success(order))
@@ -58,9 +58,9 @@ struct CartService: CartServiceProtocol {
         }
     }
     
-    func updateOrder(_ order: OrderModel, completion: @escaping (Result<OrderModel, Error>) -> Void) {
+    func updateOrder(_ order: Order, completion: @escaping (Result<Order, Error>) -> Void) {
         let request = PutOrderRequest(order: order)
-        networkClient.send(request: request, type: OrderModel.self) { result in
+        networkClient.send(request: request, type: Order.self) { result in
             switch result {
             case .success(let order):
                 completion(.success(order))

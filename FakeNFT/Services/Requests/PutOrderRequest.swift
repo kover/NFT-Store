@@ -1,14 +1,14 @@
 //
-//  PutNftOrderRequest.swift
+//  PutOrderRequest.swift
 //  FakeNFT
 //
-//  Created by Алишер Дадаметов on 30.01.2024.
+//  Created by Konstantin Penzin on 28.01.2024.
 //
 
 import Foundation
 
 struct PutOrderRequest: NetworkRequest {
-    let model: OrderModel
+    let model: Order
     var endpoint: URL? {
         RequestConstants.order.url
     }
@@ -20,7 +20,7 @@ struct PutOrderRequest: NetworkRequest {
         }
     }
 
-    init(order: OrderModel) {
+    init(order: Order) {
         self.model = order
     }
 }

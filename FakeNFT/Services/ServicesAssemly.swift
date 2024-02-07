@@ -21,4 +21,25 @@ final class ServicesAssembly {
     var cartService: CartService {
         CartService(networkClient: networkClient)
     }
+    
+    var catalogService: CatalogServiceProtocol {
+        CatalogService(networkClient: networkClient)
+    }
+
+    var collectionService: CollectionServiceProtocol {
+        CollectionService(networkClient: networkClient)
+    }
+
+    var profileService: ProfileServiceProtocol {
+        ProfileService(networkClient: networkClient)
+    }
+
+    var orderService: OrderServiceProtocol {
+        OrderService(networkClient: networkClient)
+    }
+
+    var currencyService: CurrencyServiceProtocol {
+        CurrencyService(networkClient: networkClient)
+
+    }
 }
