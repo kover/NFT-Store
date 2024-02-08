@@ -77,12 +77,7 @@ final class FavoritesNTFViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.onViewWillAppear()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.onViewDidAppear()
-    }
-    
+        
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         onFavoritesNTFsChanged?(viewModel.getUpdatedFavoritesNTFsIds())

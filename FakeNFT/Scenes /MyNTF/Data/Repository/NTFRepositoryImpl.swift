@@ -29,8 +29,8 @@ final class NTFRepositoryImpl: NTFRepository {
             idListForRequest.append(id)
         }
         if idListForRequest.isEmpty { return }
-       
-        requestQueue.add(IDs)
+        
+        requestQueue.add(idListForRequest)
         
         requestQueue.request { ntfID in
             self.fetchNTFbyID(ntfID) { [weak self] (result: Result<NTFResponseBody, Error>) in
@@ -71,21 +71,6 @@ final class NTFRepositoryImpl: NTFRepository {
             }
             if let ntf { self.ntfsCache.append(ntf) }
             handler(ntf)
-        }
-    }
-    
-    func loadNTFbyID(id: String, handler: @escaping (NTFModel?) -> Void) {
-        fetchNTFbyID(id) { [weak self] (result: Result<NTFResponseBody, Error>) in
-            guard let self else { return }
-            var ntfModel: NTFModel?
-            
-            switch result {
-            case .success(let ntfResponseBody):
-                ntfModel = self.map(dto: ntfResponseBody)
-            case .failure(_):
-                ntfModel = nil
-            }
-            handler(ntfModel)
         }
     }
     

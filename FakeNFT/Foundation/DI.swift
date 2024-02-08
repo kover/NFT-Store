@@ -12,21 +12,29 @@ final class DI {
 //MARK: - ViewModels injections
     static func injectProfileViewModel() -> ProfileViewModelProtocol {
         ProfileViewModel(
-            profileRepository: injectProfileRepository()
+            profileRepository: injectProfileRepository(),
+            myNTFRepository: injectNTFRepository(),
+            favoritesRepository: injectNTFRepository()
         )
     }
     
-    static func injectMyNTFViewModel(profileNTFsModel: ProfileNTFsModel) -> MyNTFViewModelProtocol {
+    static func injectMyNTFViewModel(
+        profileNTFsModel: ProfileNTFsModel,
+        ntfRepository: NTFRepository
+    ) -> MyNTFViewModelProtocol {
         MyNTFViewModel(
-            ntfRepository: injectNTFRepository(),
+            ntfRepository: ntfRepository,
             settingsRepository: injectSettingsRepository(),
             profileNTFsModel: profileNTFsModel
         )
     }
     
-    static func injectFavoritesNTFViewModel(favoritesNTFsID: [String]) -> FavoritesNTFViewModelProtocol {
+    static func injectFavoritesNTFViewModel(
+        favoritesNTFsID: [String],
+        ntfRepository: NTFRepository
+    ) -> FavoritesNTFViewModelProtocol {
         FavoritesNTFViewModel(
-            ntfRepository: injectNTFRepository(),
+            ntfRepository: ntfRepository,
             favoritesNTFsID: favoritesNTFsID
         )
     }

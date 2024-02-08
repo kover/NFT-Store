@@ -34,9 +34,7 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
             return
         }
         setPlaceholder?(false)
-    }
-    
-    func onViewDidAppear() {        
+        
         ntfRepository.loadNTFsByID(updFavoritesNTFsIds) { [weak self] ntfId, ntf in
             guard let self else { return }
             self.updateNtfInPack(id: ntfId, ntf: ntf)

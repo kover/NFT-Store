@@ -11,6 +11,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         
     private let profileRepository: ProfileRepository
     
+    private let myNTFRepository: NTFRepository
+    
+    private let favoritesRepository: NTFRepository
+    
     private var updateProfileInfo: ( (ProfileModel) -> Void )?
     
     private var dataLoadingStatus: ( (Bool) -> Void )?
@@ -20,9 +24,13 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     private var isProfileLoadingAvailable = true
     
     init(
-        profileRepository: ProfileRepository
+        profileRepository: ProfileRepository,
+        myNTFRepository: NTFRepository,
+        favoritesRepository: NTFRepository
     ) {
         self.profileRepository = profileRepository
+        self.myNTFRepository = myNTFRepository
+        self.favoritesRepository = favoritesRepository
     }
     
     func onViewWillAppear() {
@@ -38,6 +46,14 @@ final class ProfileViewModel: ProfileViewModelProtocol {
     
     func onChildControllerWillPresent() {
         isProfileLoadingAvailable = false
+    }
+    
+    func getMyNTFRepository() -> NTFRepository {
+        myNTFRepository
+    }
+    
+    func getFavoritesNTFRepository() -> NTFRepository {
+        favoritesRepository
     }
     
     func observeProfileInfo(_ completion: @escaping (ProfileModel) -> Void) {

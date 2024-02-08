@@ -65,6 +65,8 @@ final class MyNTFViewController: UIViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
+    private var onFavoritesNTFsChanged: ( ([String]) -> Void )?
 
     init(viewModel: MyNTFViewModelProtocol) {
         self.viewModel = viewModel
@@ -86,10 +88,14 @@ final class MyNTFViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.onViewWillAppear()
     }
+        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        onFavoritesNTFsChanged?(viewModel.getUpdatedFavoritesNTFsIds())
+    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.onViewDidApear()
+    func onFavoritesNTFsChanged(_ completion: @escaping ([String]) -> Void) {
+        self.onFavoritesNTFsChanged = completion
     }
     
     private func configureNTFCollection() {

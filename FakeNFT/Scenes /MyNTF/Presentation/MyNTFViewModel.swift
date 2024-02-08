@@ -41,9 +41,7 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
             return
         }
         setPlaceholder?(false)
-    }
-    
-    func onViewDidApear() {
+        
         let ids = ntfs.map { $0.id }
         ntfRepository.loadNTFsByID(ids) { [weak self] ntfId, ntf in
             guard let self else { return }

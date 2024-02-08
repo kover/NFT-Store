@@ -121,19 +121,25 @@ final class ProfileViewController: UIViewController {
     
     private func myNTFSectionClick() {
         let ntfsModel = viewModel.getProfileNTFs()
+        let ntfRepository = viewModel.getMyNTFRepository()
         let controller = MyNTFViewController(
-            viewModel: DI.injectMyNTFViewModel(profileNTFsModel: ntfsModel)
+            viewModel: DI.injectMyNTFViewModel(profileNTFsModel: ntfsModel, ntfRepository: ntfRepository)
         )
-        controller.modalPresentationStyle = .fullScreen
+        controller.onFavoritesNTFsChanged { [weak self] updFavoritesNTFsID in
+            guard let self else { return }
+            self.viewModel.setFavoritesNTFsID(updFavoritesNTFsID)
+        }
         
+        controller.modalPresentationStyle = .fullScreen
         viewModel.onChildControllerWillPresent()
         present(controller, animated: true)
     }
     
     private func favoritesNTFSectionClick() {
         let favoritesNTFsID = viewModel.getProfileNTFs().favoritesNtsIds
+        let ntfRepository = viewModel.getFavoritesNTFRepository()
         let controller = FavoritesNTFViewController(
-            viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID)
+            viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID, ntfRepository: ntfRepository)
         )
         controller.onFavoritesNTFsChanged { [weak self] updFavoritesNTFsID in
             guard let self else { return }

@@ -11,8 +11,6 @@ protocol MyNTFViewModelProtocol {
     
     func onViewWillAppear()
     
-    func onViewDidApear()
-    
     func itemCount() -> Int
     
     func object(for indexPath: IndexPath) -> MyNTFScreenModel?

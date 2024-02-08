@@ -11,8 +11,6 @@ protocol FavoritesNTFViewModelProtocol {
     
     func onViewWillAppear()
     
-    func onViewDidAppear()
-    
     func itemCount() -> Int
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel?

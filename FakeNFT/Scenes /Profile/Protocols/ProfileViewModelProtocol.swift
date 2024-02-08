@@ -15,6 +15,10 @@ protocol ProfileViewModelProtocol {
     
     func onChildControllerWillPresent()
     
+    func getMyNTFRepository() -> NTFRepository
+    
+    func getFavoritesNTFRepository() -> NTFRepository
+    
     func observeProfileInfo(_ completion: @escaping (ProfileModel) -> Void)
     
     func observeLoadingError(_ completion: @escaping (String) -> Void)
