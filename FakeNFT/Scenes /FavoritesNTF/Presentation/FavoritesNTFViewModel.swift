@@ -9,11 +9,11 @@ import Foundation
 
 final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
-    private var initFavoritesNTFsIds = [String]()
+    private let ntfRepository: NTFRepository
     
     private var updFavoritesNTFsIds = [String]()
     
-    private let ntfRepository: NTFRepository
+    private var ntfs = [NtfPack]()
     
     private var updateNTFModel: ( (IndexPath) -> Void )?
     
@@ -22,35 +22,28 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
         favoritesNTFsID: [String]
     ) {
         self.ntfRepository = ntfRepository
-        self.initFavoritesNTFsIds = favoritesNTFsID
         self.updFavoritesNTFsIds = favoritesNTFsID
+        self.ntfs = favoritesNTFsID.map { NtfPack(id: $0, ntf: nil) }
     }
     
     func onViewDidAppear() {
-        if !ntfRepository.loadNTFsFromCache().isEmpty { return }
-        
-        ntfRepository.loadNTFsByID(initFavoritesNTFsIds) { [weak self] itemIndex in
+        ntfRepository.loadNTFsByID(updFavoritesNTFsIds) { [weak self] ntfId, ntf in
             guard let self else { return }
-            let indexPath = IndexPath(item: itemIndex, section: 0)
-            updateNTFModel?(indexPath)
+            self.updateNtfInPack(id: ntfId, ntf: ntf)
         }
     }
         
     func itemCount() -> Int {
-        if ntfRepository.loadNTFsFromCache().isEmpty {
-            return initFavoritesNTFsIds.count
-        }
-        return ntfRepository.loadNTFsFromCache().count
+        ntfs.count
     }
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel? {
-        let ntfList = ntfRepository.loadNTFsFromCache()
-        if ntfList.isEmpty || indexPath.item > ntfList.count - 1 { return nil }
-        
-        return map(ntfList[indexPath.item])
+        if ntfs.isEmpty || indexPath.item > ntfs.count - 1 { return nil }
+        return map(ntfs[indexPath.item].ntf)
     }
     
-    func changeFavoriteNTFStatus(for id: String) {
+    func changeFavoriteNTFStatus(for indexPath: IndexPath) {
+        let id = ntfs[indexPath.item].id
         guard let _ = updFavoritesNTFsIds.filter({$0 == id}).first else {
             updFavoritesNTFsIds.append(id)
             return
@@ -62,17 +55,39 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
         updFavoritesNTFsIds
     }
     
-    func refreshNTFforItemIndex(_ itemIndex: Int) {
-        let id = initFavoritesNTFsIds[itemIndex]
-        ntfRepository.loadNTFbyID(id: id, itemIndex: itemIndex) { [weak self] in
+    func refreshObject(for indexPath: IndexPath) {
+        if indexPath.item > ntfs.count - 1 { return }
+        let ntfID = ntfs[indexPath.item].id
+        
+        ntfRepository.loadNTFByID(ntfID) { [weak self] ntf in
             guard let self else { return }
-            let indexPath = IndexPath(item: itemIndex, section: 0)
-            updateNTFModel?(indexPath)
+            updateNtfInPack(itemIndex: indexPath.item, ntf: ntf)
         }
     }
     
     func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void) {
         self.updateNTFModel = completion
+    }
+    
+    private func updateNtfInPack(id: String, ntf: NTFModel?) {
+        var itemIndex = -1
+        for index in 0 ... ntfs.count - 1 where ntfs[index].id == id {
+            itemIndex = index
+            break
+        }
+        
+        if itemIndex == -1 {
+            ntfs.append(NtfPack(id: id, ntf: ntf))
+            itemIndex = ntfs.count - 1
+        }
+        
+        updateNtfInPack(itemIndex: itemIndex, ntf: ntf)
+    }
+        
+    private func updateNtfInPack(itemIndex: Int, ntf: NTFModel?) {
+        ntfs[itemIndex].ntf = ntf
+        let indexPath = IndexPath(item: itemIndex, section: 0)
+        updateNTFModel?(indexPath)
     }
     
     private func map(_ model: NTFModel?) -> FavoritesNTFScreenModel? {

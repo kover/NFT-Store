@@ -120,8 +120,10 @@ final class ProfileViewController: UIViewController {
     }
     
     private func myNTFSectionClick() {
-        let myNTFsID = viewModel.getProfileNTFs()?.myNtfIds ?? []
-        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel(myNTFsID: myNTFsID))
+        let ntfsModel = viewModel.getProfileNTFs()
+        let controller = MyNTFViewController(
+            viewModel: DI.injectMyNTFViewModel(profileNTFsModel: ntfsModel)
+        )
         controller.modalPresentationStyle = .fullScreen
         
         viewModel.onChildControllerWillPresent()
@@ -129,7 +131,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func favoritesNTFSectionClick() {
-        let favoritesNTFsID = viewModel.getProfileNTFs()?.favoritesNtsIds ?? []
+        let favoritesNTFsID = viewModel.getProfileNTFs().favoritesNtsIds
         let controller = FavoritesNTFViewController(
             viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID)
         )

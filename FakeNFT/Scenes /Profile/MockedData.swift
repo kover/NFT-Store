@@ -13,7 +13,12 @@ enum MockedData {
         name: "name",
         description: "description",
         link: "link.com",
-        myNtfIds: [],
+        myNtfIds: [
+            "cc74e9ab-2189-465f-a1a6-8405e07e9fe4",
+            "739e293c-1067-43e5-8f1d-4377e744ddde",
+            "5093c01d-e79e-4281-96f1-76db5880ba70",
+            "1e649115-1d4f-4026-ad56-9551a16763ee"
+        ],
         favoritesNtsIds: [
             "cc74e9ab-2189-465f-a1a6-8405e07e9fe4",
             "739e293c-1067-43e5-8f1d-4377e744ddde",

@@ -62,8 +62,10 @@ final class ProfileViewModel: ProfileViewModelProtocol {
         )
     }
     
-    func getProfileNTFs() -> ProfileNTFsModel? {
-        guard let profileModel = profileRepository.getProfileFromCache() else { return nil }
+    func getProfileNTFs() -> ProfileNTFsModel {
+        guard let profileModel = profileRepository.getProfileFromCache() else {
+            return ProfileNTFsModel(myNtfIds: [], favoritesNtsIds: [])
+        }
         return ProfileNTFsModel(
             myNtfIds: profileModel.myNtfIds,
             favoritesNtsIds: profileModel.favoritesNtsIds

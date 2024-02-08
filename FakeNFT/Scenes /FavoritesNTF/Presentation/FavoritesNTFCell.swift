@@ -12,11 +12,9 @@ final class FavoritesNTFCell: UICollectionViewCell {
     
     static let identifier = "FavoritesCell"
     
-    private var id: String = ""
-    
     private var delegate: FavoritesNTFCellDelegate?
     
-    private var itemIndex: Int?
+    private var indexPath: IndexPath?
     
     private let title: UILabel = {
         let label = UILabel()
@@ -110,7 +108,6 @@ final class FavoritesNTFCell: UICollectionViewCell {
         }
         updateLoadingStatus(isLoading: false)
         
-        self.id = model.id
         title.text = model.title
         price.text = model.price + " " + model.currency
         isFavorite = model.isFavorite
@@ -128,8 +125,8 @@ final class FavoritesNTFCell: UICollectionViewCell {
         self.delegate = delegate
     }
     
-    func setItemIndex(_ itemIndex: Int) {
-        self.itemIndex = itemIndex
+    func setIndexPath(_ indexPath: IndexPath) {
+        self.indexPath = indexPath
     }
     
     func loadingErrorState(isError: Bool) {
@@ -140,15 +137,17 @@ final class FavoritesNTFCell: UICollectionViewCell {
     
     @objc
     private func favoriteButtonClick() {
-        delegate?.onFavoriteStatusChanged(id: id)
+        guard let indexPath else { return }
+        delegate?.onFavoriteStatusChanged(with: indexPath)
+        
         isFavorite = !isFavorite
         favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
     }
     
     @objc
     private func refreshButtonClick() {
-        guard let itemIndex else { return }
-        delegate?.onRefresh(for: itemIndex)
+        guard let indexPath else { return }
+        delegate?.onRefresh(with: indexPath)
         loadingErrorState(isError: false)
         updateLoadingStatus(isLoading: true)
     }
@@ -213,8 +212,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
             errorLoadingLabel,
             top: AnchorOf(artwork.topAnchor, 10),
             leading: AnchorOf(artwork.leadingAnchor, 2),
-            trailing: AnchorOf(artwork.trailingAnchor, -2)//,
-            //centerY: AnchorOf(artwork.centerYAnchor)
+            trailing: AnchorOf(artwork.trailingAnchor, -2)
         )
         
         contentView.addSubView(

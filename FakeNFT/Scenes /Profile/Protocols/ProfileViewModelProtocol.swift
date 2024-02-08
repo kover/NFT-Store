@@ -23,7 +23,7 @@ protocol ProfileViewModelProtocol {
     
     func getProfilePersonalData() -> ProfilePersonalDataModel?
     
-    func getProfileNTFs() -> ProfileNTFsModel?
+    func getProfileNTFs() -> ProfileNTFsModel
     
     func setProfilePersonalData(_ model: ProfilePersonalDataModel)
     

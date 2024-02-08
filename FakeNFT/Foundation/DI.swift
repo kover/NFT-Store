@@ -16,10 +16,11 @@ final class DI {
         )
     }
     
-    static func injectMyNTFViewModel(myNTFsID: [String]) -> MyNTFViewModelProtocol {
+    static func injectMyNTFViewModel(profileNTFsModel: ProfileNTFsModel) -> MyNTFViewModelProtocol {
         MyNTFViewModel(
             ntfRepository: injectNTFRepository(),
-            myNTFsIds: myNTFsID
+            settingsRepository: injectSettingsRepository(),
+            profileNTFsModel: profileNTFsModel
         )
     }
     
@@ -45,6 +46,10 @@ final class DI {
         NTFRepositoryImpl(
             networkClient: injectNetworkClient()
         )
+    }
+    
+    static func injectSettingsRepository() -> SettingsRepository {
+        SettingsRepositoryImplUserDef()
     }
     
 //MARK: - Services

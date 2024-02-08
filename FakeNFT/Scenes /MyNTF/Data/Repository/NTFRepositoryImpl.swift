@@ -11,7 +11,7 @@ final class NTFRepositoryImpl: NTFRepository {
     
     private let networkClient: NetworkClient
     
-    private var ntfCache = [NTFModel?]()
+    private var ntfsCache = [NTFModel]()
     
     private let requestQueue = RequestQueue<String>()
     
@@ -19,34 +19,62 @@ final class NTFRepositoryImpl: NTFRepository {
         self.networkClient = networkClient
     }
     
-    func loadNTFsByID(_ IDs: [String], handler: @escaping (Int) -> Void) {
-        var i = 1
+    func loadNTFsByID(_ IDs: [String], handler: @escaping (String, NTFModel?) -> Void) {
+        var idListForRequest = [String]()
+        for id in IDs {
+            if let ntf = getNtfFromCacheByID(id) {
+                handler(id, ntf)
+                continue
+            }
+            idListForRequest.append(id)
+        }
+        if idListForRequest.isEmpty { return }
+       
         requestQueue.add(IDs)
         
         requestQueue.request { ntfID in
             self.fetchNTFbyID(ntfID) { [weak self] (result: Result<NTFResponseBody, Error>) in
                 guard let self else { return }
-                var ntfModel: NTFModel?
+                var ntf: NTFModel?
                 
                 switch result {
                 case .success(let ntfResponseBody):
-                    ntfModel = self.map(dto: ntfResponseBody)
+                    ntf = self.map(dto: ntfResponseBody)
                 case .failure(_):
-                    ntfModel = nil
+                    ntf = nil
                 }
                 
-                if i == 1 { ntfModel = nil }
+                if let ntf { self.ntfsCache.append(ntf) }
+                handler(ntfID, ntf)
                 
-                self.ntfCache.append(ntfModel)
-                handler(self.ntfCache.count - 1)
-                i += 1
                 requestQueue.next()
             }
         }
         requestQueue.next()
     }
     
-    func loadNTFbyID(id: String, itemIndex: Int, callback: @escaping () -> Void) {
+    func loadNTFByID(_ id: String, handler: @escaping (NTFModel?) -> Void) {
+        if let ntf = getNtfFromCacheByID(id) {
+            handler(ntf)
+            return
+        }
+        
+        fetchNTFbyID(id) { [weak self] (result: Result<NTFResponseBody, Error>) in
+            guard let self else { return }
+            var ntf: NTFModel?
+            
+            switch result {
+            case .success(let ntfResponseBody):
+                ntf = self.map(dto: ntfResponseBody)
+            case .failure(_):
+                ntf = nil
+            }
+            if let ntf { self.ntfsCache.append(ntf) }
+            handler(ntf)
+        }
+    }
+    
+    func loadNTFbyID(id: String, handler: @escaping (NTFModel?) -> Void) {
         fetchNTFbyID(id) { [weak self] (result: Result<NTFResponseBody, Error>) in
             guard let self else { return }
             var ntfModel: NTFModel?
@@ -57,13 +85,12 @@ final class NTFRepositoryImpl: NTFRepository {
             case .failure(_):
                 ntfModel = nil
             }
-            self.ntfCache[itemIndex] = ntfModel
-            callback()
+            handler(ntfModel)
         }
     }
     
-    func loadNTFsFromCache() -> [NTFModel?] {
-        ntfCache
+    private func getNtfFromCacheByID(_ id: String) -> NTFModel? {
+        ntfsCache.filter({ $0.id == id }).first
     }
     
     private func fetchNTFbyID(_ id: String, handler: @escaping (Result<NTFResponseBody, Error>)-> Void) {

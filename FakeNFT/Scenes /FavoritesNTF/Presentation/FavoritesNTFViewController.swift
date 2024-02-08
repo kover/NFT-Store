@@ -107,12 +107,12 @@ final class FavoritesNTFViewController: UIViewController {
 
 //MARK: - FavoritesNTFCellDelegate
 extension FavoritesNTFViewController: FavoritesNTFCellDelegate {
-    func onFavoriteStatusChanged(id: String) {
-        viewModel.changeFavoriteNTFStatus(for: id)
+    func onFavoriteStatusChanged(with indexPath: IndexPath ) {
+        viewModel.changeFavoriteNTFStatus(for: indexPath)
     }
     
-    func onRefresh(for itemIndex: Int) {
-        viewModel.refreshNTFforItemIndex(itemIndex)
+    func onRefresh(with indexPath: IndexPath) {
+        viewModel.refreshObject(for: indexPath)
     }
 }
 
@@ -131,7 +131,7 @@ extension FavoritesNTFViewController: UICollectionViewDataSource {
         cell.setModel(
             viewModel.object(for: indexPath)
         )
-        cell.setItemIndex(indexPath.item)
+        cell.setIndexPath(indexPath)
         cell.setDelegate(self)
         return cell
     }

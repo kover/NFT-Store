@@ -68,12 +68,39 @@ final class MyNTFViewController: UIViewController {
         super.viewDidLoad()
         configureNTFCollection()
         configureLayout()
+        setObservers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.onViewDidApear()
     }
     
     private func configureNTFCollection() {
         ntfCollection.collectionViewLayout = configureNTFCollectionFlowLayout()
         ntfCollection.dataSource = self
         ntfCollection.register(MyNTFCell.self, forCellWithReuseIdentifier: MyNTFCell.identifier)
+    }
+    
+    private func setObservers() {
+        viewModel.observeUpdateNTFModel { [weak self] indexPath in
+            guard let self else { return }
+            self.updateNTFCollectionCell(for: indexPath)
+        }
+        viewModel.observeUpdateNTFCollection { [weak self] in
+            guard let self else { return }
+            self.ntfCollection.reloadData()
+        }
+    }
+    
+    private func updateNTFCollectionCell(for indexPath: IndexPath) {
+        guard let cell = ntfCollection.cellForItem(at: indexPath) as? MyNTFCell else { return }
+        
+        guard let ntf = viewModel.object(for: indexPath) else {
+            cell.loadingErrorState(isError: true)
+            return
+        }
+        cell.setModel(ntf)
     }
         
     @objc
@@ -83,7 +110,23 @@ final class MyNTFViewController: UIViewController {
     
     @objc
     private func onSortButtonClick() {
-        //TODO sort NTF items
+        let actions = [
+            AlertAction(title: localized("Sorting.byPrice")) {[weak self] in
+                guard let self else { return }
+                viewModel.sortNTFs(.byPrice)
+            },
+            AlertAction(title: localized("Sorting.byRating")) {[weak self] in
+                guard let self else { return }
+                viewModel.sortNTFs(.byRating)
+            },
+            AlertAction(title: localized("Sorting.byTitle")) {[weak self] in
+                guard let self else { return }
+                viewModel.sortNTFs(.byTitle)
+            }
+        ]
+        AlertController.multiAction(
+            alertPresenter: self, title: localized("Sorting"), actions: actions
+        )
     }
 }
 
@@ -99,14 +142,32 @@ extension MyNTFViewController: UICollectionViewDataSource {
         guard let cell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: MyNTFCell.identifier, for: indexPath) as? MyNTFCell else { return UICollectionViewCell() }
         
-        if let model = viewModel.object(for: indexPath) {
-            cell.setModel(model)
-        }
+        cell.setModel(viewModel.object(for: indexPath))
+        cell.setIndexPath(indexPath)
+        cell.setDelegate(self)
+        
         return cell
     }
-    
-    
 }
+
+//MARK: - FavoritesNTFCellDelegate
+extension MyNTFViewController: FavoritesNTFCellDelegate {
+    func onFavoriteStatusChanged(with indexPath: IndexPath ) {
+        viewModel.changeFavoriteNTFStatus(for: indexPath)
+    }
+    
+    func onRefresh(with indexPath: IndexPath) {
+        viewModel.refreshObject(for: indexPath)
+    }
+}
+
+//MARK: - AlertPresenter Protocol
+extension MyNTFViewController: AlertPresenterProtocol {
+    func present(alert: UIAlertController, animated: Bool) {
+        self.present(alert, animated: animated)
+    }
+}
+
 //MARK: - Configure layout
 extension MyNTFViewController {
     

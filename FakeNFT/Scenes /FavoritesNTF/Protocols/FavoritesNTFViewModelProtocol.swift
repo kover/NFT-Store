@@ -15,11 +15,11 @@ protocol FavoritesNTFViewModelProtocol {
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel?
     
-    func changeFavoriteNTFStatus(for id: String)
+    func changeFavoriteNTFStatus(for indexPath: IndexPath)
         
     func getUpdatedFavoritesNTFsIds() -> [String]
     
-    func refreshNTFforItemIndex(_ itemIndex: Int)
+    func refreshObject(for indexPath: IndexPath)
         
     func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void)
         

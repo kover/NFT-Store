@@ -12,6 +12,10 @@ final class MyNTFCell: UICollectionViewCell {
     
     static let identifier = "MyNTFCell"
     
+    private var delegate: FavoritesNTFCellDelegate?
+    
+    private var indexPath: IndexPath?
+    
     private let title: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -39,6 +43,7 @@ final class MyNTFCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .ypBlack
         label.text = localized("Price")
+        label.isHidden = true
         return label
     }()
     
@@ -55,6 +60,7 @@ final class MyNTFCell: UICollectionViewCell {
             target: nil,
             action: #selector(favoriteButtonClick)
         )
+        button.isHidden = true
         return button
     }()
     
@@ -68,6 +74,34 @@ final class MyNTFCell: UICollectionViewCell {
         return starRatingPanel
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.style = .medium
+        return activityIndicatorView
+    }()
+    
+    private let errorLoadingLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .clear
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .gray
+        label.text = localized("Error.loading_false")
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
+    private let refreshButton: UIButton = {
+        let button = UIButton.systemButton(
+            with: UIImage(systemName: "goforward") ?? UIImage(),
+            target: nil,
+            action: #selector(refreshButtonClick)
+        )
+        button.tintColor = .gray
+        button.isHidden = true
+        return button
+    }()
+    
     private var isFavorite = false
     
     override init(frame: CGRect) {
@@ -79,21 +113,56 @@ final class MyNTFCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setModel(_ model: MyNTFScreenModel) {
+    func setModel(_ model: MyNTFScreenModel?) {
+        guard let model else {
+            updateLoadingStatus(isLoading: true)
+            return
+        }
+        updateLoadingStatus(isLoading: false)
+        
         title.text = model.title
         author.text = "\(localized("From")) \(model.author)"
         price.text = model.price + " " + model.currency
         isFavorite = model.isFavorite
+        
+        priceSectionTitle.isHidden = false
+        favoriteButton.isHidden = false
         favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
+        
         ratingPanel.setRating(model.rating)
         
         updateArtwork(for: model.artworkUrl)
     }
     
+    func setDelegate(_ delegate: FavoritesNTFCellDelegate) {
+        self.delegate = delegate
+    }
+    
+    func setIndexPath(_ indexPath: IndexPath) {
+        self.indexPath = indexPath
+    }
+    
+    func loadingErrorState(isError: Bool) {
+        updateLoadingStatus(isLoading: false)
+        refreshButton.isHidden = !isError
+        errorLoadingLabel.isHidden = !isError
+    }
+    
     @objc
     private func favoriteButtonClick() {
+        guard let indexPath else { return }
+        delegate?.onFavoriteStatusChanged(with: indexPath)
+        
         isFavorite = !isFavorite
         favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
+    }
+    
+    @objc
+    private func refreshButtonClick() {
+        guard let indexPath else { return }
+        delegate?.onRefresh(with: indexPath)
+        loadingErrorState(isError: false)
+        updateLoadingStatus(isLoading: true)
     }
     
     private func updateArtwork(for url: URL?) {
@@ -101,6 +170,15 @@ final class MyNTFCell: UICollectionViewCell {
             with: url,
             placeholder: UIImage(systemName: "scribble.variable")
         )
+    }
+    
+    private func updateLoadingStatus(isLoading: Bool) {
+        contentView.isUserInteractionEnabled = !isLoading
+        activityIndicator.isHidden = !isLoading
+        artwork.backgroundColor = .ypLigthGrey
+        
+        let animation: () -> Void = isLoading ? { self.activityIndicator.startAnimating() } : { self.activityIndicator.stopAnimating() }
+        animation()
     }
     
     private func configureCell() {
@@ -113,39 +191,64 @@ final class MyNTFCell: UICollectionViewCell {
         )
         
         contentView.addSubView(
-            title,
-            top: AnchorOf(contentView.topAnchor, 24),
-            leading: AnchorOf(artwork.trailingAnchor, 20)
-        )
-                
-        contentView.addSubView(
             ratingPanel, heigth: 12,
-            top: AnchorOf(title.bottomAnchor, 4),
-            leading: AnchorOf(title.leadingAnchor)
+            leading: AnchorOf(artwork.trailingAnchor, 20),
+            centerY: AnchorOf(artwork.centerYAnchor)
         )
         
         contentView.addSubView(
-            author,
-            top: AnchorOf(ratingPanel.bottomAnchor, 4),
-            leading: AnchorOf(title.leadingAnchor)
+            price,
+            trailing: AnchorOf(contentView.trailingAnchor),
+            centerY: AnchorOf(ratingPanel.centerYAnchor, 10)
         )
-                
+        
         contentView.addSubView(
             priceSectionTitle,
-            leading: AnchorOf(artwork.trailingAnchor, 140),
-            centerY: AnchorOf(ratingPanel.centerYAnchor, -8)
+            leading: AnchorOf(price.leadingAnchor),
+            centerY: AnchorOf(ratingPanel.centerYAnchor, -10)
+        )
+    
+        contentView.addSubView(
+            title,
+            top: AnchorOf(ratingPanel.topAnchor, -28),
+            leading: AnchorOf(artwork.trailingAnchor, 20),
+            trailing: AnchorOf(price.leadingAnchor, -4)
         )
                 
         contentView.addSubView(
-            price,
-            top: AnchorOf(priceSectionTitle.bottomAnchor, 2),
-            leading: AnchorOf(priceSectionTitle.leadingAnchor)
+            author,
+            top: AnchorOf(ratingPanel.bottomAnchor, 8),
+            leading: AnchorOf(title.leadingAnchor),
+            trailing: AnchorOf(title.trailingAnchor)
         )
+                
+        
+                
+        
                 
         contentView.addSubView(
             favoriteButton, width: 42, heigth: 42,
             top: AnchorOf(artwork.topAnchor),
             trailing: AnchorOf(artwork.trailingAnchor)
+        )
+        
+        contentView.addSubView(
+            activityIndicator,
+            centerX: AnchorOf(artwork.centerXAnchor),
+            centerY: AnchorOf(artwork.centerYAnchor)
+        )
+        
+        contentView.addSubView(
+            errorLoadingLabel,
+            top: AnchorOf(artwork.topAnchor, 10),
+            leading: AnchorOf(artwork.leadingAnchor, 2),
+            trailing: AnchorOf(artwork.trailingAnchor, -2)
+        )
+        
+        contentView.addSubView(
+            refreshButton,
+            centerX: AnchorOf(artwork.centerXAnchor),
+            centerY: AnchorOf(artwork.centerYAnchor, 10)
         )
     }
 }

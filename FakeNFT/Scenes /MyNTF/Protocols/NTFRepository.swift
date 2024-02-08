@@ -9,9 +9,7 @@ import Foundation
 
 protocol NTFRepository {
     
-    func loadNTFsByID(_ IDs: [String], handler: @escaping (Int) -> Void)
-    
-    func loadNTFbyID(id: String, itemIndex: Int, callback: @escaping () -> Void)
-    
-    func loadNTFsFromCache() -> [NTFModel?]
+    func loadNTFsByID(_ IDs: [String], handler: @escaping (String, NTFModel?) -> Void)
+        
+    func loadNTFByID(_ id: String, handler: @escaping (NTFModel?) -> Void)
 }

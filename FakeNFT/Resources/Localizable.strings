@@ -27,3 +27,7 @@
 "Price" = "Цена";
 "Not available" = "Не доступно";
 "Will avaible in the next release" = "Функция будет доступна\nв следующем релизе";
+"Sorting" = "Сортировка";
+"Sorting.byPrice" = "По цене";
+"Sorting.byRating" = "По рейтингу";
+"Sorting.byTitle" = "По названию";

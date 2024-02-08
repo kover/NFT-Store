@@ -9,7 +9,7 @@ import Foundation
 
 protocol FavoritesNTFCellDelegate {
     
-    func onFavoriteStatusChanged(id: String)
+    func onFavoriteStatusChanged(with indexPath: IndexPath)
     
-    func onRefresh(for itemIndex: Int)
+    func onRefresh(with indexPath: IndexPath)
 }
