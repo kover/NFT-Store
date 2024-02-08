@@ -21,6 +21,8 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
     
     private var updateNTFCollection: ( () -> Void )?
     
+    private var setPlaceholder: ( (Bool) -> Void )?
+    
     init(
         ntfRepository: NTFRepository,
         settingsRepository: SettingsRepository,
@@ -31,6 +33,14 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
    
         self.ntfs = profileNTFsModel.myNtfIds.map { NtfPack(id: $0, ntf: nil) }
         self.updFavoritesNTFsIds = profileNTFsModel.favoritesNtsIds
+    }
+    
+    func onViewWillAppear() {
+        if ntfs.isEmpty {
+            setPlaceholder?(true)
+            return
+        }
+        setPlaceholder?(false)
     }
     
     func onViewDidApear() {
@@ -103,6 +113,10 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
     
     func observeUpdateNTFCollection(_ completion: @escaping () -> Void) {
         self.updateNTFCollection = completion
+    }
+    
+    func observeUpdatedPlaceholderState(_ completion: @escaping (Bool) -> Void) {
+        self.setPlaceholder = completion
     }
     
     private func updateNtfInPack(id: String, ntf: NTFModel?) {

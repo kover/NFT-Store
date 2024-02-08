@@ -35,6 +35,17 @@ final class FavoritesNTFViewController: UIViewController {
         return label
     }()
     
+    private let placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .ypBlack
+        label.backgroundColor = .clear
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = localized("Profile.FavoritesNTFs.Placeholder")
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
     private let ntfCollection: UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
@@ -62,6 +73,11 @@ final class FavoritesNTFViewController: UIViewController {
         setObservers()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.onViewWillAppear()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.onViewDidAppear()
@@ -87,7 +103,17 @@ final class FavoritesNTFViewController: UIViewController {
             guard let self else { return }
             self.updateNTFCollectionCell(for: indexPath)
         }
+        viewModel.observeUpdatedPlaceholderState { [weak self] isPlaceholder in
+            guard let self else { return }
+            self.updatePlaceholderState(isPlaceholder: isPlaceholder)
+        }
     }
+    
+    private func updatePlaceholderState(isPlaceholder: Bool) {
+            screenTitle.isHidden = isPlaceholder
+            ntfCollection.isHidden = isPlaceholder
+            placeholderLabel.isHidden = !isPlaceholder
+        }
     
     private func updateNTFCollectionCell(for indexPath: IndexPath) {
         guard let cell = ntfCollection.cellForItem(at: indexPath) as? FavoritesNTFCell else { return }
@@ -106,7 +132,7 @@ final class FavoritesNTFViewController: UIViewController {
 }
 
 //MARK: - FavoritesNTFCellDelegate
-extension FavoritesNTFViewController: FavoritesNTFCellDelegate {
+extension FavoritesNTFViewController: NTFCellDelegate {
     func onFavoriteStatusChanged(with indexPath: IndexPath ) {
         viewModel.changeFavoriteNTFStatus(for: indexPath)
     }
@@ -165,13 +191,13 @@ extension FavoritesNTFViewController {
     
     private func configureLayout() {
         view.backgroundColor = .ypWhite
-                
+        
         view.addSubView(
             backButton, width: Property.backButtonWidth, heigth: Property.backButtonWidth,
             top: AnchorOf(view.safeAreaLayoutGuide.topAnchor, 8),
             leading: AnchorOf(view.leadingAnchor, 8)
         )
-                
+        
         view.addSubView(
             screenTitle,
             centerX: AnchorOf(view.centerXAnchor),
@@ -184,6 +210,13 @@ extension FavoritesNTFViewController {
             bottom: AnchorOf(view.bottomAnchor),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Property.commonMargin)
+        )
+        
+        view.addSubView(
+            placeholderLabel,
+            leading: AnchorOf(view.leadingAnchor),
+            trailing: AnchorOf(view.trailingAnchor),
+            centerY: AnchorOf(view.centerYAnchor)
         )
     }
 }

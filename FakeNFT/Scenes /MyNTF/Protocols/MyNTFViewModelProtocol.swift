@@ -9,6 +9,8 @@ import Foundation
 
 protocol MyNTFViewModelProtocol {
     
+    func onViewWillAppear()
+    
     func onViewDidApear()
     
     func itemCount() -> Int
@@ -26,5 +28,7 @@ protocol MyNTFViewModelProtocol {
     func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void)
     
     func observeUpdateNTFCollection(_ completion: @escaping () -> Void)
+    
+    func observeUpdatedPlaceholderState(_ completion: @escaping (Bool) -> Void)
     
 }

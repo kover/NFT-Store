@@ -17,6 +17,8 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
     private var updateNTFModel: ( (IndexPath) -> Void )?
     
+    private var setPlaceholder: ( (Bool) -> Void )?
+    
     init(
         ntfRepository: NTFRepository,
         favoritesNTFsID: [String]
@@ -26,7 +28,15 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
         self.ntfs = favoritesNTFsID.map { NtfPack(id: $0, ntf: nil) }
     }
     
-    func onViewDidAppear() {
+    func onViewWillAppear() {
+        if ntfs.isEmpty {
+            setPlaceholder?(true)
+            return
+        }
+        setPlaceholder?(false)
+    }
+    
+    func onViewDidAppear() {        
         ntfRepository.loadNTFsByID(updFavoritesNTFsIds) { [weak self] ntfId, ntf in
             guard let self else { return }
             self.updateNtfInPack(id: ntfId, ntf: ntf)
@@ -67,6 +77,10 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
     func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void) {
         self.updateNTFModel = completion
+    }
+    
+    func observeUpdatedPlaceholderState(_ completion: @escaping (Bool) -> Void) {
+        self.setPlaceholder = completion
     }
     
     private func updateNtfInPack(id: String, ntf: NTFModel?) {

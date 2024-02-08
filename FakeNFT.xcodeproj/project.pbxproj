@@ -52,7 +52,7 @@
 		AB0EECA82B727098001FB809 /* NTFResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA72B727097001FB809 /* NTFResponseBody.swift */; };
 		AB0EECAA2B727B09001FB809 /* NTFRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA92B727B09001FB809 /* NTFRequest.swift */; };
 		AB0EECAC2B72841B001FB809 /* RequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAB2B72841B001FB809 /* RequestQueue.swift */; };
-		AB0EECAE2B7407B6001FB809 /* FavoritesNTFCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAD2B7407B6001FB809 /* FavoritesNTFCellDelegate.swift */; };
+		AB0EECAE2B7407B6001FB809 /* NTFCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */; };
 		AB0EECB02B74D2EA001FB809 /* SortingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */; };
 		AB0EECB22B74D502001FB809 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB12B74D502001FB809 /* SettingsRepository.swift */; };
 		AB0EECB42B74D611001FB809 /* SettingsRepositoryImplUserDef.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */; };
@@ -163,7 +163,7 @@
 		AB0EECA72B727097001FB809 /* NTFResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFResponseBody.swift; sourceTree = "<group>"; };
 		AB0EECA92B727B09001FB809 /* NTFRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRequest.swift; sourceTree = "<group>"; };
 		AB0EECAB2B72841B001FB809 /* RequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestQueue.swift; sourceTree = "<group>"; };
-		AB0EECAD2B7407B6001FB809 /* FavoritesNTFCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFCellDelegate.swift; sourceTree = "<group>"; };
+		AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFCellDelegate.swift; sourceTree = "<group>"; };
 		AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingRule.swift; sourceTree = "<group>"; };
 		AB0EECB12B74D502001FB809 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
 		AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryImplUserDef.swift; sourceTree = "<group>"; };
@@ -701,7 +701,7 @@
 			isa = PBXGroup;
 			children = (
 				AB4B35312B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift */,
-				AB0EECAD2B7407B6001FB809 /* FavoritesNTFCellDelegate.swift */,
+				AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -967,7 +967,7 @@
 				AB0EECA02B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift in Sources */,
 				AB0EECB42B74D611001FB809 /* SettingsRepositoryImplUserDef.swift in Sources */,
 				AB4B34FE2B5EF217003F8764 /* NTFModel.swift in Sources */,
-				AB0EECAE2B7407B6001FB809 /* FavoritesNTFCellDelegate.swift in Sources */,
+				AB0EECAE2B7407B6001FB809 /* NTFCellDelegate.swift in Sources */,
 				AB0EECB62B74D68A001FB809 /* UserDefaults+Extensions.swift in Sources */,
 				AB4B34F02B5B1835003F8764 /* ProfileModel.swift in Sources */,
 				AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */,

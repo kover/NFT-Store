@@ -31,3 +31,6 @@
 "Sorting.byPrice" = "По цене";
 "Sorting.byRating" = "По рейтингу";
 "Sorting.byTitle" = "По названию";
+"Profile.NTFs.Placeholder" = "У Вас ещё нет NFT";
+"Profile.FavoritesNTFs.Placeholder" = "У Вас ещё нет избранных NFT";
+

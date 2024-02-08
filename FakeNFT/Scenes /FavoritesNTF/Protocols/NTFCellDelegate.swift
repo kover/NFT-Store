@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FavoritesNTFCellDelegate {
+protocol NTFCellDelegate {
     
     func onFavoriteStatusChanged(with indexPath: IndexPath)
     

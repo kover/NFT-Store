@@ -9,6 +9,8 @@ import Foundation
 
 protocol FavoritesNTFViewModelProtocol {
     
+    func onViewWillAppear()
+    
     func onViewDidAppear()
     
     func itemCount() -> Int
@@ -22,5 +24,7 @@ protocol FavoritesNTFViewModelProtocol {
     func refreshObject(for indexPath: IndexPath)
         
     func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void)
+    
+    func observeUpdatedPlaceholderState(_ completion: @escaping (Bool) -> Void)
         
 }

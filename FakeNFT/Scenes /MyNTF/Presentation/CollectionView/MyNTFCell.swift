@@ -12,7 +12,7 @@ final class MyNTFCell: UICollectionViewCell {
     
     static let identifier = "MyNTFCell"
     
-    private var delegate: FavoritesNTFCellDelegate?
+    private var delegate: NTFCellDelegate?
     
     private var indexPath: IndexPath?
     
@@ -134,7 +134,7 @@ final class MyNTFCell: UICollectionViewCell {
         updateArtwork(for: model.artworkUrl)
     }
     
-    func setDelegate(_ delegate: FavoritesNTFCellDelegate) {
+    func setDelegate(_ delegate: NTFCellDelegate) {
         self.delegate = delegate
     }
     
