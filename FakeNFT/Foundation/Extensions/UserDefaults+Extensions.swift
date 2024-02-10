@@ -8,14 +8,28 @@
 import Foundation
 
 extension UserDefaults {
-    func setJSON <T: Codable> (codable: T, forKey key: String) {
-        let data = try! JSONEncoder().encode(codable)
-        UserDefaults.standard.set(data, forKey: key)
-    }
     
-    func getJSON <T: Codable> (type: T.Type, forKey key: String) -> T? {
+    enum UserDefaultsErrors: Error {
+            case setError
+            case getError
+    }
+
+    func setJSON <T: Codable> (codable: T, forKey key: String) throws {
+        do {
+            let data = try JSONEncoder().encode(codable)
+            UserDefaults.standard.set(data, forKey: key)
+        } catch {
+            throw UserDefaultsErrors.setError
+        }
+    }
+        
+    func getJSON <T: Codable> (type: T.Type, forKey key: String) throws -> T? {
         guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
-        let encodingData = try! JSONDecoder().decode(T.self, from: data)
-        return encodingData
+        do {
+            let encodingData = try JSONDecoder().decode(T.self, from: data)
+            return encodingData
+        } catch {
+            throw UserDefaultsErrors.getError
+        }
     }
 }

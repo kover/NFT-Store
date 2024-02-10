@@ -27,6 +27,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
     
     private let artwork: UIImageView = {
         let imageView = UIImageView()
+        imageView.tintColor = .gray
         imageView.backgroundColor = .ypLigthGrey
         imageView.layer.cornerRadius = 12
         imageView.contentMode = .scaleAspectFill

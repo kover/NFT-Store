@@ -11,15 +11,27 @@ final class SettingsRepositoryImplUserDef: SettingsRepository {
     
     private let repository = UserDefaults.standard
     
+    private let defaultSortingValue: SortingRule = .byTitle
+    
     private let sortingRuleKey = "sortingRule"
     
     func saveSortingRule(_ rule: SortingRule) {
-        repository.setJSON(codable: rule, forKey: sortingRuleKey)
+        do {
+            try repository.setJSON(codable: rule, forKey: sortingRuleKey)
+        } catch {
+            return
+        }
     }
     
     func getSortingRule() -> SortingRule {
-        let sortingRule = repository.getJSON(type: SortingRule.self, forKey: sortingRuleKey) ?? .byTitle
-        return sortingRule
+        do {
+            let sortingRule = try repository.getJSON(type: SortingRule.self, forKey: sortingRuleKey) ?? defaultSortingValue
+            return sortingRule
+        } catch {
+            return defaultSortingValue
+        }
+        
+
     }
     
     

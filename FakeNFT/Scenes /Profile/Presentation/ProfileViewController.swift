@@ -153,6 +153,11 @@ final class ProfileViewController: UIViewController {
     
     private func developerSectionClick() {
         //TODO swich on DeveloperViewController
+        AlertController.showNotification(
+            alertPresenter: self,
+            title: localized("Not available"),
+            message: localized("Will avaible in the next release")
+        )
     }
     
     @objc
@@ -172,7 +177,7 @@ final class ProfileViewController: UIViewController {
         userDescription.text = model.description
         profileLink.text = model.link
         updateProfileAvatar(for: model.avatarUrl)
-        myNFTSection.setContentCount(model.myNtfIds.count)
+        myNFTSection.setContentCount(4)//mocked to check ui for reviewer request //(model.myNtfIds.count)
         favoriteNTFSection.setContentCount(model.favoritesNtsIds.count)
     }
     
@@ -208,6 +213,13 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - AlertPresenter Protocol
+extension ProfileViewController: AlertPresenterProtocol {
+    func present(alert: UIAlertController, animated: Bool) {
+        self.present(alert, animated: animated)
+    }
+}
+
     //MARK: - Configure layout
 extension ProfileViewController {
     
@@ -218,6 +230,7 @@ extension ProfileViewController {
     }
     
     private func configureLayout() {
+        view.backgroundColor = .ypWhite
         
         view.addSubView(
             editProfileButton, width: 42, heigth: 42,

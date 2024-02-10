@@ -25,6 +25,8 @@ final class MyNTFCell: UICollectionViewCell {
     
     private let artwork: UIImageView = {
         let imageView = UIImageView()
+        imageView.tintColor = .gray
+        imageView.backgroundColor = .ypLigthGrey
         imageView.layer.cornerRadius = 12
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -221,10 +223,6 @@ final class MyNTFCell: UICollectionViewCell {
             leading: AnchorOf(title.leadingAnchor),
             trailing: AnchorOf(title.trailingAnchor)
         )
-                
-        
-                
-        
                 
         contentView.addSubView(
             favoriteButton, width: 42, heigth: 42,
