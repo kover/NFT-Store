@@ -83,7 +83,7 @@ final class ProfileViewModel: ProfileViewModelProtocol {
             return ProfileNTFsModel(myNtfIds: [], favoritesNtsIds: [])
         }
         return ProfileNTFsModel(
-            myNtfIds: MockedData.profileModel.myNtfIds, //mocked to check ui for reviewer request //profileModel.myNtfIds,
+            myNtfIds: profileModel.myNtfIds,
             favoritesNtsIds: profileModel.favoritesNtsIds
         )
     }

@@ -177,7 +177,7 @@ final class ProfileViewController: UIViewController {
         userDescription.text = model.description
         profileLink.text = model.link
         updateProfileAvatar(for: model.avatarUrl)
-        myNFTSection.setContentCount(4)//mocked to check ui for reviewer request //(model.myNtfIds.count)
+        myNFTSection.setContentCount(model.myNtfIds.count)
         favoriteNTFSection.setContentCount(model.favoritesNtsIds.count)
     }
     

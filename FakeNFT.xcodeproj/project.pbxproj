@@ -74,7 +74,6 @@
 		AB4B350C2B664C27003F8764 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350B2B664C27003F8764 /* DI.swift */; };
 		AB4B350E2B664D0F003F8764 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */; };
 		AB4B35112B664DA9003F8764 /* ProfileViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */; };
-		AB4B35132B66525D003F8764 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35122B66525D003F8764 /* MockedData.swift */; };
 		AB4B35152B665884003F8764 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35142B665884003F8764 /* ProfileRepository.swift */; };
 		AB4B35192B665AC7003F8764 /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */; };
 		AB4B351C2B665BA2003F8764 /* NTFRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B351B2B665BA2003F8764 /* NTFRepository.swift */; };
@@ -186,7 +185,6 @@
 		AB4B350B2B664C27003F8764 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelProtocol.swift; sourceTree = "<group>"; };
-		AB4B35122B66525D003F8764 /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		AB4B35142B665884003F8764 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
 		AB4B351B2B665BA2003F8764 /* NTFRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRepository.swift; sourceTree = "<group>"; };
@@ -505,7 +503,6 @@
 				AB4B350F2B664D83003F8764 /* Protocols */,
 				AB4B34EE2B5B181A003F8764 /* Model */,
 				AB4B34E52B57E010003F8764 /* Presentation */,
-				AB4B35122B66525D003F8764 /* MockedData.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -949,7 +946,6 @@
 				AB4B34DE2B57DC6A003F8764 /* ProfileViewController.swift in Sources */,
 				AB0EECA82B727098001FB809 /* NTFResponseBody.swift in Sources */,
 				AB4B34FB2B5D999A003F8764 /* UIStarRatingPanel.swift in Sources */,
-				AB4B35132B66525D003F8764 /* MockedData.swift in Sources */,
 				AB4B352F2B66B2B2003F8764 /* FavoritesNTFCell.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				AB4B34E72B57E305003F8764 /* UIColor+Extensions.swift in Sources */,
