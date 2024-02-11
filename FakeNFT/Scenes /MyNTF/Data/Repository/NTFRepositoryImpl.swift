@@ -79,7 +79,7 @@ final class NTFRepositoryImpl: NTFRepository {
     }
     
     private func fetchNTFbyID(_ id: String, handler: @escaping (Result<NTFResponseBody, Error>)-> Void) {
-        let ntsRequest = NFTRequest(id: id)
+        let ntsRequest = NTFRequest(id: id)
         
         networkClient.send(
             request: ntsRequest,

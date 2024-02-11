@@ -28,7 +28,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
     private let artwork: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .gray
-        imageView.backgroundColor = .ypLigthGrey
+        imageView.backgroundColor = .ypLightGray
         imageView.layer.cornerRadius = 12
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -57,8 +57,8 @@ final class FavoritesNTFCell: UICollectionViewCell {
     private let ratingPanel: UIStarRatingPanel = {
         let starRatingPanel = UIStarRatingPanel(starsCount: 5)
         starRatingPanel.starSpacing = 3
-        starRatingPanel.activeColor = .ypYellow
-        starRatingPanel.inactiveColor = .ypLigthGrey
+        starRatingPanel.activeColor = .ypYellowUniversal
+        starRatingPanel.inactiveColor = .ypLightGray
         starRatingPanel.symbolConfiguration =
         UIImage.SymbolConfiguration(pointSize: 11, weight: .regular, scale: .default)
         return starRatingPanel
@@ -114,7 +114,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
         isFavorite = model.isFavorite
         
         favoriteButton.isHidden = false
-        favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
+        favoriteButton.tintColor = isFavorite ? .ypRedUniversal : .ypWhiteUniversal
         
         ratingPanel.setRating(model.rating)
         
@@ -142,7 +142,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
         delegate?.onFavoriteStatusChanged(with: indexPath)
         
         isFavorite = !isFavorite
-        favoriteButton.tintColor = isFavorite ? .ypRed : .ypWhiteUniversal
+        favoriteButton.tintColor = isFavorite ? .ypRedUniversal : .ypWhiteUniversal
     }
     
     @objc
@@ -163,7 +163,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
     private func updateLoadingStatus(isLoading: Bool) {
         contentView.isUserInteractionEnabled = !isLoading
         activityIndicator.isHidden = !isLoading
-        artwork.backgroundColor = .ypLigthGrey
+        artwork.backgroundColor = .ypLightGray
         
         let animation: () -> Void = isLoading ? { self.activityIndicator.startAnimating() } : { self.activityIndicator.stopAnimating() }
         animation()

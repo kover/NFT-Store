@@ -165,7 +165,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
 }
 
 //MARK: - AlertPresenter Protocol
-extension EditProfileViewController: AlertPresenterProtocol {
+extension EditProfileViewController: AlertPresentationProtocol {
     func present(alert: UIAlertController, animated: Bool) {
         self.present(alert, animated: animated)
     }
@@ -238,7 +238,7 @@ extension EditProfileViewController {
                 
         let userNameFieldBackground = UIView()
         userNameFieldBackground.layer.cornerRadius = Property.textFileldCornerRadius
-        userNameFieldBackground.backgroundColor = .ypLigthGrey
+        userNameFieldBackground.backgroundColor = .ypLightGray
         
         view.addSubView(
             userNameFieldBackground, heigth: 44,
@@ -264,7 +264,7 @@ extension EditProfileViewController {
                 
         let userDescriptionFieldBackground = UIView()
         userDescriptionFieldBackground.layer.cornerRadius = Property.textFileldCornerRadius
-        userDescriptionFieldBackground.backgroundColor = .ypLigthGrey
+        userDescriptionFieldBackground.backgroundColor = .ypLightGray
         
         view.addSubView(
             userDescriptionFieldBackground, heigth: 132,
@@ -290,7 +290,7 @@ extension EditProfileViewController {
                 
         let userLinkFieldBackground = UIView()
         userLinkFieldBackground.layer.cornerRadius = Property.textFileldCornerRadius
-        userLinkFieldBackground.backgroundColor = .ypLigthGrey
+        userLinkFieldBackground.backgroundColor = .ypLightGray
         
         view.addSubView(
             userLinkFieldBackground, heigth: 44,

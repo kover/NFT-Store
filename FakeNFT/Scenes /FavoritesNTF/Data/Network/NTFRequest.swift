@@ -12,7 +12,7 @@ final class NTFRequest: NetworkRequest {
     private let id: String
     
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + RequestConstants.ntfPath + "/\(id)")
+        RequestConstants.nftById(id: id).url
     }
     
     var httpMethod: HttpMethod { .get }

@@ -195,7 +195,7 @@ extension MyNTFViewController: NTFCellDelegate {
 }
 
 //MARK: - AlertPresenter Protocol
-extension MyNTFViewController: AlertPresenterProtocol {
+extension MyNTFViewController: AlertPresentationProtocol {
     func present(alert: UIAlertController, animated: Bool) {
         self.present(alert, animated: animated)
     }

@@ -57,7 +57,7 @@ final class ProfileViewController: UIViewController {
     
     private let profileLink: UILabel = {
         let label = UILabel()
-        label.textColor = .ypBlue
+        label.textColor = .ypBlueUniversal
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -214,7 +214,7 @@ final class ProfileViewController: UIViewController {
 }
 
 //MARK: - AlertPresenter Protocol
-extension ProfileViewController: AlertPresenterProtocol {
+extension ProfileViewController: AlertPresentationProtocol {
     func present(alert: UIAlertController, animated: Bool) {
         self.present(alert, animated: animated)
     }

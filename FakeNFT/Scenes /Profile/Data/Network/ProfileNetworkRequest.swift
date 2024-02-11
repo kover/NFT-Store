@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class ProfileRequest: NetworkRequest {
+final class ProfileNetworkRequest: NetworkRequest {
     
     private let requestBody: ProfileRequestBody?
     
     private let _httpMethod: HttpMethod
     
     var endpoint: URL? {
-        URL(string: RequestConstants.baseURL + RequestConstants.profilePath)
+        RequestConstants.profile.url
     }
     
     var httpMethod: HttpMethod { _httpMethod }

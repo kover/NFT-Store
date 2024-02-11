@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol AlertPresenterProtocol {
+protocol AlertPresentationProtocol {
     func present(alert: UIAlertController, animated: Bool)
 }

@@ -22,7 +22,7 @@ final class ProfileRepositoryImpl: ProfileRepository {
     func saveProfile(model: ProfileModel, handler: @escaping (Error?) -> Void) {
         let requestBody = map(model)
 
-        let profileRequest = ProfileRequest(requestBody: requestBody, httpMethod: .put)
+        let profileRequest = ProfileNetworkRequest(requestBody: requestBody, httpMethod: .put)
 
         self.networkClient.send(
             request: profileRequest
@@ -38,7 +38,7 @@ final class ProfileRepositoryImpl: ProfileRepository {
     
     func loadProfile(handler: @escaping (Result<ProfileModel, Error>) -> Void) {
         networkClient.send(
-            request: ProfileRequest(httpMethod: .get),
+            request: ProfileNetworkRequest(httpMethod: .get),
             type: ProfileResponseBody.self
         ) { (result: Result<ProfileResponseBody, Error>) in
             switch result {

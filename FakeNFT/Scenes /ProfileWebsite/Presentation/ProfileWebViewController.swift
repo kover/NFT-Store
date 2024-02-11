@@ -37,7 +37,7 @@ final class ProfileWebViewController: UIViewController {
     
     private let progressView: UIProgressView = {
         let uiProgressView = UIProgressView()
-        uiProgressView.progressTintColor = .ypBlue
+        uiProgressView.progressTintColor = .ypBlueUniversal
         return uiProgressView
     }()
     

@@ -10,7 +10,7 @@ import UIKit
 final class AlertController {
     
     static func multiAction(
-        alertPresenter: AlertPresenterProtocol,
+        alertPresenter: AlertPresentationProtocol,
         title: String?,
         actions: [AlertAction]
     ) {
@@ -40,7 +40,7 @@ final class AlertController {
     }
     
     static func removeObject(
-        alertPresenter: AlertPresenterProtocol,
+        alertPresenter: AlertPresentationProtocol,
         title: String,
         _ completion: @escaping () -> Void
     ) {
@@ -59,7 +59,7 @@ final class AlertController {
     }
     
     static func showNotification(
-        alertPresenter: AlertPresenterProtocol,
+        alertPresenter: AlertPresentationProtocol,
         title: String,
         message: String,
         _ completion: ( () -> Void )? = nil
@@ -78,7 +78,7 @@ final class AlertController {
     }
     
     static func showInputDialog(
-        alertPresenter: AlertPresenterProtocol,
+        alertPresenter: AlertPresentationProtocol,
         title: String,
         action: @escaping (String) -> Void
     ) {
