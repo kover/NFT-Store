@@ -127,8 +127,11 @@ struct DefaultNetworkClient: NetworkClient {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.httpMethod.rawValue
 
-        urlRequest.setValue(RequestConstants.token, forHTTPHeaderField: RequestConstants.authorizationHeader)
-        urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue(ApiConstants.token.rawValue, forHTTPHeaderField: ApiConstants.authorizationHeader.rawValue)
+
+        if request.query != nil {
+            urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        }
 
         if let dto = request.dto,
            let dtoEncoded = try? encoder.encode(dto) {
