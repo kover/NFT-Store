@@ -87,9 +87,9 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
         
         switch rule {
         case .byPrice:
-            notNilNtfs.sort { $0.ntf?.price ?? 0 < $1.ntf?.price ?? 0 }
+            notNilNtfs.sort { $0.ntf?.price ?? 0 > $1.ntf?.price ?? 0 }
         case .byRating:
-            notNilNtfs.sort { $0.ntf?.rating ?? 0 < $1.ntf?.rating ?? 0 }
+            notNilNtfs.sort { $0.ntf?.rating ?? 0 > $1.ntf?.rating ?? 0 }
         case .byTitle:
             notNilNtfs.sort { $0.ntf?.title ?? "" < $1.ntf?.title ?? "" }
         }
@@ -146,7 +146,7 @@ final class MyNTFViewModel: MyNTFViewModelProtocol {
             title: model.title,
             artworkUrl: model.artworkUrl,
             author: model.author,
-            price: String(model.price),
+            price: (String(format: "%.2f", model.price)).replacingOccurrences(of: ".", with: ","),
             currency: model.currency,
             rating: model.rating,
             isFavorite: checkNTFisFavorite(id: model.id)

@@ -100,10 +100,46 @@ final class NTFRepositoryImpl: NTFRepository {
             id: dto.id,
             title: dto.name,
             artworkUrl: URL(string: artworkStringUrl),
-            author: dto.author,
+            author: fetchAuthor(dto.author),
             price: dto.price,
             currency: "ETH",//mocked
             rating: dto.rating
         )
+    }
+    
+    private func fetchAuthor(_ sample: String) -> String {
+        let separatorBeforeName: Character = "_"
+        let separatorAfterName: Character = "."
+        var author = ""
+        
+        var sampleCharacters = [Character]()
+        for char in sample { sampleCharacters.append(char) }
+        
+        var separatorBeforeNameIndex: Int?
+        for index in 0 ... sampleCharacters.count - 1 where sampleCharacters[index] == separatorBeforeName {
+            separatorBeforeNameIndex = index
+            break
+        }
+        
+        guard let separatorBeforeNameIndex else { return sample }
+                
+        var separatorAfterSurnameIndex: Int?
+        for index in separatorBeforeNameIndex + 1 ... sampleCharacters.count - 1 where sampleCharacters[index] == separatorAfterName {
+            separatorAfterSurnameIndex = index
+            break
+        }
+        
+        guard let separatorAfterSurnameIndex else { return sample }
+                
+        for index in separatorBeforeNameIndex + 1 ... separatorAfterSurnameIndex - 1 {
+            if index == separatorBeforeNameIndex + 1 {
+                let firstChar = sampleCharacters[index].uppercased()
+                author = firstChar
+                continue
+            }
+            author += String(sampleCharacters[index])
+        }
+        
+        return author
     }
 }

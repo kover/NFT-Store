@@ -37,7 +37,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
     
     private let price: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .ypBlack
         return label
     }()
@@ -56,7 +56,7 @@ final class FavoritesNTFCell: UICollectionViewCell {
     
     private let ratingPanel: UIStarRatingPanel = {
         let starRatingPanel = UIStarRatingPanel(starsCount: 5)
-        starRatingPanel.starSpacing = 2
+        starRatingPanel.starSpacing = 3
         starRatingPanel.activeColor = .ypYellow
         starRatingPanel.inactiveColor = .ypLigthGrey
         starRatingPanel.symbolConfiguration =

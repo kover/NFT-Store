@@ -109,7 +109,7 @@ final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
             id: model.id,
             title: model.title,
             artworkUrl: model.artworkUrl,
-            price: String(model.price),
+            price: (String(format: "%.2f", model.price)).replacingOccurrences(of: ".", with: ","),
             currency: model.currency,
             rating: model.rating,
             isFavorite: checkNTFisFavorite(id: model.id)

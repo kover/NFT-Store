@@ -68,7 +68,7 @@ final class MyNTFCell: UICollectionViewCell {
     
     private let ratingPanel: UIStarRatingPanel = {
         let starRatingPanel = UIStarRatingPanel(starsCount: 5)
-        starRatingPanel.starSpacing = 2
+        starRatingPanel.starSpacing = 3
         starRatingPanel.activeColor = .ypYellow
         starRatingPanel.inactiveColor = .ypLigthGrey
         starRatingPanel.symbolConfiguration =
@@ -185,6 +185,14 @@ final class MyNTFCell: UICollectionViewCell {
     
     private func configureCell() {
         contentView.backgroundColor = .clear
+        
+        let priceSeparator = UIView()
+        
+        contentView.addSubView(
+            priceSeparator, width: 0, heigth: 0,
+            top: AnchorOf(contentView.topAnchor),
+            leading: AnchorOf(contentView.trailingAnchor, -98)
+        )
 
         contentView.addSubView(
             artwork, width: 108, heigth: 108,
@@ -200,28 +208,28 @@ final class MyNTFCell: UICollectionViewCell {
         
         contentView.addSubView(
             price,
-            trailing: AnchorOf(contentView.trailingAnchor),
-            centerY: AnchorOf(ratingPanel.centerYAnchor, 10)
+            leading: AnchorOf(priceSeparator.leadingAnchor),
+            centerY: AnchorOf(artwork.centerYAnchor, 10)
         )
         
         contentView.addSubView(
             priceSectionTitle,
-            leading: AnchorOf(price.leadingAnchor),
-            centerY: AnchorOf(ratingPanel.centerYAnchor, -10)
+            leading: AnchorOf(priceSeparator.leadingAnchor),
+            centerY: AnchorOf(artwork.centerYAnchor, -10)
         )
     
         contentView.addSubView(
             title,
             top: AnchorOf(ratingPanel.topAnchor, -28),
             leading: AnchorOf(artwork.trailingAnchor, 20),
-            trailing: AnchorOf(price.leadingAnchor, -4)
+            trailing: AnchorOf(priceSeparator.leadingAnchor, -4)
         )
                 
         contentView.addSubView(
             author,
             top: AnchorOf(ratingPanel.bottomAnchor, 8),
             leading: AnchorOf(title.leadingAnchor),
-            trailing: AnchorOf(title.trailingAnchor)
+            trailing: AnchorOf(priceSeparator.trailingAnchor, -4)
         )
                 
         contentView.addSubView(
