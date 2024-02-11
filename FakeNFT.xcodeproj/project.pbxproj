@@ -42,6 +42,54 @@
 		3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */; };
 		3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39029D2453B0081F015 /* ExampleRequest.swift */; };
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
+		AB0EEC952B6BFC04001FB809 /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC942B6BFC04001FB809 /* ProfileRequest.swift */; };
+		AB0EEC972B6C001D001FB809 /* ProfileRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC962B6C001D001FB809 /* ProfileRequestBody.swift */; };
+		AB0EEC9B2B6EE360001FB809 /* ProfileWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC9A2B6EE360001FB809 /* ProfileWebViewController.swift */; };
+		AB0EEC9D2B6EE413001FB809 /* ProfileWebsiteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC9C2B6EE413001FB809 /* ProfileWebsiteViewModel.swift */; };
+		AB0EECA02B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC9F2B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift */; };
+		AB0EECA22B6EE4FF001FB809 /* ProgressState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA12B6EE4FF001FB809 /* ProgressState.swift */; };
+		AB0EECA82B727098001FB809 /* NTFResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA72B727097001FB809 /* NTFResponseBody.swift */; };
+		AB0EECAA2B727B09001FB809 /* NTFRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA92B727B09001FB809 /* NTFRequest.swift */; };
+		AB0EECAC2B72841B001FB809 /* RequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAB2B72841B001FB809 /* RequestQueue.swift */; };
+		AB0EECAE2B7407B6001FB809 /* NTFCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */; };
+		AB0EECB02B74D2EA001FB809 /* SortingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */; };
+		AB0EECB22B74D502001FB809 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB12B74D502001FB809 /* SettingsRepository.swift */; };
+		AB0EECB42B74D611001FB809 /* SettingsRepositoryImplUserDef.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */; };
+		AB0EECB62B74D68A001FB809 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB52B74D68A001FB809 /* UserDefaults+Extensions.swift */; };
+		AB0EECB82B7550DB001FB809 /* NtfPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB72B7550DB001FB809 /* NtfPack.swift */; };
+		AB4B34DE2B57DC6A003F8764 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34DD2B57DC6A003F8764 /* ProfileViewController.swift */; };
+		AB4B34E12B57DD3D003F8764 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */; };
+		AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E32B57DE5A003F8764 /* localized.swift */; };
+		AB4B34E72B57E305003F8764 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E62B57E305003F8764 /* UIColor+Extensions.swift */; };
+		AB4B34E92B58750D003F8764 /* UIProfileFunctionalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E82B58750D003F8764 /* UIProfileFunctionalSection.swift */; };
+		AB4B34ED2B5A8778003F8764 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34EC2B5A8778003F8764 /* EditProfileViewController.swift */; };
+		AB4B34F02B5B1835003F8764 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34EF2B5B1835003F8764 /* ProfileModel.swift */; };
+		AB4B34F22B5D5EA9003F8764 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F12B5D5EA9003F8764 /* AlertController.swift */; };
+		AB4B34F62B5D840A003F8764 /* MyNTFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F52B5D840A003F8764 /* MyNTFViewController.swift */; };
+		AB4B34F82B5D937C003F8764 /* MyNTFCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34F72B5D937C003F8764 /* MyNTFCell.swift */; };
+		AB4B34FB2B5D999A003F8764 /* UIStarRatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FA2B5D999A003F8764 /* UIStarRatingPanel.swift */; };
+		AB4B34FE2B5EF217003F8764 /* NTFModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34FD2B5EF217003F8764 /* NTFModel.swift */; };
+		AB4B35012B5EF24C003F8764 /* MyNTFScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */; };
+		AB4B350C2B664C27003F8764 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350B2B664C27003F8764 /* DI.swift */; };
+		AB4B350E2B664D0F003F8764 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */; };
+		AB4B35112B664DA9003F8764 /* ProfileViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */; };
+		AB4B35152B665884003F8764 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35142B665884003F8764 /* ProfileRepository.swift */; };
+		AB4B35192B665AC7003F8764 /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */; };
+		AB4B351C2B665BA2003F8764 /* NTFRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B351B2B665BA2003F8764 /* NTFRepository.swift */; };
+		AB4B35202B665C13003F8764 /* NTFRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B351F2B665C13003F8764 /* NTFRepositoryImpl.swift */; };
+		AB4B35222B666539003F8764 /* MyNTFViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35212B666539003F8764 /* MyNTFViewModelProtocol.swift */; };
+		AB4B35242B6666D6003F8764 /* MyNTFViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35232B6666D6003F8764 /* MyNTFViewModel.swift */; };
+		AB4B35272B666FCA003F8764 /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35262B666FCA003F8764 /* AlertPresenterProtocol.swift */; };
+		AB4B35292B666FF3003F8764 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35282B666FF3003F8764 /* AlertAction.swift */; };
+		AB4B352D2B66B273003F8764 /* FavoritesNTFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B352C2B66B273003F8764 /* FavoritesNTFViewController.swift */; };
+		AB4B352F2B66B2B2003F8764 /* FavoritesNTFCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B352E2B66B2B2003F8764 /* FavoritesNTFCell.swift */; };
+		AB4B35322B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35312B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift */; };
+		AB4B35352B66B695003F8764 /* FavoritesNTFScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35342B66B695003F8764 /* FavoritesNTFScreenModel.swift */; };
+		AB4B35372B66B7D9003F8764 /* FavoritesNTFViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35362B66B7D9003F8764 /* FavoritesNTFViewModel.swift */; };
+		AB4B35482B68389D003F8764 /* ProfileResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35472B68389D003F8764 /* ProfileResponseBody.swift */; };
+		AB4B35502B6AD698003F8764 /* ProfilePersonalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B354F2B6AD698003F8764 /* ProfilePersonalDataModel.swift */; };
+		AB4B35522B6AD755003F8764 /* ProfileNTFsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35512B6AD755003F8764 /* ProfileNTFsModel.swift */; };
+		AB4B35542B6ADDDA003F8764 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35532B6ADDDA003F8764 /* UIBlockingProgressHUD.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
@@ -102,6 +150,55 @@
 		3FC8C38A29D242E90081F015 /* ProductDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3FC8C39029D2453B0081F015 /* ExampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleRequest.swift; sourceTree = "<group>"; };
 		3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatters+Presets.swift"; sourceTree = "<group>"; };
+		AB0EEC942B6BFC04001FB809 /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
+		AB0EEC962B6C001D001FB809 /* ProfileRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequestBody.swift; sourceTree = "<group>"; };
+		AB0EEC9A2B6EE360001FB809 /* ProfileWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWebViewController.swift; sourceTree = "<group>"; };
+		AB0EEC9C2B6EE413001FB809 /* ProfileWebsiteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWebsiteViewModel.swift; sourceTree = "<group>"; };
+		AB0EEC9F2B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWebsiteViewModelProtocol.swift; sourceTree = "<group>"; };
+		AB0EECA12B6EE4FF001FB809 /* ProgressState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressState.swift; sourceTree = "<group>"; };
+		AB0EECA72B727097001FB809 /* NTFResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFResponseBody.swift; sourceTree = "<group>"; };
+		AB0EECA92B727B09001FB809 /* NTFRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRequest.swift; sourceTree = "<group>"; };
+		AB0EECAB2B72841B001FB809 /* RequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestQueue.swift; sourceTree = "<group>"; };
+		AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFCellDelegate.swift; sourceTree = "<group>"; };
+		AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingRule.swift; sourceTree = "<group>"; };
+		AB0EECB12B74D502001FB809 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryImplUserDef.swift; sourceTree = "<group>"; };
+		AB0EECB52B74D68A001FB809 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		AB0EECB72B7550DB001FB809 /* NtfPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NtfPack.swift; sourceTree = "<group>"; };
+		AB4B34DD2B57DC6A003F8764 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		AB4B34E32B57DE5A003F8764 /* localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localized.swift; sourceTree = "<group>"; };
+		AB4B34E62B57E305003F8764 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		AB4B34E82B58750D003F8764 /* UIProfileFunctionalSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIProfileFunctionalSection.swift; sourceTree = "<group>"; };
+		AB4B34EC2B5A8778003F8764 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		AB4B34EF2B5B1835003F8764 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		AB4B34F12B5D5EA9003F8764 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		AB4B34F52B5D840A003F8764 /* MyNTFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFViewController.swift; sourceTree = "<group>"; };
+		AB4B34F72B5D937C003F8764 /* MyNTFCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFCell.swift; sourceTree = "<group>"; };
+		AB4B34FA2B5D999A003F8764 /* UIStarRatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStarRatingPanel.swift; sourceTree = "<group>"; };
+		AB4B34FD2B5EF217003F8764 /* NTFModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFModel.swift; sourceTree = "<group>"; };
+		AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFScreenModel.swift; sourceTree = "<group>"; };
+		AB4B35042B626D01003F8764 /* ProfileDecomposition.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ProfileDecomposition.md; sourceTree = "<group>"; };
+		AB4B350B2B664C27003F8764 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
+		AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelProtocol.swift; sourceTree = "<group>"; };
+		AB4B35142B665884003F8764 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
+		AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
+		AB4B351B2B665BA2003F8764 /* NTFRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRepository.swift; sourceTree = "<group>"; };
+		AB4B351F2B665C13003F8764 /* NTFRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRepositoryImpl.swift; sourceTree = "<group>"; };
+		AB4B35212B666539003F8764 /* MyNTFViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFViewModelProtocol.swift; sourceTree = "<group>"; };
+		AB4B35232B6666D6003F8764 /* MyNTFViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNTFViewModel.swift; sourceTree = "<group>"; };
+		AB4B35262B666FCA003F8764 /* AlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocol.swift; sourceTree = "<group>"; };
+		AB4B35282B666FF3003F8764 /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
+		AB4B352C2B66B273003F8764 /* FavoritesNTFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFViewController.swift; sourceTree = "<group>"; };
+		AB4B352E2B66B2B2003F8764 /* FavoritesNTFCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFCell.swift; sourceTree = "<group>"; };
+		AB4B35312B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFViewModelProtocol.swift; sourceTree = "<group>"; };
+		AB4B35342B66B695003F8764 /* FavoritesNTFScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFScreenModel.swift; sourceTree = "<group>"; };
+		AB4B35362B66B7D9003F8764 /* FavoritesNTFViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNTFViewModel.swift; sourceTree = "<group>"; };
+		AB4B35472B68389D003F8764 /* ProfileResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResponseBody.swift; sourceTree = "<group>"; };
+		AB4B354F2B6AD698003F8764 /* ProfilePersonalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePersonalDataModel.swift; sourceTree = "<group>"; };
+		AB4B35512B6AD755003F8764 /* ProfileNTFsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNTFsModel.swift; sourceTree = "<group>"; };
+		AB4B35532B6ADDDA003F8764 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -136,6 +233,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03D8655B2B5460A700796EE6 /* Decomposition */ = {
+			isa = PBXGroup;
+			children = (
+				03D8655C2B54616000796EE6 /* CartDecomposition.md */,
+				03EC0D8A2B57A887004DD31E /* CatalogDecomposition.md */,
+				AB4B35042B626D01003F8764 /* ProfileDecomposition.md */,
+			);
+			path = Decomposition;
+			sourceTree = "<group>";
+		};
 		0C79EE642A76DDCF00EE90EA /* NftDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +276,9 @@
 		0CF2C2DF2A784C5600FDC837 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB4B35252B666FA8003F8764 /* AlertController */,
 				0CF2C2E02A784C7000FDC837 /* LinePageControl.swift */,
+				AB4B35532B6ADDDA003F8764 /* UIBlockingProgressHUD.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +373,11 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
+				AB0EEC982B6EE2FC001FB809 /* ProfileWebsite */,
+				AB4B352A2B66B213003F8764 /* FavoritesNTF */,
+				AB4B34F32B5D83D6003F8764 /* MyNTF */,
+				AB4B34EA2B5A872A003F8764 /* ProfileEdit */,
+				AB4B34DC2B57DC24003F8764 /* Profile */,
 				E1A1B9D82AA01C9700C3AFBC /* TabBarController */,
 				0CF2C2D92A783C1600FDC837 /* Common */,
 				0CFCB7472A7808870009A829 /* Catalog */,
@@ -293,8 +407,11 @@
 		3F6806CE29CBBD1B00B4F915 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				AB4B34DF2B57DD18003F8764 /* Extensions */,
+				AB4B34E22B57DE0E003F8764 /* Global funcs */,
 				0CFCB74C2A7817C30009A829 /* MemoryStorage */,
 				3F6806CF29CBBDB100B4F915 /* NetworkClient */,
+				AB4B350B2B664C27003F8764 /* DI.swift */,
 				3F6806D629CBC50A00B4F915 /* CellsReusingUtils.swift */,
 				3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */,
 				0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */,
@@ -328,6 +445,276 @@
 				0C79EE622A76DD1900EE90EA /* RequestConstants.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		AB0EEC982B6EE2FC001FB809 /* ProfileWebsite */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EEC9E2B6EE431001FB809 /* Protocols */,
+				AB0EEC992B6EE333001FB809 /* Presentation */,
+			);
+			path = ProfileWebsite;
+			sourceTree = "<group>";
+		};
+		AB0EEC992B6EE333001FB809 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EEC9A2B6EE360001FB809 /* ProfileWebViewController.swift */,
+				AB0EEC9C2B6EE413001FB809 /* ProfileWebsiteViewModel.swift */,
+				AB0EECA12B6EE4FF001FB809 /* ProgressState.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AB0EEC9E2B6EE431001FB809 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EEC9F2B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		AB0EECA32B726FEA001FB809 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EECA42B727010001FB809 /* Network */,
+				AB0EECAB2B72841B001FB809 /* RequestQueue.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		AB0EECA42B727010001FB809 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EECA72B727097001FB809 /* NTFResponseBody.swift */,
+				AB0EECA92B727B09001FB809 /* NTFRequest.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		AB4B34DC2B57DC24003F8764 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35162B665AA3003F8764 /* Data */,
+				AB4B350F2B664D83003F8764 /* Protocols */,
+				AB4B34EE2B5B181A003F8764 /* Model */,
+				AB4B34E52B57E010003F8764 /* Presentation */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		AB4B34DF2B57DD18003F8764 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */,
+				AB4B34E62B57E305003F8764 /* UIColor+Extensions.swift */,
+				AB0EECB52B74D68A001FB809 /* UserDefaults+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AB4B34E22B57DE0E003F8764 /* Global funcs */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34E32B57DE5A003F8764 /* localized.swift */,
+			);
+			path = "Global funcs";
+			sourceTree = "<group>";
+		};
+		AB4B34E52B57E010003F8764 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34DD2B57DC6A003F8764 /* ProfileViewController.swift */,
+				AB4B34E82B58750D003F8764 /* UIProfileFunctionalSection.swift */,
+				AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AB4B34EA2B5A872A003F8764 /* ProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34EB2B5A8751003F8764 /* Presentation */,
+			);
+			path = ProfileEdit;
+			sourceTree = "<group>";
+		};
+		AB4B34EB2B5A8751003F8764 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34EC2B5A8778003F8764 /* EditProfileViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AB4B34EE2B5B181A003F8764 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34EF2B5B1835003F8764 /* ProfileModel.swift */,
+				AB4B354F2B6AD698003F8764 /* ProfilePersonalDataModel.swift */,
+				AB4B35512B6AD755003F8764 /* ProfileNTFsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AB4B34F32B5D83D6003F8764 /* MyNTF */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B351D2B665BEE003F8764 /* Data */,
+				AB4B351A2B665B88003F8764 /* Protocols */,
+				AB4B34FC2B5EF1FA003F8764 /* Models */,
+				AB4B34F42B5D83F1003F8764 /* Presentation */,
+				AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */,
+			);
+			path = MyNTF;
+			sourceTree = "<group>";
+		};
+		AB4B34F42B5D83F1003F8764 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34FF2B5EF238003F8764 /* ScreenModels */,
+				AB4B34F92B5D98F5003F8764 /* CollectionView */,
+				AB4B34F52B5D840A003F8764 /* MyNTFViewController.swift */,
+				AB4B35232B6666D6003F8764 /* MyNTFViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AB4B34F92B5D98F5003F8764 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34F72B5D937C003F8764 /* MyNTFCell.swift */,
+				AB4B34FA2B5D999A003F8764 /* UIStarRatingPanel.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		AB4B34FC2B5EF1FA003F8764 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34FD2B5EF217003F8764 /* NTFModel.swift */,
+				AB0EECB72B7550DB001FB809 /* NtfPack.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AB4B34FF2B5EF238003F8764 /* ScreenModels */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35002B5EF24C003F8764 /* MyNTFScreenModel.swift */,
+			);
+			path = ScreenModels;
+			sourceTree = "<group>";
+		};
+		AB4B350F2B664D83003F8764 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */,
+				AB4B35142B665884003F8764 /* ProfileRepository.swift */,
+				AB0EECB12B74D502001FB809 /* SettingsRepository.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		AB4B35162B665AA3003F8764 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35462B683839003F8764 /* Network */,
+				AB4B35172B665AAB003F8764 /* Repository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		AB4B35172B665AAB003F8764 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */,
+				AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		AB4B351A2B665B88003F8764 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B351B2B665BA2003F8764 /* NTFRepository.swift */,
+				AB4B35212B666539003F8764 /* MyNTFViewModelProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		AB4B351D2B665BEE003F8764 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B351E2B665BF6003F8764 /* Repository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		AB4B351E2B665BF6003F8764 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B351F2B665C13003F8764 /* NTFRepositoryImpl.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		AB4B35252B666FA8003F8764 /* AlertController */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B34F12B5D5EA9003F8764 /* AlertController.swift */,
+				AB4B35262B666FCA003F8764 /* AlertPresenterProtocol.swift */,
+				AB4B35282B666FF3003F8764 /* AlertAction.swift */,
+			);
+			path = AlertController;
+			sourceTree = "<group>";
+		};
+		AB4B352A2B66B213003F8764 /* FavoritesNTF */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EECA32B726FEA001FB809 /* Data */,
+				AB4B35302B66B58E003F8764 /* Protocols */,
+				AB4B352B2B66B222003F8764 /* Presentation */,
+			);
+			path = FavoritesNTF;
+			sourceTree = "<group>";
+		};
+		AB4B352B2B66B222003F8764 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35332B66B642003F8764 /* ScreenModels */,
+				AB4B352C2B66B273003F8764 /* FavoritesNTFViewController.swift */,
+				AB4B352E2B66B2B2003F8764 /* FavoritesNTFCell.swift */,
+				AB4B35362B66B7D9003F8764 /* FavoritesNTFViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AB4B35302B66B58E003F8764 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35312B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift */,
+				AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		AB4B35332B66B642003F8764 /* ScreenModels */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35342B66B695003F8764 /* FavoritesNTFScreenModel.swift */,
+			);
+			path = ScreenModels;
+			sourceTree = "<group>";
+		};
+		AB4B35462B683839003F8764 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AB4B35472B68389D003F8764 /* ProfileResponseBody.swift */,
+				AB0EEC942B6BFC04001FB809 /* ProfileRequest.swift */,
+				AB0EEC962B6C001D001FB809 /* ProfileRequestBody.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
@@ -521,36 +908,84 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB4B35482B68389D003F8764 /* ProfileResponseBody.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
+				AB4B35502B6AD698003F8764 /* ProfilePersonalDataModel.swift in Sources */,
+				AB4B35222B666539003F8764 /* MyNTFViewModelProtocol.swift in Sources */,
+				AB4B352D2B66B273003F8764 /* FavoritesNTFViewController.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
+				AB0EECA22B6EE4FF001FB809 /* ProgressState.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
+				AB4B35152B665884003F8764 /* ProfileRepository.swift in Sources */,
+				AB4B351C2B665BA2003F8764 /* NTFRepository.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
+				AB4B350C2B664C27003F8764 /* DI.swift in Sources */,
+				AB0EECB22B74D502001FB809 /* SettingsRepository.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
+				AB4B34E12B57DD3D003F8764 /* UIView+Extensions.swift in Sources */,
+				AB4B35352B66B695003F8764 /* FavoritesNTFScreenModel.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
+				AB4B34ED2B5A8778003F8764 /* EditProfileViewController.swift in Sources */,
 				0CFCB7422A78013E0009A829 /* Nft.swift in Sources */,
 				0CF2C2DD2A783CE600FDC837 /* ErrorView.swift in Sources */,
+				AB4B34E92B58750D003F8764 /* UIProfileFunctionalSection.swift in Sources */,
+				AB4B35192B665AC7003F8764 /* ProfileRepositoryImpl.swift in Sources */,
 				0C79EE682A76DE0900EE90EA /* NftDetailPresenter.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* NftService.swift in Sources */,
+				AB0EEC9D2B6EE413001FB809 /* ProfileWebsiteViewModel.swift in Sources */,
+				AB0EEC9B2B6EE360001FB809 /* ProfileWebViewController.swift in Sources */,
+				AB0EECAA2B727B09001FB809 /* NTFRequest.swift in Sources */,
+				AB4B35112B664DA9003F8764 /* ProfileViewModelProtocol.swift in Sources */,
+				AB4B34DE2B57DC6A003F8764 /* ProfileViewController.swift in Sources */,
+				AB0EECA82B727098001FB809 /* NTFResponseBody.swift in Sources */,
+				AB4B34FB2B5D999A003F8764 /* UIStarRatingPanel.swift in Sources */,
+				AB4B352F2B66B2B2003F8764 /* FavoritesNTFCell.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
+				AB4B34E72B57E305003F8764 /* UIColor+Extensions.swift in Sources */,
 				0CF2C2DB2A783C1B00FDC837 /* LoadingView.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				0C79EE6C2A76DE2E00EE90EA /* ServicesAssemly.swift in Sources */,
 				0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
+				AB4B34F82B5D937C003F8764 /* MyNTFCell.swift in Sources */,
+				AB4B35322B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift in Sources */,
+				AB4B35372B66B7D9003F8764 /* FavoritesNTFViewModel.swift in Sources */,
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
 				0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */,
+				AB0EECA02B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift in Sources */,
+				AB0EECB42B74D611001FB809 /* SettingsRepositoryImplUserDef.swift in Sources */,
+				AB4B34FE2B5EF217003F8764 /* NTFModel.swift in Sources */,
+				AB0EECAE2B7407B6001FB809 /* NTFCellDelegate.swift in Sources */,
+				AB0EECB62B74D68A001FB809 /* UserDefaults+Extensions.swift in Sources */,
+				AB4B34F02B5B1835003F8764 /* ProfileModel.swift in Sources */,
+				AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */,
+				AB4B35542B6ADDDA003F8764 /* UIBlockingProgressHUD.swift in Sources */,
+				AB4B34F62B5D840A003F8764 /* MyNTFViewController.swift in Sources */,
+				AB4B34F22B5D5EA9003F8764 /* AlertController.swift in Sources */,
+				AB0EEC972B6C001D001FB809 /* ProfileRequestBody.swift in Sources */,
+				AB4B35202B665C13003F8764 /* NTFRepositoryImpl.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
+				AB0EECAC2B72841B001FB809 /* RequestQueue.swift in Sources */,
+				AB4B35012B5EF24C003F8764 /* MyNTFScreenModel.swift in Sources */,
+				AB4B350E2B664D0F003F8764 /* ProfileViewModel.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				0CFCB7492A7808900009A829 /* TestCatalogController.swift in Sources */,
+				AB4B35272B666FCA003F8764 /* AlertPresenterProtocol.swift in Sources */,
+				AB0EEC952B6BFC04001FB809 /* ProfileRequest.swift in Sources */,
+				AB4B35292B666FF3003F8764 /* AlertAction.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
+				AB4B35242B6666D6003F8764 /* MyNTFViewModel.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,
+				AB0EECB82B7550DB001FB809 /* NtfPack.swift in Sources */,
+				AB4B35522B6AD755003F8764 /* ProfileNTFsModel.swift in Sources */,
 				0C79EE632A76DD1900EE90EA /* RequestConstants.swift in Sources */,
+				AB0EECB02B74D2EA001FB809 /* SortingRule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
