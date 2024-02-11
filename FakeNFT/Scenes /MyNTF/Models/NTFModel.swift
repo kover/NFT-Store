@@ -5,15 +5,14 @@
 //  Created by Avtor_103 on 22.01.2024.
 //
 
-import UIKit
+import Foundation
 
 struct NTFModel {
     let id: String
     let title: String
-    let artwork: UIImage
+    let artworkUrl: URL?
     let author: String
-    let price: String
+    let price: Float
     let currency: String
     let rating: Int
-    let isFavorite: Bool
 }

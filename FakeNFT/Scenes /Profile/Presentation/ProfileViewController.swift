@@ -120,18 +120,26 @@ final class ProfileViewController: UIViewController {
     }
     
     private func myNTFSectionClick() {
-        let myNTFsID = viewModel.getProfileNTFs()?.myNtfIds ?? []
-        let controller = MyNTFViewController(viewModel: DI.injectMyNTFViewModel(myNTFsID: myNTFsID))
-        controller.modalPresentationStyle = .fullScreen
+        let ntfsModel = viewModel.getProfileNTFs()
+        let ntfRepository = viewModel.getMyNTFRepository()
+        let controller = MyNTFViewController(
+            viewModel: DI.injectMyNTFViewModel(profileNTFsModel: ntfsModel, ntfRepository: ntfRepository)
+        )
+        controller.onFavoritesNTFsChanged { [weak self] updFavoritesNTFsID in
+            guard let self else { return }
+            self.viewModel.setFavoritesNTFsID(updFavoritesNTFsID)
+        }
         
+        controller.modalPresentationStyle = .fullScreen
         viewModel.onChildControllerWillPresent()
         present(controller, animated: true)
     }
     
     private func favoritesNTFSectionClick() {
-        let favoritesNTFsID = viewModel.getProfileNTFs()?.favoritesNtsIds ?? []
+        let favoritesNTFsID = viewModel.getProfileNTFs().favoritesNtsIds
+        let ntfRepository = viewModel.getFavoritesNTFRepository()
         let controller = FavoritesNTFViewController(
-            viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID)
+            viewModel: DI.injectFavoritesNTFViewModel(favoritesNTFsID: favoritesNTFsID, ntfRepository: ntfRepository)
         )
         controller.onFavoritesNTFsChanged { [weak self] updFavoritesNTFsID in
             guard let self else { return }
@@ -145,6 +153,11 @@ final class ProfileViewController: UIViewController {
     
     private func developerSectionClick() {
         //TODO swich on DeveloperViewController
+        AlertController.showNotification(
+            alertPresenter: self,
+            title: localized("Not available"),
+            message: localized("Will avaible in the next release")
+        )
     }
     
     @objc
@@ -200,6 +213,13 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - AlertPresenter Protocol
+extension ProfileViewController: AlertPresenterProtocol {
+    func present(alert: UIAlertController, animated: Bool) {
+        self.present(alert, animated: animated)
+    }
+}
+
     //MARK: - Configure layout
 extension ProfileViewController {
     
@@ -210,6 +230,7 @@ extension ProfileViewController {
     }
     
     private func configureLayout() {
+        view.backgroundColor = .ypWhite
         
         view.addSubView(
             editProfileButton, width: 42, heigth: 42,

@@ -5,12 +5,12 @@
 //  Created by Avtor_103 on 28.01.2024.
 //
 
-import UIKit
+import Foundation
 
 struct FavoritesNTFScreenModel {
     let id: String
     let title: String
-    let artwork: UIImage
+    let artworkUrl: URL?
     let price: String
     let currency: String
     let rating: Int

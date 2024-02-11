@@ -49,6 +49,15 @@
 		AB0EEC9D2B6EE413001FB809 /* ProfileWebsiteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC9C2B6EE413001FB809 /* ProfileWebsiteViewModel.swift */; };
 		AB0EECA02B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EEC9F2B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift */; };
 		AB0EECA22B6EE4FF001FB809 /* ProgressState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA12B6EE4FF001FB809 /* ProgressState.swift */; };
+		AB0EECA82B727098001FB809 /* NTFResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA72B727097001FB809 /* NTFResponseBody.swift */; };
+		AB0EECAA2B727B09001FB809 /* NTFRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECA92B727B09001FB809 /* NTFRequest.swift */; };
+		AB0EECAC2B72841B001FB809 /* RequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAB2B72841B001FB809 /* RequestQueue.swift */; };
+		AB0EECAE2B7407B6001FB809 /* NTFCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */; };
+		AB0EECB02B74D2EA001FB809 /* SortingRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */; };
+		AB0EECB22B74D502001FB809 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB12B74D502001FB809 /* SettingsRepository.swift */; };
+		AB0EECB42B74D611001FB809 /* SettingsRepositoryImplUserDef.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */; };
+		AB0EECB62B74D68A001FB809 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB52B74D68A001FB809 /* UserDefaults+Extensions.swift */; };
+		AB0EECB82B7550DB001FB809 /* NtfPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0EECB72B7550DB001FB809 /* NtfPack.swift */; };
 		AB4B34DE2B57DC6A003F8764 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34DD2B57DC6A003F8764 /* ProfileViewController.swift */; };
 		AB4B34E12B57DD3D003F8764 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */; };
 		AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B34E32B57DE5A003F8764 /* localized.swift */; };
@@ -65,7 +74,6 @@
 		AB4B350C2B664C27003F8764 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350B2B664C27003F8764 /* DI.swift */; };
 		AB4B350E2B664D0F003F8764 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */; };
 		AB4B35112B664DA9003F8764 /* ProfileViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */; };
-		AB4B35132B66525D003F8764 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35122B66525D003F8764 /* MockedData.swift */; };
 		AB4B35152B665884003F8764 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35142B665884003F8764 /* ProfileRepository.swift */; };
 		AB4B35192B665AC7003F8764 /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */; };
 		AB4B351C2B665BA2003F8764 /* NTFRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4B351B2B665BA2003F8764 /* NTFRepository.swift */; };
@@ -151,6 +159,15 @@
 		AB0EEC9C2B6EE413001FB809 /* ProfileWebsiteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWebsiteViewModel.swift; sourceTree = "<group>"; };
 		AB0EEC9F2B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWebsiteViewModelProtocol.swift; sourceTree = "<group>"; };
 		AB0EECA12B6EE4FF001FB809 /* ProgressState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressState.swift; sourceTree = "<group>"; };
+		AB0EECA72B727097001FB809 /* NTFResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFResponseBody.swift; sourceTree = "<group>"; };
+		AB0EECA92B727B09001FB809 /* NTFRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRequest.swift; sourceTree = "<group>"; };
+		AB0EECAB2B72841B001FB809 /* RequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestQueue.swift; sourceTree = "<group>"; };
+		AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFCellDelegate.swift; sourceTree = "<group>"; };
+		AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingRule.swift; sourceTree = "<group>"; };
+		AB0EECB12B74D502001FB809 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryImplUserDef.swift; sourceTree = "<group>"; };
+		AB0EECB52B74D68A001FB809 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		AB0EECB72B7550DB001FB809 /* NtfPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NtfPack.swift; sourceTree = "<group>"; };
 		AB4B34DD2B57DC6A003F8764 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		AB4B34E32B57DE5A003F8764 /* localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localized.swift; sourceTree = "<group>"; };
@@ -168,7 +185,6 @@
 		AB4B350B2B664C27003F8764 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		AB4B350D2B664D0F003F8764 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelProtocol.swift; sourceTree = "<group>"; };
-		AB4B35122B66525D003F8764 /* MockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
 		AB4B35142B665884003F8764 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
 		AB4B351B2B665BA2003F8764 /* NTFRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NTFRepository.swift; sourceTree = "<group>"; };
@@ -462,6 +478,24 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		AB0EECA32B726FEA001FB809 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EECA42B727010001FB809 /* Network */,
+				AB0EECAB2B72841B001FB809 /* RequestQueue.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		AB0EECA42B727010001FB809 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EECA72B727097001FB809 /* NTFResponseBody.swift */,
+				AB0EECA92B727B09001FB809 /* NTFRequest.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		AB4B34DC2B57DC24003F8764 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,7 +503,6 @@
 				AB4B350F2B664D83003F8764 /* Protocols */,
 				AB4B34EE2B5B181A003F8764 /* Model */,
 				AB4B34E52B57E010003F8764 /* Presentation */,
-				AB4B35122B66525D003F8764 /* MockedData.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -479,6 +512,7 @@
 			children = (
 				AB4B34E02B57DD3D003F8764 /* UIView+Extensions.swift */,
 				AB4B34E62B57E305003F8764 /* UIColor+Extensions.swift */,
+				AB0EECB52B74D68A001FB809 /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -534,6 +568,7 @@
 				AB4B351A2B665B88003F8764 /* Protocols */,
 				AB4B34FC2B5EF1FA003F8764 /* Models */,
 				AB4B34F42B5D83F1003F8764 /* Presentation */,
+				AB0EECAF2B74D2EA001FB809 /* SortingRule.swift */,
 			);
 			path = MyNTF;
 			sourceTree = "<group>";
@@ -562,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				AB4B34FD2B5EF217003F8764 /* NTFModel.swift */,
+				AB0EECB72B7550DB001FB809 /* NtfPack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -579,6 +615,7 @@
 			children = (
 				AB4B35102B664DA9003F8764 /* ProfileViewModelProtocol.swift */,
 				AB4B35142B665884003F8764 /* ProfileRepository.swift */,
+				AB0EECB12B74D502001FB809 /* SettingsRepository.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -596,6 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				AB4B35182B665AC7003F8764 /* ProfileRepositoryImpl.swift */,
+				AB0EECB32B74D611001FB809 /* SettingsRepositoryImplUserDef.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -638,6 +676,7 @@
 		AB4B352A2B66B213003F8764 /* FavoritesNTF */ = {
 			isa = PBXGroup;
 			children = (
+				AB0EECA32B726FEA001FB809 /* Data */,
 				AB4B35302B66B58E003F8764 /* Protocols */,
 				AB4B352B2B66B222003F8764 /* Presentation */,
 			);
@@ -659,6 +698,7 @@
 			isa = PBXGroup;
 			children = (
 				AB4B35312B66B5E7003F8764 /* FavoritesNTFViewModelProtocol.swift */,
+				AB0EECAD2B7407B6001FB809 /* NTFCellDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -885,6 +925,7 @@
 				AB4B351C2B665BA2003F8764 /* NTFRepository.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				AB4B350C2B664C27003F8764 /* DI.swift in Sources */,
+				AB0EECB22B74D502001FB809 /* SettingsRepository.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
 				AB4B34E12B57DD3D003F8764 /* UIView+Extensions.swift in Sources */,
@@ -900,10 +941,11 @@
 				0CFCB7402A78002A0009A829 /* NftService.swift in Sources */,
 				AB0EEC9D2B6EE413001FB809 /* ProfileWebsiteViewModel.swift in Sources */,
 				AB0EEC9B2B6EE360001FB809 /* ProfileWebViewController.swift in Sources */,
+				AB0EECAA2B727B09001FB809 /* NTFRequest.swift in Sources */,
 				AB4B35112B664DA9003F8764 /* ProfileViewModelProtocol.swift in Sources */,
 				AB4B34DE2B57DC6A003F8764 /* ProfileViewController.swift in Sources */,
+				AB0EECA82B727098001FB809 /* NTFResponseBody.swift in Sources */,
 				AB4B34FB2B5D999A003F8764 /* UIStarRatingPanel.swift in Sources */,
-				AB4B35132B66525D003F8764 /* MockedData.swift in Sources */,
 				AB4B352F2B66B2B2003F8764 /* FavoritesNTFCell.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				AB4B34E72B57E305003F8764 /* UIColor+Extensions.swift in Sources */,
@@ -919,7 +961,10 @@
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
 				0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */,
 				AB0EECA02B6EE44C001FB809 /* ProfileWebsiteViewModelProtocol.swift in Sources */,
+				AB0EECB42B74D611001FB809 /* SettingsRepositoryImplUserDef.swift in Sources */,
 				AB4B34FE2B5EF217003F8764 /* NTFModel.swift in Sources */,
+				AB0EECAE2B7407B6001FB809 /* NTFCellDelegate.swift in Sources */,
+				AB0EECB62B74D68A001FB809 /* UserDefaults+Extensions.swift in Sources */,
 				AB4B34F02B5B1835003F8764 /* ProfileModel.swift in Sources */,
 				AB4B34E42B57DE5A003F8764 /* localized.swift in Sources */,
 				AB4B35542B6ADDDA003F8764 /* UIBlockingProgressHUD.swift in Sources */,
@@ -931,6 +976,7 @@
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
+				AB0EECAC2B72841B001FB809 /* RequestQueue.swift in Sources */,
 				AB4B35012B5EF24C003F8764 /* MyNTFScreenModel.swift in Sources */,
 				AB4B350E2B664D0F003F8764 /* ProfileViewModel.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
@@ -941,8 +987,10 @@
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				AB4B35242B6666D6003F8764 /* MyNTFViewModel.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,
+				AB0EECB82B7550DB001FB809 /* NtfPack.swift in Sources */,
 				AB4B35522B6AD755003F8764 /* ProfileNTFsModel.swift in Sources */,
 				0C79EE632A76DD1900EE90EA /* RequestConstants.swift in Sources */,
+				AB0EECB02B74D2EA001FB809 /* SortingRule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,7 @@ final class ProfileRepositoryImpl: ProfileRepository {
     
     private let networkClient: NetworkClient
     
-    private var responseCache: ProfileResponseBody?
+    private var cache: ProfileModel?
     
     init(
         networkClient: NetworkClient
@@ -21,9 +21,9 @@ final class ProfileRepositoryImpl: ProfileRepository {
     
     func saveProfile(model: ProfileModel, handler: @escaping (Error?) -> Void) {
         let requestBody = map(model)
-        
+
         let profileRequest = ProfileRequest(requestBody: requestBody, httpMethod: .put)
-        
+
         self.networkClient.send(
             request: profileRequest
         ) { result in
@@ -43,22 +43,18 @@ final class ProfileRepositoryImpl: ProfileRepository {
         ) { (result: Result<ProfileResponseBody, Error>) in
             switch result {
             case .success(let profileResponseBody):
-                self.responseCache = profileResponseBody
-                handler(
-                    .success(
-                        self.map(profileResponseBody)
-                    )
-                )
+                let profileModel = self.map(profileResponseBody)
+                self.cache = profileModel
+                handler(.success(profileModel))
             case .failure(let error):
                 handler(.failure(error))
             }
-                
+
         }
     }
         
     func getProfileFromCache() -> ProfileModel? {
-        guard let responseCache = self.responseCache else { return nil }
-        return map(responseCache)
+        return cache
     }
     
     private func map(_ responseModel: ProfileResponseBody) -> ProfileModel {

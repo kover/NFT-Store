@@ -35,6 +35,17 @@ final class FavoritesNTFViewController: UIViewController {
         return label
     }()
     
+    private let placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .ypBlack
+        label.backgroundColor = .clear
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = localized("Profile.FavoritesNTFs.Placeholder")
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
+    
     private let ntfCollection: UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
@@ -59,12 +70,17 @@ final class FavoritesNTFViewController: UIViewController {
         super.viewDidLoad()
         configureNTFCollection()
         configureLayout()
+        setObservers()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.onViewWillAppear()
+    }
+        
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         onFavoritesNTFsChanged?(viewModel.getUpdatedFavoritesNTFsIds())
-        
     }
     
     func onFavoritesNTFsChanged(_ completion: @escaping ([String]) -> Void) {
@@ -76,10 +92,48 @@ final class FavoritesNTFViewController: UIViewController {
         ntfCollection.delegate = self
         ntfCollection.register(FavoritesNTFCell.self, forCellWithReuseIdentifier: FavoritesNTFCell.identifier)
     }
+    
+    private func setObservers() {
+        viewModel.observeUpdateNTFModel { [weak self] indexPath in
+            guard let self else { return }
+            self.updateNTFCollectionCell(for: indexPath)
+        }
+        viewModel.observeUpdatedPlaceholderState { [weak self] isPlaceholder in
+            guard let self else { return }
+            self.updatePlaceholderState(isPlaceholder: isPlaceholder)
+        }
+    }
+    
+    private func updatePlaceholderState(isPlaceholder: Bool) {
+            screenTitle.isHidden = isPlaceholder
+            ntfCollection.isHidden = isPlaceholder
+            placeholderLabel.isHidden = !isPlaceholder
+        }
+    
+    private func updateNTFCollectionCell(for indexPath: IndexPath) {
+        guard let cell = ntfCollection.cellForItem(at: indexPath) as? FavoritesNTFCell else { return }
         
+        guard let ntfModel = viewModel.object(for: indexPath) else {
+            cell.loadingErrorState(isError: true)
+            return
+        }
+        cell.setModel(ntfModel)
+    }
+            
     @objc
     private func onBackButtonClick() {
         dismiss(animated: true)
+    }
+}
+
+//MARK: - FavoritesNTFCellDelegate
+extension FavoritesNTFViewController: NTFCellDelegate {
+    func onFavoriteStatusChanged(with indexPath: IndexPath ) {
+        viewModel.changeFavoriteNTFStatus(for: indexPath)
+    }
+    
+    func onRefresh(with indexPath: IndexPath) {
+        viewModel.refreshObject(for: indexPath)
     }
 }
 
@@ -94,10 +148,12 @@ extension FavoritesNTFViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         guard let cell =
                 collectionView.dequeueReusableCell(withReuseIdentifier: FavoritesNTFCell.identifier, for: indexPath) as? FavoritesNTFCell else { return UICollectionViewCell() }
-        
-        if let model = viewModel.object(for: indexPath) {
-            cell.setModel(model)
-        }
+    
+        cell.setModel(
+            viewModel.object(for: indexPath)
+        )
+        cell.setIndexPath(indexPath)
+        cell.setDelegate(self)
         return cell
     }
 }
@@ -130,13 +186,13 @@ extension FavoritesNTFViewController {
     
     private func configureLayout() {
         view.backgroundColor = .ypWhite
-                
+        
         view.addSubView(
             backButton, width: Property.backButtonWidth, heigth: Property.backButtonWidth,
             top: AnchorOf(view.safeAreaLayoutGuide.topAnchor, 8),
             leading: AnchorOf(view.leadingAnchor, 8)
         )
-                
+        
         view.addSubView(
             screenTitle,
             centerX: AnchorOf(view.centerXAnchor),
@@ -149,6 +205,13 @@ extension FavoritesNTFViewController {
             bottom: AnchorOf(view.bottomAnchor),
             leading: AnchorOf(view.leadingAnchor, Property.commonMargin),
             trailing: AnchorOf(view.trailingAnchor, -Property.commonMargin)
+        )
+        
+        view.addSubView(
+            placeholderLabel,
+            leading: AnchorOf(view.leadingAnchor),
+            trailing: AnchorOf(view.trailingAnchor),
+            centerY: AnchorOf(view.centerYAnchor)
         )
     }
 }

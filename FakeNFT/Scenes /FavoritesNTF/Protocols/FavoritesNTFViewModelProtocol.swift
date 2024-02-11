@@ -9,12 +9,20 @@ import Foundation
 
 protocol FavoritesNTFViewModelProtocol {
     
+    func onViewWillAppear()
+    
     func itemCount() -> Int
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel?
     
-    func removeFavoriteNTF(id: String)
-    
+    func changeFavoriteNTFStatus(for indexPath: IndexPath)
+        
     func getUpdatedFavoritesNTFsIds() -> [String]
     
+    func refreshObject(for indexPath: IndexPath)
+        
+    func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void)
+    
+    func observeUpdatedPlaceholderState(_ completion: @escaping (Bool) -> Void)
+        
 }

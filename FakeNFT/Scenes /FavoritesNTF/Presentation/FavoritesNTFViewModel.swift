@@ -9,48 +9,118 @@ import Foundation
 
 final class FavoritesNTFViewModel: FavoritesNTFViewModelProtocol {
     
-    private var updFavoritesNTFsIds = [String]() //temporary property will be removed on next stage
-    
     private let ntfRepository: NTFRepository
+    
+    private var updFavoritesNTFsIds = [String]()
+    
+    private var ntfs = [NtfPack]()
+    
+    private var updateNTFModel: ( (IndexPath) -> Void )?
+    
+    private var setPlaceholder: ( (Bool) -> Void )?
     
     init(
         ntfRepository: NTFRepository,
         favoritesNTFsID: [String]
     ) {
         self.ntfRepository = ntfRepository
-        self.ntfRepository.loadFavoritesNTFsByID(favoritesNTFsID)
-        self.updFavoritesNTFsIds = favoritesNTFsID //temporary step will be removed on next stage
+        self.updFavoritesNTFsIds = favoritesNTFsID
+        self.ntfs = favoritesNTFsID.map { NtfPack(id: $0, ntf: nil) }
+    }
+    
+    func onViewWillAppear() {
+        if ntfs.isEmpty {
+            setPlaceholder?(true)
+            return
+        }
+        setPlaceholder?(false)
+        
+        ntfRepository.loadNTFsByID(updFavoritesNTFsIds) { [weak self] ntfId, ntf in
+            guard let self else { return }
+            self.updateNtfInPack(id: ntfId, ntf: ntf)
+        }
     }
         
     func itemCount() -> Int {
-        ntfRepository.loadFavoritesNTFsFromCache().count
+        ntfs.count
     }
     
     func object(for indexPath: IndexPath) -> FavoritesNTFScreenModel? {
-        let ntfList = ntfRepository.loadFavoritesNTFsFromCache()
-        if ntfList.isEmpty { return nil }
-        return map(ntfList[indexPath.item])
+        if ntfs.isEmpty || indexPath.item > ntfs.count - 1 { return nil }
+        return map(ntfs[indexPath.item].ntf)
     }
     
-    func removeFavoriteNTF(id: String) {
-        //temporary implementation will be update on next stage
+    func changeFavoriteNTFStatus(for indexPath: IndexPath) {
+        let id = ntfs[indexPath.item].id
+        guard let _ = updFavoritesNTFsIds.filter({$0 == id}).first else {
+            updFavoritesNTFsIds.append(id)
+            return
+        }
         updFavoritesNTFsIds = updFavoritesNTFsIds.filter {$0 != id}
     }
     
     func getUpdatedFavoritesNTFsIds() -> [String] {
-        //temporary implementation will be update on next stage
         updFavoritesNTFsIds
     }
     
-    private func map(_ model: NTFModel) -> FavoritesNTFScreenModel {
-        FavoritesNTFScreenModel(
+    func refreshObject(for indexPath: IndexPath) {
+        if indexPath.item > ntfs.count - 1 { return }
+        let ntfID = ntfs[indexPath.item].id
+        
+        ntfRepository.loadNTFByID(ntfID) { [weak self] ntf in
+            guard let self else { return }
+            updateNtfInPack(itemIndex: indexPath.item, ntf: ntf)
+        }
+    }
+    
+    func observeUpdateNTFModel(_ completion: @escaping (IndexPath) -> Void) {
+        self.updateNTFModel = completion
+    }
+    
+    func observeUpdatedPlaceholderState(_ completion: @escaping (Bool) -> Void) {
+        self.setPlaceholder = completion
+    }
+    
+    private func updateNtfInPack(id: String, ntf: NTFModel?) {
+        var itemIndex = -1
+        for index in 0 ... ntfs.count - 1 where ntfs[index].id == id {
+            itemIndex = index
+            break
+        }
+        
+        if itemIndex == -1 {
+            ntfs.append(NtfPack(id: id, ntf: ntf))
+            itemIndex = ntfs.count - 1
+        }
+        
+        updateNtfInPack(itemIndex: itemIndex, ntf: ntf)
+    }
+        
+    private func updateNtfInPack(itemIndex: Int, ntf: NTFModel?) {
+        ntfs[itemIndex].ntf = ntf
+        let indexPath = IndexPath(item: itemIndex, section: 0)
+        updateNTFModel?(indexPath)
+    }
+    
+    private func map(_ model: NTFModel?) -> FavoritesNTFScreenModel? {
+        guard let model else { return nil }
+        
+        return FavoritesNTFScreenModel(
             id: model.id,
             title: model.title,
-            artwork: model.artwork,
-            price: model.price,
+            artworkUrl: model.artworkUrl,
+            price: (String(format: "%.2f", model.price)).replacingOccurrences(of: ".", with: ","),
             currency: model.currency,
             rating: model.rating,
-            isFavorite: model.isFavorite
+            isFavorite: checkNTFisFavorite(id: model.id)
         )
     }
+    
+    private func checkNTFisFavorite(id: String) -> Bool {
+        for favoritesNtfID in updFavoritesNTFsIds where favoritesNtfID == id {
+            return true
+        }
+        return false
+    }
 }
+
