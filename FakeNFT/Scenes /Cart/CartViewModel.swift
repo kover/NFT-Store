@@ -68,23 +68,18 @@ final class CartViewModel: CartViewModelProtocol {
     
     func removeNftFromOrder(_ nftId: String) {
         UIBlockingProgressHUD.show()
-        
+
         nftModels.removeAll { $0.id == nftId }
         
-        if !nftModels.isEmpty {
-            let updatedOrder = Order(nfts: nftModels.map { $0.id })
-            serviceAssembly.cartService.updateOrder(updatedOrder) { [weak self] result in
-                switch result {
-                case .success(let updatedOrder):
-                    self?.onNftRemoved?()
-                case .failure(let error):
-                    self?.onError?(error)
-                }
-                UIBlockingProgressHUD.dismiss()
+        let updatedOrder = Order(nfts: nftModels.map { $0.id })
+        serviceAssembly.cartService.updateOrder(updatedOrder) { [weak self] result in
+            switch result {
+            case .success:
+                self?.onNftRemoved?()
+            case .failure(let error):
+                self?.onError?(error)
             }
-        } else {
             UIBlockingProgressHUD.dismiss()
-            onNftRemoved?()
         }
     }
     
