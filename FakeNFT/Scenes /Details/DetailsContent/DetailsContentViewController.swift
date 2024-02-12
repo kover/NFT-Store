@@ -102,7 +102,7 @@ extension DetailsContentViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.row {
         case 0:
-            return CGSize(width: collectionView.frame.width, height: 72 * 5)
+            return CGSize(width: collectionView.frame.width, height: 72 * 8)
         case 1:
             return CGSize(width: collectionView.frame.width, height: 40)
         default:
