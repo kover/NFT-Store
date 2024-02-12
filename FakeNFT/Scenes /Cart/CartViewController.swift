@@ -292,7 +292,7 @@ extension CartViewController: CartTableViewCellDelegate {
 
 extension CartViewController: PaymentSuccessDelegate {
     func navigateToCatalog() {
-        tabBarController?.selectedIndex = 0
+        tabBarController?.selectedIndex = 1
     }
 }
 
