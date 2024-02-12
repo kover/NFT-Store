@@ -1,7 +1,9 @@
 import UIKit
 
 enum RequestConstants {
-
+    
+    static let authorizationHeader = "X-Practicum-Mobile-Token"
+    static let token = "ab33768d-02ac-4f45-9890-7acf503bde54"
     static let baseURL = ApiConstants.baseUrl.rawValue
 
     var relativeURL: URL? {
