@@ -36,10 +36,11 @@ final class CurrencyCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = UIColor.ypLightGray
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
-        currencyImageView.kf.setImage(with: URL(string: cellModel.image))
+        let imageName = cellModel.image.trimmingCharacters(in: CharacterSet(charactersIn: ":"))
+        currencyImageView.image = UIImage(named: imageName)
         currencyImageView.layer.cornerRadius = 6
         titleLabel.text = cellModel.title
-        nameLabel.text = cellModel.name
+        nameLabel.text = cellModel.id
         
         addSubviews()
         setupConstraints()
