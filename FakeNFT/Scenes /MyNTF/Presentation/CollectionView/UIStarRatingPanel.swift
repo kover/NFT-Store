@@ -50,18 +50,18 @@ final class UIStarRatingPanel: UIView {
         resetRating()
         if rating < 1 || stars.isEmpty { return }
         
-        let _rating = rating > stars.count ? stars.count : rating
+        let clampedRating = rating > stars.count ? stars.count : rating
         
-        for index in 0 ... _rating - 1 {
+        for index in 0 ... clampedRating - 1 {
             stars[index].tintColor = activeColor
         }
     }
     
     private func setupStars(starsCount: Int) {
         if !stars.isEmpty { stars.removeAll() }
-        let _starsCount = starsCount < 1 ? 1 : starsCount
+        let clampedStarsCount = starsCount < 1 ? 1 : starsCount
         
-        for _ in 1 ... _starsCount {
+        for _ in 1 ... clampedStarsCount {
             let star = UIImageView(
                 image: UIImage(systemName: "star.fill", withConfiguration: symbolConfiguration)
             )
